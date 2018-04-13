@@ -9,8 +9,6 @@ cache:
 
 before_install:
     - export TZ='Asia/Shanghai' # 更改时区
-    - openssl aes-256-cbc -K $encrypted_9ad6d23f0861_key -iv $encrypted_9ad6d23f0861_iv -in id_rsa.enc -out id_rsa -d
-
 
 install:
   - npm install  hexo-cli -g #安装hexo及插件
@@ -41,6 +39,7 @@ branches:
 env:
  global:
    - GH_REF: github.com/ZzzzzzS/ZzzzzzS.github.io.git  #设置GH_REF，注意更改yourname
+   - secure: F3Up+WGABPFwJ0t+3715GCu7QZ7b4IZmERttm9z94RvO4q41GongTlnUkrmBlz5p78KatpzREbe4YNhfzjRn25l1ptqTUniaxpvC4rfwL0RLqBjvXcIEVFOAknVu2xJXHfCIuBQjMq3WNslSWO1V77MaM8+j3mVKBq4pQNlGwCxd+zuckRVSqoGtNGom8Ep65jhw2TGkq4/dowjFbrxSg3pCbnS72fZvVdSd167w3KKUXxp+B/xnjNAUgKU0n/ash46nkRPCDXfTE3mA3NK+CKZyRKVQt8q1Y2ykBiq5Szk/tzA6K9T3Uy+gwwVdhODBkeuS2uTRrN1f3wx+aqL0uLzKbczA+QPTphEyp0HTC81dUaKymIiw+QbdlqxOZ5B9bOJcJpnP6rvUXUdfYZ9CJ01FQhXJfR+w0ZMf6dRqkHIpmcvUiACS1kopLoJi5KvLEpn/lK6X7tbWHsWldchN3E4ep6JOFTZHjpnjU1ouVxuqyNtK6KTAUYf7TPpno5hp5dxiVNjbWJKSHwop816838q4rwvJo63glWFHdhmOOuY1OAzexCTGrQxhWaj/y99w92S6JS6WiP3uzfDGWi+7ctzazlF1C/xgwE/n83i/TjRqabPnwkZhm1MqWvVWOks95jAsDSryd+WTRNAoafyA4SfVJRufIBAVMFfzaRvvaYE=
 
 # configure notifications (email, IRC, campfire etc)
 # please update this section to your needs!
