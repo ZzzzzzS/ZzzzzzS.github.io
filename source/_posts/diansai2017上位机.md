@@ -5,7 +5,7 @@ author:
  link: http://zzzzzzs.github.io/
 date: 2017-10-29 13:31:50
 tags: [作品,2017电赛,Qt,安卓]
-cover: http://pic.uuhy.com/uploads/2013/04/07/1_androidstich3.jpg
+cover: http://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/1_androidstich3.jpg
 ---
 # 电赛上位机
 ## 2017全国大学生电子设计竞赛板球控制系统上位机
@@ -20,11 +20,11 @@ cover: http://pic.uuhy.com/uploads/2013/04/07/1_androidstich3.jpg
 * 按键控制板球上球的移动
 * 手势控制球移动
 
-![调试界面](http://ww4.sinaimg.cn/large/0060lm7Tly1fkyep92vhcj30u01hc0yc.jpg)
+![调试界面](https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/0060lm7Tly1fkyep92vhcj30u01hc0yc.jpg)
 调试界面
-![手势控制](http://ww3.sinaimg.cn/large/0060lm7Tly1fkyepbkoosj30u01hc7bx.jpg)
+![手势控制](https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/0060lm7Tly1fkyepbkoosj30u01hc7bx.jpg)
 手势控制
-![按键控制](http://ww3.sinaimg.cn/large/0060lm7Tly1fkyepb2gqwj30u01hcdlc.jpg)
+![按键控制](https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/0060lm7Tly1fkyepb2gqwj30u01hcdlc.jpg)
 
 # 开发经历
 1. 利用上位机控制板球这个想法是在做电赛的初期就有了,在板球的控制程序里面一直保留有串口控制的相关代码,在最初的省电赛时我们组就展示了蓝牙控制板球,不过那时采用的是网上找的上位机控制软件.省赛结束就开始用Qt安卓开发上位机,准备在国电赛的时候能够使用自己开发的上位机.
@@ -39,7 +39,7 @@ cover: http://pic.uuhy.com/uploads/2013/04/07/1_androidstich3.jpg
 
 ### Qt蓝牙支持的平台
 查阅[Qt官方帮助文档](http://doc.qt.io/qt-5/qtbluetooth-index.html)可知,Qt蓝牙和BLE蓝牙支持如下平台
-![支持的蓝牙平台](http://ww4.sinaimg.cn/large/0060lm7Tly1fkyfnvyvonj30v507l3zw.jpg)
+![支持的蓝牙平台](https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/0060lm7Tly1fkyfnvyvonj30v507l3zw.jpg)
 
 ### 蓝牙基本组成
 Qt蓝牙主要有以下3个类
