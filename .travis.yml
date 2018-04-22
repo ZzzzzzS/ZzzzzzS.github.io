@@ -47,5 +47,5 @@ env:
 notifications:
   email:
     - m18996002212@me.com
-  on_success: change
+  on_success: always
   on_failure: always
