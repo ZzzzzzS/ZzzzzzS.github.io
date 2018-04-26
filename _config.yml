@@ -222,6 +222,6 @@ gitTalk:
   repo: 'ZzzzzzS.github.io'
   owner: 'ZzzzzzS'
   admin: [ZzzzzzS]
-  id: page.title
+  id: location.pathname
 
 baidu_statistic: 09dc131ecc4a32a79d7c2688841079dc
