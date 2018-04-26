@@ -24,7 +24,7 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0
 
 # 资料下载
 ***
- * 下载地址:[**https://codeload.github.com/ZzzzzzS/STM32Learing/zip/master**](https://codeload.github.com/ZzzzzzS/STM32Learing/zip/master)
+ * 下载地址:[**https://codeload.github.com/ZzzzzzS/STM32Learing/zip/master**](https://github.com/ZzzzzzS/STM32Learning/releases)
  * 备用下载地址:[**https://github.com/ZzzzzzS/STM32Learing**](https://github.com/ZzzzzzS/STM32Learing)
     >一般来说直接下载即可,若下载失败可点击备用下载地址,手动选择下载zip包,如图所示  ![下载失败](https://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/c5Iw4.png)
 
