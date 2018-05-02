@@ -6,6 +6,7 @@ author:
  link: http://zzzzzzs.github.io/
 tags: [blog,hexo,github]
 categories: [系统测试]
+mathjax: true
 ---
 
 # 刚刚终于建立了站点
@@ -16,6 +17,10 @@ categories: [系统测试]
 ***
 
 ## 建站更新
+
+* 2018年5月2日
+
+添加数学公式支持
 
 * 2018年4月25日
 
@@ -73,12 +78,6 @@ categories: [系统测试]
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=5264843&auto=0&height=66"></iframe>
 
 
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147909"></script>
-<!-- UY END -->
-
-
-![](http://zzshubimage-1253829354.file.myqcloud.com/718logo.jpg)
+$ \iint_s $
 
 
