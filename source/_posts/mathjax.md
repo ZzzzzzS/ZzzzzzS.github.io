@@ -22,7 +22,7 @@ $$ \iiint_v(\sum_{i=0}^{\infty}\frac{\partial{(xy_i}+\sqrt[5]{y_i^2})}{\partial{
 公式显示一共有两种方式,一种是行内显示如$\frac{a^2_i}{b}$,而另一种是单独显示,就像上文那个例子那样.在markdown中显示数学公式都需要特定的标识符,行内显示使用单个``$``来确定显示的内容,例如``$ a=b^2 $``那么输出效果就是$a=b^2$ .独立显示使用``$$``,例如`` $$ a=b^2 $$ ``
 $$ a=b^2$$
 
-另外如果公式有多行,可以使用``{% math %}``和``{% endmath %}``来包含多行内容,例如
+另外如果公式有多行,可以使用``{% math %}`` 和 ``{% endmath %}``来包含多行内容,例如
 
 ```
 {% math %}
@@ -106,7 +106,7 @@ $$ a=b^2$$
 |\in|$\in$||
 |\lgroup|$\lgroup$|大小会变化|
 |\rgroup|$\rgroup$|大小会变化|
-|\lim{a \to b}|$\lim_{a \to b}$||
+|\lim{a \to b}|$$\lim_{a \to b}$$||
 
 ### 积分和倒数
 
@@ -189,7 +189,7 @@ $$ a=b^2$$
 
 # 以下是所有支持的符号
 
-以下是PDF版本[下载链接](http://zzshubimage-1253829354.file.myqcloud.com/mathjax/maths-symbols.pdf.pdf)
+这是PDF版本的[下载链接](http://zzshubimage-1253829354.file.myqcloud.com/mathjax/maths-symbols.pdf.pdf)
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/mathjax/IMG_2987.JPG)
 
