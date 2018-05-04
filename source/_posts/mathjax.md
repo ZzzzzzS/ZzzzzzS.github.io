@@ -9,9 +9,9 @@ mathjax: true
 cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/mathjax/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-04%2005.42.45%20PM.png
 ---
 
-# mathjax数学公式编辑工具使用简介
+# mathjax数学公式编辑工具使用简介
 
->数学在各个学科的许多方面有许多重要的用途。本文主要研究利用数学公式编辑工具**mathjax**快速编辑复杂数学公式。本文主要研究**mathjax**的使用，关于它的安装配置等本文将不做深入讨论。关于[mathjax](https://www.mathjax.org)在[hexo](https://hexo.io)博客系统下的配置可以[点击这里](https://github.com/hexojs/hexo-math)
+>数学在各个学科的许多方面有许多重要的用途。本文主要研究利用数学公式编辑工具**mathjax**快速编辑复杂数学公式。本文主要研究**mathjax**的使用，关于它的安装配置等本文将不做深入讨论。关于[mathjax](https://www.mathjax.org)在[hexo](https://hexo.io)博客系统下的配置可以[点击这里](https://github.com/hexojs/hexo-math)
 
 # 显示效果
 
@@ -19,7 +19,7 @@ $$ \iiint_v(\sum_{i=0}^{\infty}\frac{\partial{(xy_i}+\sqrt[5]{y_i^2})}{\partial{
 
 # 基础语法
 ## 公式显示
-公式显示一共有两种方式,一种是行内显示如$\frac{a^2_i}{b}$,而另一种是单独显示,就像上文那个例子那样.在markdown中显示数学公式都需要特定的标识符,行内显示使用单个``$``来确定显示的内容,例如``$ a=b^2 $``那么输出效果就是$a=b^2$ .独立显示使用``$$``,例如`` $$ a=b^2 $$ ``
+公式显示一共有两种方式,一种是行内显示如$\frac{a^2_i}{b}$,而另一种是单独显示,就像上文那个例子那样.在markdown中显示数学公式都需要特定的标识符,行内显示使用单个``$``来确定显示的内容,例如``$ a=b^2 $``那么输出效果就是$a=b^2$ .独立显示使用``$$``,例如`` $$ a=b^2 $$ ``
 $$ a=b^2$$
 
 另外如果公式有多行,可以使用``{% math %}``和``{% endmath %}``来包含多行内容,例如
@@ -48,18 +48,18 @@ $$ a=b^2$$
 在mathjax中使用``^``表示商标,如``b^2``表示 $b^2$,用``_``表示下标,例如``a_i``表示$a_i$.
 
 ## 成组
-用``{}``来标记一组数据,例如``b^{21}``表示$b^{21}$,而``b^21``则被解释为$b^21$.普通的大括号可以使用``\{`` ``\}``来表示
+用``{}``来标记一组数据,例如``b^{21}``表示$b^{21}$,而``b^21``则被解释为$b^21$.普通的大括号可以使用``\{`` ``\}``来表示
 
 ## 转义字符
-在mathjax中各个符号都是用转义字符来实现的,例如``\partial``表示$\partial$ ,``\sum``表示$\sum$,结合上文所述的上下标可以知道``\sum_{i=0}^n``表示$\sum_{i=0}^n$.一般情况下可用\来作转义，但如果想要表示\本身，需要用``\backslash``，因为\\表示换行.
+在mathjax中各个符号都是用转义字符来实现的,例如``\partial``表示$\partial$ ,``\sum``表示$\sum$,结合上文所述的上下标可以知道``\sum_{i=0}^n``表示$\sum_{i=0}^n$.一般情况下可用\来作转义，但如果想要表示\本身，需要用``\backslash``，因为\\表示换行.
 
 # 常用计算符号
 
-> 下面列出一些标量计算中常常会使用到的符号
+> 下面列出一些标量计算中常常会使用到的符号
 
 ### 常用字母
 
-|符号|效果|备注|
+|符号|效果|备注|
 |---|----|---|
 |\infty|$\infty$|
 |\pi|$\pi$||
@@ -84,12 +84,12 @@ $$ a=b^2$$
 
 ### 基本运算符号
 
-|符号|效果|备注|
+|符号|效果|备注|
 |---|----|---|
 |\ast|$\ast$||
 |\times|$\times$||
 |\div|$\div$||
-|\frac{}{}|$\frac{a}{b}$|可以支持复杂多重分式|
+|\frac{}{}|$\frac{a}{b}$|可以支持复杂多重分式|
 |\sqrt[n]|$\sqrt[n]{a}$||
 |\vert|$\vert$|绝对值符号|
 |\pm|$\pm$||
@@ -104,13 +104,13 @@ $$ a=b^2$$
 |\neq|$\neq$||
 |\ni|$\ni$||
 |\in|$\in$||
-|\lgroup|$\lgroup$|大小会变化|
+|\lgroup|$\lgroup$|大小会变化|
 |\rgroup|$\rgroup$|大小会变化|
-|\lim{a \to b}|$$\lim_{a \to b}$$||
+|\lim{a \to b}|$\lim_{a \to b}$||
 
 ### 积分和倒数
 
-|符号|效果|备注|
+|符号|效果|备注|
 |---|----|---|
 |\sum|$\sum$||
 |\prod|$\prod$||
@@ -120,7 +120,7 @@ $$ a=b^2$$
 
 ### 向量和几何
 
-|符号|效果|备注|
+|符号|效果|备注|
 |---|----|---|
 |\mathbf{a}|$\mathbf{a}$|向量中的加粗字体|
 |\overrightarrow{abc}|$\overrightarrow{abc}$||
@@ -140,22 +140,22 @@ $$ a=b^2$$
 可以用 ``$$\begin{matrix}…\end{matrix}$$`` 来表示矩阵。将矩阵元素放在 \begin 和 \end 之间即可。 用 \\ 来分割行，用 & 来分割同一行的矩阵元素。如：
 
 ```
-$$
+{%math%}
 \begin{matrix}
 	1 & x & x^2 \\
 	1 & y & y^2 \\
 	1 & z & z^2 \\
 \end{matrix}
-$$
+{%endmath%}
 ```
 
-$$
+{%math%}
 \begin{matrix}
 	1 & x & x^2 \\
 	1 & y & y^2 \\
 	1 & z & z^2 \\
 \end{matrix}
-$$
+{%endmath%}
 
 ### 增广矩阵
 
@@ -166,25 +166,25 @@ $$
       4&5&6
     \end {array}
 ```
-$$
+{%math%}
     \begin {array} {cc|c}
       1&2&3\\
       4&5&6
     \end {array}
-$$
+{%endmath%}
 
-### 矩阵符号
+### 矩阵符号
 
-|符号|效果|备注|
+|符号|效果|备注|
 |---|----|---|
 |\cdots|$\cdots$||
 |\vdots|$\vdots$||
 |\ddots|$\ddots$||
-|pmatrix|$$\begin{pmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{pmatrix}$$||
-|bmatrix|$$\begin{bmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{bmatrix}$$||
-|Bmatrix|$$\begin{Bmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{Bmatrix}$$||
-|vmatrix|$$\begin{vmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{vmatrix}$$||
-|Vmatrix|$$\begin{Vmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{Vmatrix}$$||
+|pmatrix|{%math%}\begin{pmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{pmatrix}{%endmath%}||
+|bmatrix|{%math%}\begin{bmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{bmatrix}{%endmath%}||
+|Bmatrix|{%math%}\begin{Bmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{Bmatrix}{%endmath%}||
+|vmatrix|{%math%}\begin{vmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{vmatrix}{%endmath%}||
+|Vmatrix|{%math%}\begin{Vmatrix}1 & x & x^2 \\1 & y & y^2 \\1 & z & z^2 \\\end{Vmatrix}{%endmath%}||
 
 
 # 以下是所有支持的符号
