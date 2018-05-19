@@ -1,6 +1,6 @@
 ---
 title: 翻译 BLE低功耗蓝牙协议简介
-date: 2018-02-04 14:12:32
+date: 2018-05-19 14:12:32
 tags: [Qt,BLE,蓝牙]
 author: 
  nick: ZZS
