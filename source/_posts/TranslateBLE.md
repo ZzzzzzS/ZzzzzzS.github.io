@@ -5,7 +5,7 @@ tags: [Qt,BLE,蓝牙]
 author: 
  nick: ZZS
  link: http://zzzzzzs.github.io/
-cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/09fa513d269759ee5be897d8b9fb43166d22df6d.jpg
+cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/Inked09fa513d269759ee5be897d8b9fb43166d22df6d_LI.jpg
 ---
 
 > ### 原文连接 http://doc.qt.io/qt-5/qtbluetooth-le-overview.html
