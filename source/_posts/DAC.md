@@ -1,6 +1,6 @@
 ---
 title: kinetis KV58 DAC模块食用指南
-date: 2018-05-19 14:12:32
+date: 2018-05-19 23:12:32
 tags: [ARM,kinetis,register]
 author: 
  nick: ZZS
