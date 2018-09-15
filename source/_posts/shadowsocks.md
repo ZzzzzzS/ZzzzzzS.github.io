@@ -4,6 +4,8 @@ author:
  nick: ZZS
  link: http://zzzzzzs.github.io/
 date: 2018-9-28 13:31:50
+tags: [gfw,shadowsocks]
+cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/shadowsocks/Shadowsocks.png
 ---
 # shadowsocks连接使用说明
 
@@ -66,4 +68,9 @@ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%
 
 # IOS平台
 
-App Store 搜索Wingy,shadowsocks,ss等关键词下载软件.因为苹果官方会不定期查封这些软件,所以软件的名字会一直变化.
+App Store 搜索**Wingy,shadowsocks,ss**等关键词下载软件.因为苹果官方会不定期查封这些软件,所以软件的名字会一直变化.
+
+# shadowsocks官方网站
+>墙外的同学可以看一看
+
+https://shadowsocks.org/en/index.html
