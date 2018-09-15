@@ -1,14 +1,10 @@
 ---
-title: shadowsocks
-tags: 
-author:
-  nick: ZZS
-  link: 'http://zzzzzzs.github.io/'
-cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/shadowsocks/3006190.png
-categories: []
-date: 2018-05-30 23:38:00
+title: Shadowsocks使用方法
+author: 
+ nick: ZZS
+ link: http://zzzzzzs.github.io/
+date: 2018-9-28 13:31:50
 ---
-
 # shadowsocks连接使用说明
 
 > 本说明简单介绍shadowsocks的使用方法
@@ -66,7 +62,7 @@ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%
 
 # 安卓平台
 
-本站下载地址:[点击下载](http://zzsdownload-1253829354.file.myqcloud.com/com.github.shadowsocks-4.2.5.apk)
+本站下载地址:[点击下载](http://zzsdownload-1253829354.file.myqcloud.com/com.github.shadowsocks.apk)
 
 # IOS平台
 
