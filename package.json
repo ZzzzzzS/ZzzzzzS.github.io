@@ -25,8 +25,8 @@
     "hexo-renderer-swig": "^1.1.0",
     "hexo-server": "^0.2.0",
     "lunr": "github:mamboer/lunr.js",
-    "moment": "^2.22.1",
-    "node-sass": "^4.8.3",
+    "moment": "^2.22.2",
+    "node-sass": "^4.9.3",
     "object-assign": "^4.1.1"
   }
 }

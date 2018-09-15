@@ -85,11 +85,11 @@ hexo.extend.generator.register('lunr', function(locals){
                     });
                 });    
             }
-            if (post.categories) {
+            /*if (post.categories) {
                 post.categories.each(function(cate){
                     cates.push(cate.name);    
                 });
-            }
+            }*/
             bodyText = lunrConfig.fulltext ? post.content : post.excerpt;
             searchIdx.add({
                 title: post.title,
