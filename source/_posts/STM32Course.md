@@ -2,10 +2,10 @@
 title: STM32培训
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2017-10-30 23:41:34
 tags: [ARM,STM32,718创新实验室]
-cover: http://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0060lm7Tly1fkyepbkoosj30u01hc7bx.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0060lm7Tly1fkyepbkoosj30u01hc7bx.jpg
 ---
  
 # STM32从入门到精通
@@ -78,7 +78,7 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0
  * 空白工程:方便大家建立工程使用
  * 点亮一个小灯
  * 闪烁一个小灯
- * [流水灯闪烁](http://v.youku.com/v_show/id_XNDQxNTIxMzI=.html)
+ * [流水灯闪烁](https://v.youku.com/v_show/id_XNDQxNTIxMzI=.html)
  * 独立按键操作
  * 矩阵键盘操作
  * [数码管](https://baike.baidu.com/item/%E6%95%B0%E7%A0%81%E7%AE%A1/9903965?fr=aladdin)显示(静态)
@@ -86,12 +86,12 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0
  * TIM定时器中断
  * TIM定时器[PWM](https://baike.baidu.com/item/PWM%E4%BF%A1%E5%8F%B7/10621898?fr=aladdin)波
  * TIM定时器脉冲计数
- * USART[串口](http://blog.csdn.net/huwei2003/article/details/36418471)发送接收(查询)
- * USART[串口](http://blog.csdn.net/huwei2003/article/details/36418471)发送接收(中断)
+ * USART[串口](https://blog.csdn.net/huwei2003/article/details/36418471)发送接收(查询)
+ * USART[串口](https://blog.csdn.net/huwei2003/article/details/36418471)发送接收(中断)
  * I2C[陀螺仪](https://baike.baidu.com/item/%E9%99%80%E8%9E%BA%E4%BB%AA/84317?fr=aladdin)读写(模拟)
  * SPI [OLED](https://baike.baidu.com/item/OLED/1328114?fr=aladdin)显示
  * [ADC](https://baike.baidu.com/item/ADC/6529867)模拟量转数字量采集
- * [RTC](http://www.eepw.com.cn/article/273706.htm)实时时钟计时
+ * [RTC](https://www.eepw.com.cn/article/273706.htm)实时时钟计时
 
 ***
 

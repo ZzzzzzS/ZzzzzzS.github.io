@@ -4,8 +4,8 @@ date: 2018-01-30 14:12:32
 tags: [ARM,kinetis,register]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
-cover: http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png
+ link: https://zzzzzzs.github.io/
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png
 ---
 
 # NXP Kinetis系列 KV58微控制器DMA模块食用指南
@@ -23,11 +23,11 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%
 DMAMUX实质上是一个矩阵开关,负责将DMA的触发源映射到对应的DMA通道中.而eDMA才是真正搬运数据的模块,可以看到,kinetis的DMA前多了个**e**,代表Enhanced增强型.从这里也可以看出kinetis系列DMA的强大和灵活了.eDMA模块下又主要分为了两大部分: TCD传输控制器(Transfer Control Descriptor)用于控制每个通道的传输情况以及DMA引擎(eDMA engine)用于控制整个DMA引擎的状态,如下图所示 ([摘自**KV5x Sub-Family Reference Manual** Page 486
 ](https://www.nxp.com/docs/en/reference-manual/KV5XP144M240RM.pdf)):
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE.png)
 
 DMA是如何搬运数据的可以用一下流程图来描述:
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/6374029876143.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/6374029876143.jpg)
 
 如图所示,DMA触发源先经过DMAMUX将源分配到不同的DMA通道上,不同的DMA通道根据TCD寄存器的配置来将数据从源地址搬运到目标地址.那么这样来看,配置寄存器主要就分为以下几个步骤:
 * 打开有关的时钟(DMAMUX,eDMA,其他用到的模块如SPI的时钟)
@@ -204,7 +204,7 @@ typedef struct {
 
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%892%E5%9B%BE.png)
+https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%892%E5%9B%BE.png)
 
 (([摘自**KV5x Sub-Family Reference Manual** Page 477
 ](https://www.nxp.com/docs/en/reference-manual/KV5XP144M240RM.pdf)))
@@ -388,7 +388,7 @@ typedef struct {
 ](https://www.nxp.com/docs/en/reference-manual/KV5XP144M240RM.pdf))):
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE2.png)
+https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE2.png)
 
 #### TCD Source Address (DMA_TCDn_SADDR)
 存放需要搬运的数据的源地址
@@ -398,7 +398,7 @@ http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A
 
 #### TCD Transfer Attributes (DMA_TCDn_ATTR)
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%8922%E5%9B%BE.png)
+https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%8922%E5%9B%BE.png)
 
 主要说其中的SSIZE和DSIZE,分别表示每一次传输的源数据宽度和目的数据宽度
 其中000表示8bit, 001表示16bit, 010表示32bit.
@@ -426,7 +426,7 @@ http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A
 
 #### TCD Control and Status (DMA_TCDn_CSR)
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE4.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89%E5%9B%BE4.png)
 
 INTMAJOR: 允许中断
 START:软件触发传输
@@ -435,7 +435,7 @@ START:软件触发传输
 
 #### Control Register (DMA_CR)
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89111%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89111%E5%9B%BE.png)
 
 最需要注意的就是``GRP1PRI``和``GRP0PRI``需要设置成不同的权值
 
@@ -445,7 +445,7 @@ START:软件触发传输
 #### Enable Request Register (DMA_ERQ)
 允许传输寄存器
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%891234%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%891234%E5%9B%BE.png)
 
 #### Channel n Priority Register (DMA_DCHPRIn)
 优先级分组寄存器,0是最低优先级.
@@ -512,10 +512,10 @@ int main(void) {
 ```
 实际效果:
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89456%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89456%E5%9B%BE.png)
 
 传输前receivetext为空
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%8912344%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%8912344%E5%9B%BE.png)
 
 传输后receivetext值和sendtext相同

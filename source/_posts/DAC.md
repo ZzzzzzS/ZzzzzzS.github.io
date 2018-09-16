@@ -4,8 +4,8 @@ date: 2018-05-19 23:12:32
 tags: [ARM,kinetis,register]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
-cover: http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png
+ link: https://zzzzzzs.github.io/
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png
 ---
 
 # kinetis KV58 DAC模块食用指南

@@ -4,8 +4,8 @@ date: 2018-04-06 22:00:23
 tags: [STM32,IAR,错误报告]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
-cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/u%3D1593298829%2C2003225384%26fm%3D27%26gp%3D0.jpg
+ link: https://zzzzzzs.github.io/
+cover: https://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/u%3D1593298829%2C2003225384%26fm%3D27%26gp%3D0.jpg
 ---
 
 # IAR7.8对STM32f1系列下载程序时出现错误报告
@@ -16,7 +16,7 @@ cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/u%3D1593298829
 # 解决方案
 [http://supp.iar.com/Updates/?product=EWarm](http://supp.iar.com/Updates/?product=EWarm) 下载安装补丁即可
 
-### 也可以在本站下载 [点击下载](http://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/ewarm-7.80.4.12176-patch.zip)
+### 也可以在本站下载 [点击下载](https://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/ewarm-7.80.4.12176-patch.zip)
 
 ***
 

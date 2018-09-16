@@ -2,10 +2,10 @@
 title: hiwifi的正确打开方式
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2017-11-21 23:41:34
 tags: [mips,Linux,OpenWrt]
-cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/cover.png
+cover: 	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/cover.png
 ---
 
 # hiwifi OS的正确打开方式
@@ -24,15 +24,15 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
 # 硬件+=USB  hiWiFi 1s拆机
 不得不说,hiwifi 1s的外观设计的真是好看,全金属机身,阳极氧化工艺外壳.暗黑色的喷漆外壳上银色的化学侵蚀logo,配上亮色的倒切角工艺.与早些年间只是白色塑料外壳的路由器形成鲜明对比,简单的放在桌面上,也是不错的装饰品吧.另外,使用通用的5V2A-MicroUSB接口,也不用担心供电的问题.</br> 不过,这些都不是今天讨论的重点.其实很久以来就想拆开这个小家伙一探究竟了,只可以一直没有去到专用的三角螺丝刀,这个想法也一直搁置了下来.终于,忍不住了,没有专用螺丝刀,那就大力出奇迹吧.
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/14193441483612.jpg )
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/14193441483612.jpg )
 
 一直都有所了解,hiwifi 1S是留有USB接口的,只不过没有印出来,拆开之后发现果不其然,只见USB焊盘,不见USB接口.另外,还发现了留有串口接口应该刷机变砖之后可以用这个刷回来,和没有焊接的802.11ac模块焊盘.不得不说,成品的电路板确实比自己设计的要成熟,各种滤波电容保护,还有各种拓展.</br>正题开始,改造USB!
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/0e655ca7d933c8951f7a5601d21373f082020001.jpg)
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/0e655ca7d933c8951f7a5601d21373f082020001.jpg)
 
 通过观察PCB板上面的走线可以发现,USB的D+和D-其实是连接上了的,只不过USB的VCC和GND没有连接上,那么把电供上就可以使用了.短接如图红圈位置即可.什么?滤波电容?不存在的.根据我的猜测,红圈左边的6脚芯片应该是电源管理芯片,控制USB的供电,当然我也是不会添加的.哼,就不加,三极管都别想让我加.焊接好USB母口之后就是暴力的过程--在外壳上打一个洞,把USB口露出来.
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/IMG_2096.JPG)
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/IMG_2096.JPG)
 
 无奈手工不行,在机械专业的同学的远程指导下还是搞得这么丑.其实网上还有其他的不打洞,用线引出USB线的方法.有用百兆以太网剩下的4根线的,有用天线的缝隙的等等.不过我深知,线没过几天就会被我扯断,没有采用这个方法.
 
@@ -47,13 +47,13 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
 
 输入密码(就是后台管理密码)后出现以下界面就算是权限获取成功而且ssh服务已经打开了
 
- ![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE.png)
+ ![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE.png)
  
  哎,不愧是改的openwrt,连登陆界面都这么像.
 
  另外文件传输的话可以使用WinSCP,连接登录就好了,注意文件协议需要选择SCP.当然,也可以安装vsftp,用ftp传输文件也是可以的.
 
- ![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE2.png )
+ ![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE2.png )
 
 
 
@@ -63,11 +63,11 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
  下载之后怎么把东西移动到电脑上呢?一个很直接的办法,把SD卡拆下来插到电脑上就好了,不过放弃吧,文件系统不支持呢.路由器上使用的是ext4文件系统,这种文件无法被windows识别. 在局域网内部,可以采用smb协议传输文件,smb协议是微软推出的一种在局域网内部传输文件的协议,因为是在局域网内部,也不能加密传输.hiWiFi默认也是开启了smb服务的,在此电脑输入smb://192.168.199.1即可.好了,到目前为止,可以在局域网下访问的下载器就做好了.</br>
  文不对题啊,说好的远程呢?一步一步来,先看看学校的网络大环境,今年学校大修改,增加了1000M出口带宽(鼓掌!)之后,校网由以前的静态IP,客户端认证+MAC地址绑定变成了,动态IP+MAC地址绑定或者802.1x认证,同时无线校园网全校覆盖(衷心的感谢学校网络中心的努力,并同时希望网路中心能尽快修好实验室的网).这样看来,我只需要把路由器的MAC地址注册到我的名下,路由器就可以联网了.路由器设置成无线中继模式,连接到学校的wifi就好了.不过动态ip也带来了问题,我的ip一直在变啊,最开始以为变化的不是很快,然而我想错了,几乎半天就要变一次ip.看来有必要上ddns服务了,ddns服务是什么,首先了解dns服务,就是一个能够把域名解析成ip地址的玩意,那么ddns是什么,ddns可不是ddos,差一个字母,可完全不是一个东西,Dynamic DNS,动态dns,能够解析一直在变动的ip地址,也就是说我开启了ddns,不管IP地址怎么变化,我访问我的域名,总能获取到正确的ip地址.hiWiFi的ddns也是一个插件的事,利用不知道是谁提供的ddns服务(感谢那个不知道名字的陌生人,谢谢),分配给我了一个域名`zzscloud.jios.org.`什么玩意,这个域名好丑.免费的果然还是不靠谱,我可是由.cn的域名的男人,才不要你这玩意,做CNAME跳转吧.CNAME跳转就是由一个域名跳转到另一个域名的服务.以下是在腾讯云上做CNAME跳转
 
- ![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE3.png)
+ ![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE3.png)
 
  好了,ip变化的问题就解决了,以为就可以远程访问了?错,看之前访问的192.x.x.x,这都是路由器的内网ip啊,可是远程只有路由器的公网ip,也就是学校分配的IP地址,这样做个端口映射即可,将学校的ip映射成内网的ip就可访问了.看这里:
 
- ![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE4.png)
+ ![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE4.png)
 
  图形就是好,不过到后面就慢慢是命令了
 
@@ -75,7 +75,7 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
 
  好了,这么一来,远程访问的问题终于弄好了,现在可以全校范围内访问路由器了.同学叫你分享文件,终于有了一种快(装)速(逼)的方式了哈哈.另外,远程ssh连接,远程管理路由器后台,甚至以后的远程挂摄像头,都需要这个作为基础.
 
- * http://hiwifi.zzshub.cn/
+ * https://hiwifi.zzshub.cn/
  * [ftp://hiwifi.zzshub.cn/](ftp://hiwifi.zzshub.cn/)
 
 这是我的远程连接的地址,我怎么可能会把密码说出来呢.
@@ -103,7 +103,7 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
  用ssh连接 ``ssh -p 1022 root@hiwifi.zzshub.cn ``
  然后执行` opkg list`查看可以安装的软件.不过很遗憾,能够安装的很少.不科学啊,openwrt上软件可是很多的.全都怪hiwifi的软件源把插件都屏蔽掉了,那么我们换个openwrt的源不就好了.</br>查阅资料发现,opkg源文件存放在` /etc/opkg.conf`中,cd 到这个地方,打开vi编辑器`vi opkg.conf`如图所示添加几个源就好了
  
- ![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE45.png)
+ ![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE45.png)
 
  顺便提一嘴,这个版本的vi真是好用,可以识别方向键和退格键等,不用频繁的进出编辑模式了,舒服.
 
@@ -116,15 +116,15 @@ cover: 	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3
 安装过程非常简单,在Windows的程序和功能中选择`启动或关闭Windows功能` 然后勾选`Linux子系统`,重启之后再去应用商店下载Ubuntu即可.
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE11.png )
+https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE11.png )
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE12.png )
+https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE12.png )
 
 > 打开PowerShell或者CMD,输入Ubuntu,这个运行环境就搭建完成了.
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE13.png)
+https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE13.png)
 
 之后的操作和在真正的Ubuntu下操作终端就完全一样了,唯一需要注意的是和Windows文件交换的问题.整个Windows的文件都被挂载到 /mnt 文件夹下了,于是可以通过这个 /mnt文件夹方便的实现文件的交换.另外,系统默认使用root账户登录,权限高,在虚拟环境下又不会对Windows产生伤害,美滋滋.
 
@@ -243,7 +243,7 @@ ln -sf bash /bin/sh
 ### 编写第一个程序
 等等,漏了什么重要的东西,编译啥啊,啥都还没有呢.......可以在Windows下写好一个c语言程序,再编写一个makefile,再放到sdk的packge文件夹下就好了,比如这样:
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE111.png)
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE111.png)
 
 makefile的作用就是制定编译的顺序,以下是一个简单的makefile
 ```makefile
@@ -256,12 +256,12 @@ main : hello.c
 ### 将程序传输到路由器上
 好了,到目前为止就只剩下最后一个操作了,把文件传到路由器上去.用WinSCP传输文件就好了.看图!
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE112.png)
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE112.png)
 
 左边是电脑上的文件,右边是路由器上的文件,直接拖拽过去就上传成功了.
 </br>接下来,ssh连接路由器,执行.啊?无法执行?哦哦,忘了添加执行权限了,输入命令,添加就好 `chmod 777 [文件名]` 777就是添加可执行权限的代号
 .最后执行! 运行正常,完美!上图!
 
-![](	http://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE113.png)
+![](	https://zzshubimage-1253829354.file.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/%E8%8D%89%E5%9B%BE113.png)
 
 终于成功了,激动!

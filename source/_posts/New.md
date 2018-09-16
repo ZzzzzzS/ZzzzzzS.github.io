@@ -3,7 +3,7 @@ title: 新建站点
 date: 2017-10-27 00:50:44
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 tags: [blog,hexo,github]
 categories: [系统测试]
 mathjax: true
@@ -12,7 +12,7 @@ mathjax: true
 # 刚刚终于建立了站点
 ***
 
-> 刚刚终于基本建立了这个博客。博客是采用hexo框架托管在github page上面的.首先感谢[Mrminfive](https://github.com/Mrminfive)无私贡献的[skapp](https://github.com/Mrminfive/hexo-theme-skapp)主题模板。
+> 刚刚终于基本建立了这个博客。博客是采用hexo框架托管在github page上面的.首先感谢[Mrminfive](https://github.com/Mrminfive)无私贡献的[skapp](https://github.com/Mrminfive/hexo-theme-skapp)主题模板。
 
 ***
 
@@ -40,7 +40,7 @@ mathjax: true
 
 * 2017年11月3日
 
-为博客添加了分享功能,博客采用[ShareSDK](http://www.mob.com/)实现分享功能
+为博客添加了分享功能,博客采用[ShareSDK](https://www.mob.com/)实现分享功能
 
 * 2017年10月31日
 
@@ -60,15 +60,15 @@ mathjax: true
 
 
 ## 第一个个人站点
-这是我成功放到网上的个人站点，同时这也是我第一篇博客。从小学起，我一直都有一个建立一个个人站点的愿望。小学4年级开始研究微软的[frontpage](https://baike.baidu.com/item/Frontpage/2137423?fr=aladdin)。只不过那时止步于88元一年的服务器费用，停止了研究。时间过得很快，很快就到了高中，那时家里换了路由器，我也有机会在新的路由器操作系统[hiwifiOS](http://www.hiwifi.com)玩一些东西，其实也就是纯粹的瞎折腾，那时候因为乱搞路由导致经常网络不稳定被家里人说过，不过也就是在那个时候，我才大概搞懂了网络的一些东西，利用hiwifiOS提供的插件，做了个上网欢迎页出来，也利用smb+DDNS服务搭建过个人网盘。真正开始系统的学习计算机方面的技术已经是大学的事了，上个月开发给新生培训用的**STM32**单片机的示例程序的时候才发现有一个叫github page的东西，顺藤摸瓜，找到了jekyll，学习了几天jekyll发现这个东西看起来太费劲了，进一步搜索，便找到了简单易学hexo，建立了这个很久以来都想建立的博客，也算是实现了儿时的一个愿望吧。
+这是我成功放到网上的个人站点，同时这也是我第一篇博客。从小学起，我一直都有一个建立一个个人站点的愿望。小学4年级开始研究微软的[frontpage](https://baike.baidu.com/item/Frontpage/2137423?fr=aladdin)。只不过那时止步于88元一年的服务器费用，停止了研究。时间过得很快，很快就到了高中，那时家里换了路由器，我也有机会在新的路由器操作系统[hiwifiOS](https://www.hiwifi.com)玩一些东西，其实也就是纯粹的瞎折腾，那时候因为乱搞路由导致经常网络不稳定被家里人说过，不过也就是在那个时候，我才大概搞懂了网络的一些东西，利用hiwifiOS提供的插件，做了个上网欢迎页出来，也利用smb+DDNS服务搭建过个人网盘。真正开始系统的学习计算机方面的技术已经是大学的事了，上个月开发给新生培训用的**STM32**单片机的示例程序的时候才发现有一个叫github page的东西，顺藤摸瓜，找到了jekyll，学习了几天jekyll发现这个东西看起来太费劲了，进一步搜索，便找到了简单易学hexo，建立了这个很久以来都想建立的博客，也算是实现了儿时的一个愿望吧。
 ## 构建博客的经历
-* 写STM32示例程序的过程中发现github page
+* 写STM32示例程序的过程中发现github page
 * 初步了解github page 用自带的模板搭建了一个网页[718创联 STM32培训](https://zzzzzzs.github.io/STM32Learning/)
 * 进一步研究发现了jekyll
 * 发现了hexo
-* 用初始主题搭建了博客本地运行正常
+* 用初始主题搭建了博客本地运行正常
 * 找到了这个主题
-* Windows系统对某组件兼容异常
+* Windows系统对某组件兼容异常
 * 转到Mac平台，发布博客
 
 ***

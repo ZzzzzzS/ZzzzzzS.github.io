@@ -4,8 +4,8 @@ date: 2017-11-13 15:25:06
 tags: [作品,Qt,安卓,718创新实验室]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
-cover: https://s1.ax1x.com/2017/11/16/cyaHx.jpg
+ link: https://zzzzzzs.github.io/
+cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg
 categories: [作品]
 ---
 # 718蓝牙助手使用说明
@@ -28,7 +28,7 @@ categories: [作品]
 ***
 
 # HC-05/HC-06蓝牙串口模块的使用
-> 首先给大家推荐一个非常详细的资料,[http://www.arduino.cn/forum.php?mod=viewthread&tid=2961&highlight=%E8%93%9D%E7%89%99](http://www.arduino.cn/forum.php?mod=viewthread&tid=2961&highlight=%E8%93%9D%E7%89%99) 
+> 首先给大家推荐一个非常详细的资料,[https://www.arduino.cn/forum.php?mod=viewthread&tid=2961&highlight=%E8%93%9D%E7%89%99](https://www.arduino.cn/forum.php?mod=viewthread&tid=2961&highlight=%E8%93%9D%E7%89%99) 
 
 好,我假设你已经看了上面的资料,那么我再补充总结几句:
 * 蓝牙串口模块分为两种模式: **AT模式**和**传输模式**,AT模式用于设置蓝牙串口,传输模式用于传输数据.
@@ -82,8 +82,3 @@ categories: [作品]
 ***
 # 结束
 好吧其实也没有啥好说的了,有问题可以在我们的**718科创交流群**当中讨论,也可以在下面的评论框中评论.我们的App也会在后续不断的更新.
-
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147909"></script>
-<!-- UY END -->

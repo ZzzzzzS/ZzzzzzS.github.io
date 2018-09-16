@@ -2,10 +2,10 @@
 title: diansai2017上位机
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2017-10-29 13:31:50
 tags: [作品,2017电赛,Qt,安卓]
-cover: http://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/1_androidstich3.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/1_androidstich3.jpg
 ---
 # 电赛上位机
 ## 2017全国大学生电子设计竞赛板球控制系统上位机
@@ -35,10 +35,10 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%
 6.由于ios系统限制,ios蓝牙无法使用普通蓝牙协议读取未经过MFi认证的蓝牙设备,读取未经认证的设备只能通过BLE低功耗蓝牙协议,也就是说基于蓝牙2.0的hc-05蓝牙模块无法被ios设备搜索到(经过实验确实检测不到),计划下一步换装cc2541蓝牙模块后开发ios版本的蓝牙上位机.
 
 # 蓝牙连接以及读取过程简介
-> 首先感谢[Qt on Android 蓝牙开发 ](http://www.cnblogs.com/sigma0/p/5769527.html)这篇博客的作者,他的博客让我学到很多.Qt安卓搞蓝牙串口的相关资料确实太少了,官方帮助文档也写得不够详细.
+> 首先感谢[Qt on Android 蓝牙开发 ](https://www.cnblogs.com/sigma0/p/5769527.html)这篇博客的作者,他的博客让我学到很多.Qt安卓搞蓝牙串口的相关资料确实太少了,官方帮助文档也写得不够详细.
 
 ### Qt蓝牙支持的平台
-查阅[Qt官方帮助文档](http://doc.qt.io/qt-5/qtbluetooth-index.html)可知,Qt蓝牙和BLE蓝牙支持如下平台
+查阅[Qt官方帮助文档](https://doc.qt.io/qt-5/qtbluetooth-index.html)可知,Qt蓝牙和BLE蓝牙支持如下平台
 ![支持的蓝牙平台](https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/0060lm7Tly1fkyfnvyvonj30v507l3zw.jpg)
 
 ### 蓝牙基本组成
@@ -60,7 +60,7 @@ Qt蓝牙主要有以下3个类
 ```
 
 ### 蓝牙的初始化
-蓝牙初始化主要就是要配置好[UUID](http://blog.csdn.net/zf_c_cqupt/article/details/52177723)如果需要蓝牙串口的话使用我这个uuid即可,直接上代码
+蓝牙初始化主要就是要配置好[UUID](https://blog.csdn.net/zf_c_cqupt/article/details/52177723)如果需要蓝牙串口的话使用我这个uuid即可,直接上代码
 
 ```c++
 BlueTooth::BlueTooth(QWidget *parent) : QWidget(parent)

@@ -2,10 +2,10 @@
 title: ARM寄存器食用感受
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2018-1-22 23:41:34
 tags: [ARM,kinetis,register]
-cover: http://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg
 ---
 
 # ARM寄存器食用感受

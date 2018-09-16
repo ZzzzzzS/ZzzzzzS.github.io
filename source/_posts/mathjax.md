@@ -4,9 +4,9 @@ date: 2018-05-04 14:12:32
 tags: [mathjax,hexo,blog]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 mathjax: true
-cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/mathjax/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-04%2005.42.45%20PM.png
+cover: https://zzshubimage-1253829354.cosbj.myqcloud.com/mathjax/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-04%2005.42.45%20PM.png
 ---
 
 # mathjax数学公式编辑工具使用简介
@@ -189,7 +189,7 @@ $$ a=b^2$$
 
 # 以下是所有支持的符号
 
-这是PDF版本的[下载链接](http://zzshubimage-1253829354.file.myqcloud.com/mathjax/maths-symbols.pdf.pdf)
+这是PDF版本的[下载链接](https://zzshubimage-1253829354.file.myqcloud.com/mathjax/maths-symbols.pdf.pdf)
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/mathjax/IMG_2987.JPG)
 

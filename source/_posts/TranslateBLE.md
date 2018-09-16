@@ -4,11 +4,11 @@ date: 2018-05-19 14:12:32
 tags: [Qt,BLE,蓝牙]
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
-cover: http://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/Inked09fa513d269759ee5be897d8b9fb43166d22df6d_LI.jpg
+ link: https://zzzzzzs.github.io/
+cover: https://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/Inked09fa513d269759ee5be897d8b9fb43166d22df6d_LI.jpg
 ---
 
-> ### 原文连接 http://doc.qt.io/qt-5/qtbluetooth-le-overview.html
+> ### 原文连接 https://doc.qt.io/qt-5/qtbluetooth-le-overview.html
 
 # BLE低功耗蓝牙简介
 ## 什么是低功耗蓝牙

@@ -2,10 +2,10 @@
 title: openwrt简单玩一玩
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2017-11-28 13:31:50
 tags: [mips,Linux,OpenWrt]
-cover: http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/timg.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/timg.jpg
 ---
 
 > 紧接着上一次试玩hiwifiOS系统,最后发现实在是不过瘾,限制太多,尤其是软件安装方面的限制,然后资料又少,受不了了,就还是刷成了正宗的OpenWrt系统.
@@ -14,7 +14,7 @@ cover: http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9
 
 刷OpenWrt之前先简单说明一下OpenWrt的版本问题吧.**OpenWrt**到目前为止已经有了很多个版本,目前最新的是**15.05 Chaos Calmer** 版本,也就是很多人口中说的CC版.另外,常见的还有**Barrier Breaker 14.07**也就是BB版,还有更古老一点的**Attitude Adjustment 12.09**也就是AA版,这些就是系统版本的区别,就跟windows7和Windows8这样的区别类似.另外,OpenWrt作为嵌入式操作系统,支持众多处理器,不同处理器架构也有不同版本.而为了在安装的时候就把常见的驱动安装进去,每个安装包都附带了驱动,所以导致不同的处理器有不同的版本.比如我这个就是使用的mt7620处理器的15.05 CC版本.而之前的hiwifiOS则是使用mt7620处理器的14.04BB版上修改而成的.</br>除此之外,还有很多论坛上常说的**openwrt PandoraBox**就是一个有人做出来的为中国用户优化过的版本,没用过那个,就不多说了.
 
-> 关于hiwifi如何刷OpenWrt,这个网上资料已经很多了,就不多说了,可以看看这个资料 http://www.jianshu.com/p/196a43b79c24
+> 关于hiwifi如何刷OpenWrt,这个网上资料已经很多了,就不多说了,可以看看这个资料 https://www.jianshu.com/p/196a43b79c24
 
 # OpenWrt从外部设备启动
 
@@ -37,12 +37,12 @@ umount /tmp/root    　　　　　　　　#解除挂载 /tmp/root
 了解到这个透明挂载技术之后思路就清楚了.之前的挂载少了透明挂载这一层,就出问题了.设置一下就好.好在luci也给我们提供了图形化的设置工具,不需要命令行.接下来看图!
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/%E8%8D%89%E5%9B%BE.png )
+https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/%E8%8D%89%E5%9B%BE.png )
 
 选择到**系统->挂载点**这一栏就会看到这样的画面,可以看到此时overlay那一层是14.29GB,大约是sd卡的大小.**这就是设置成功的标志之一**
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/%E8%8D%89%E5%9B%BE2.png)
+https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/%E8%8D%89%E5%9B%BE2.png)
 
 选择下面的添加挂载点,就会进入上面的界面,之后添加sd卡的位置.**然后关键的一步**:**设置挂载点为外部overlay而不是根目录**保存后重启一下路由器.好了,就设置好了.
 
@@ -55,7 +55,7 @@ http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/%E8%8D
 ## 焊接串口
 上次的拆机发现hiwifi 1S中是留有串口的焊盘的，只不过没有焊接而已(说实话一直觉得hiwifi挺良心的)。卸下烦人的三角形螺丝，拔出主板，焊接串口线，上电，测试正常，完成！
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/04F747091AEF90654CD185EBF962CB9D.png )
+![](https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/04F747091AEF90654CD185EBF962CB9D.png )
 
 可以看到，中间有四个焊接的排针。
 
@@ -147,6 +147,6 @@ int main()
 ```
 
 ![](
-http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/psb.png)
+https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/psb.png)
 
-![](http://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/psb.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/psb.png)

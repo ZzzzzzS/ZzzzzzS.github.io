@@ -14,7 +14,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.zzshub.cn/ 
+url: https://blog.zzshub.cn/ 
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -170,26 +170,26 @@ description: 日常学习与兴趣交流的个人博客
 introduction: 我的个人博客,欢迎各种骚扰
 
 # 博客的favicon图标，支持本地及在线两种方式，本地请将图标放置于 themes/hexo-theme-skapp/source/img 目录下
-favicon_ico: http://zzshubimage-1253829354.cosbj.myqcloud.com/blog/logo.ico
+favicon_ico: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/logo.ico
 
 # 博客的左上角logo图标，支持本地及在线两种方式
-logo: http://zzshubimage-1253829354.cosbj.myqcloud.com/blog/ZZSLOGO.png
+logo: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/ZZSLOGO.png
 
 # 头像/二维码（用于显示在底部）二选一
-avatar: http://zzshubimage-1253829354.cosbj.myqcloud.com/blog/zzslogo.jpg
+avatar: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/zzslogo.jpg
 # qrcode: http://oo12ugek5.bkt.clouddn.com/images/qrcode.png
 
 # 文章的默认封面
-default_cover: http://api.dujin.org/bing/1366.php
+default_cover: https://api.dujin.org/bing/1366.php
 
 # header 的背景图
-header_cover: http://api.dujin.org/bing/1366.php
+header_cover: https://api.dujin.org/bing/1366.php
 
 # 404 页面的背景图
-error_page_bg: http://api.dujin.org/bing/1366.php
+error_page_bg: https://api.dujin.org/bing/1366.php
 
 # 页面加载loading图标
-loader_img: http://zzshubimage-1253829354.cosbj.myqcloud.com/blog/loading.gif
+loader_img: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/loading.gif
 
 # 站长信息
 author:

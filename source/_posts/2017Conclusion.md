@@ -4,8 +4,8 @@ tags:
   - 个人总结
 author:
   nick: ZZS
-  link: 'http://zzzzzzs.github.io/'
-cover: http://zzshubimage-1253829354.file.myqcloud.com/2017%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%80%BB%E7%BB%93/718logo.jpg
+  link: 'https://zzzzzzs.github.io/'
+cover: https://zzshubimage-1253829354.file.myqcloud.com/2017%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%80%BB%E7%BB%93/718logo.jpg
 date: 2017-11-03 23:38:00
 ---
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1491163&auto=1&height=66"></iframe>
@@ -160,9 +160,3 @@ PID怎么调，什么时候该加入其他控制算法，是机械的问题还�
 是看你们个人了.实验室是你们的,也是我们的,但最终是你们的.努力学习和生活吧,比较美好
 的大学时光也是如此的短暂,我也希望你们日后回忆大学生活,有一个叫718的实验室,有一群
 热爱科创的人令你们留念.
-
-### 这是一个不那么正经的评论框
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147909"></script>
-<!-- UY END -->

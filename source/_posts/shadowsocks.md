@@ -2,7 +2,7 @@
 title: Shadowsocks使用方法
 author: 
  nick: ZZS
- link: http://zzzzzzs.github.io/
+ link: https://zzzzzzs.github.io/
 date: 2018-9-28 13:31:50
 tags: [gfw,shadowsocks]
 cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/shadowsocks/Shadowsocks.png
@@ -19,7 +19,7 @@ cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/shadowsocks/Sh
 
 官方最新版: https://github.com/shadowsocks/shadowsocks-windows/releases
 
-本站备用版本: [点击下载](http://zzsdownload-1253829354.file.myqcloud.com/Shadowsocks-4.0.10.zip)
+本站备用版本: [点击下载](https://zzsdownload-1253829354.file.myqcloud.com/Shadowsocks-4.0.10.zip)
 
 ## 安装说明
 
@@ -51,7 +51,7 @@ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%
 
 >这个软件的作者已经被喝茶,不再更新
 
-本站地址: [点击下载](http://zzsdownload-1253829354.file.myqcloud.com/SSTap-beta-setup-1.0.6.exe.7z)
+本站地址: [点击下载](https://zzsdownload-1253829354.file.myqcloud.com/SSTap-beta-setup-1.0.6.exe.7z)
 
 全部版本地址: https://github.com/ZzzzzzS/SSTap-beta-setup
 
@@ -64,7 +64,7 @@ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%
 
 # 安卓平台
 
-本站下载地址:[点击下载](http://zzsdownload-1253829354.file.myqcloud.com/com.github.shadowsocks.apk)
+本站下载地址:[点击下载](https://zzsdownload-1253829354.file.myqcloud.com/com.github.shadowsocks.apk)
 
 # IOS平台
 

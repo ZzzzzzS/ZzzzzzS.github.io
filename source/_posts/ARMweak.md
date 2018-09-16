@@ -3,7 +3,7 @@ title: ARM weak指令巧用
 tags: [ARM,STM32]
 author:
   nick: ZZS
-  link: 'http://zzzzzzs.github.io/'
+  link: 'https://zzzzzzs.github.io/'
 cover: 
 categories: []
 date: 2017-11-28 23:38:00
@@ -27,7 +27,7 @@ __weak void function1ButtonClickedEvent()
 	
 	printf("function1ButtonClicked\n");
 	printf("if you see this, it means you DO NOT add your own function\n");
-	printf("for more information,please look at http:///zzshub.cn//\n");
+	printf("for more information,please look at https:///blog.zzshub.cn//\n");
 }
 
 ```
