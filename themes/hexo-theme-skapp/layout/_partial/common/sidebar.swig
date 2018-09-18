@@ -7,7 +7,7 @@
 
     <form id="page-search-from" class="page__search-from" action="/search/">
         <label class="search-form__item">
-            <input class="input" type="text" name="search" placeholder="Search...">
+            <input class="input" type="text" name="search" placeholder="搜索...">
             <i class="iconfont icon-search"></i>
         </label>
     </form>
@@ -18,15 +18,10 @@
             <p class="block__text">{{ get_setting('description') }}</p>
         </div>
     {% endif %}
-
-    <div class="sidebar__block">
-        <h3 class="block__title">{{ __('aside.categorie') }}</h3>
-        {{ list_categories({ order: -1, class: 'block' }) }}
-    </div>
     
     <div class="sidebar__block">
         <h3 class="block__title">{{ __('aside.latest_post') }}</h3>
-        {{ latest_post(4) }}
+        {{ latest_post(3) }}
     </div>
 
     <div class="sidebar__block">
