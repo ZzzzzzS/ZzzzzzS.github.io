@@ -51,8 +51,12 @@
             <p class="footer__copyright">©
                 <a href="https://github.com/Mrminfive/hexo-theme-skapp" target="_blank">Skapp</a> 2017 powered by
                 <a href="https://hexo.io/" target="_blank">Hexo</a>, made by 
-                <a href="https://github.com/ZzzzzzS" target="_blank">ZZS</a>.
+                <a href="https://github.com/ZzzzzzS" target="_blank">ZZS</a>.  | 鲁ICP备    
+                <a href="http://www.miitbeian.gov.cn/">18043879号-1</a>
+                </a>
             </p>
+
+
             <ul class="footer__social-network clearfix">
                 {% if site.data.contact %}
                 {% for item in site.data.contact %}
