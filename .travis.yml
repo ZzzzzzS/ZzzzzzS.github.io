@@ -16,6 +16,7 @@ install:
   - npm install hexo-math --save
   - npm install hexo-generator-sitemap --save
   - npm install node-sass --save
+  - npm install hexo-deployer-cos --save
   - npm install --save hexo-autoprefixer hexo-filter-cleanup hexo-generator-feed hexo-generator-sitemap hexo-renderer-sass hexo-renderer-swig mamboer/lunr.js moment object-assign 
 script:
   - hexo clean  #清除
