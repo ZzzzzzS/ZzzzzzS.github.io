@@ -75,15 +75,15 @@ theme: hexo-theme-skapp
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-#- type: git
-#  repo: https://github.com/ZzzzzzS/ZzzzzzS.github.io.git
-#  branch: master
-- type: cos
-  appId: 1253829354
-  secretId: AKIDVosgEWzMs88s2zHGXYJp56tRkpgJCqjM
-  secretKey: Xopa8RVKvHOGtHRLzPZT7VdV6SZ4LNAj
-  bucket: blog-1253829354
-  region: ap-chongqing
+- type: git
+  repo: https://github.com/ZzzzzzS/ZzzzzzS.github.io.git
+  branch: master
+#- type: cos
+#  appId: 1253829354
+#  secretId: AKIDVosgEWzMs88s2zHGXYJp56tRkpgJCqjM
+#  secretKey: Xopa8RVKvHOGtHRLzPZT7VdV6SZ4LNAj
+#  bucket: blog-1253829354
+#  region: ap-chongqing
 
 
 # Sass
