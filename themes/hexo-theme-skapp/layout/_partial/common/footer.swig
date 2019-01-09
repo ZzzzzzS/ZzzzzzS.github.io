@@ -53,9 +53,9 @@
                 <a href="https://hexo.io/" target="_blank">Hexo</a>, made by 
                 <a href="https://github.com/ZzzzzzS" target="_blank">ZZS</a>.  | 鲁ICP备    
                 <a href="http://www.miitbeian.gov.cn/">18043879号-1</a>
+                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37100302000254" >|鲁公网安备 37100302000254号</a>
                 </a>
             </p>
-
 
             <ul class="footer__social-network clearfix">
                 {% if site.data.contact %}
