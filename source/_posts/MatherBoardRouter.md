@@ -1,18 +1,17 @@
+---
 title: 废旧小主机改造路由器
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-date: 2018-1-22 23:41:34
-tags: [ARM,kinetis,register]
-cover: https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg
+date: 2019-1-16 23:41:34
+tags: [Linux,作品]
+cover: 
+---
 # 废旧小主机改造路由器,廉价的家用NAS解决方案
 
-> 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。
-
-最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电也不行，还把我硬盘给搞坏了。把这次捡的这小主机改造成路由器岂不是美滋滋。改造，开干！
-
-关于改造过程，因为篇幅有限，这篇博客只谈软件改造部分，关于硬件部分其实也没什么好说的，就是着重处理了一下散热，然后因为需要wifi就买了一块7260AC无线网卡插上，另外弄了两根6dB天线装上。
-
+> 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。</div>
+最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电也不行，还把我硬盘给搞坏了。把这次捡的这小主机改造成路由器岂不是美滋滋。改造，开干！</div>
+关于改造过程，因为篇幅有限，这篇博客只谈软件改造部分，关于硬件部分其实也没什么好说的，就是着重处理了一下散热，然后因为需要wifi就买了一块7260AC无线网卡插上，另外弄了两根6dB天线装上。</div>
 主机配置如下:
 Intel Atom n270处理器(32位)
 1GB DDR2L 内存
@@ -24,7 +23,8 @@ Intel 7260AC双频无线网卡
 
 # 装系统
 关于系统，我最终选择了``Ubuntu 16.04.5 LTS Server``这个版本，然后自己安装了**lxde**桌面。几方面的原因，主要是主机算力还是不太够，不能支撑复杂的图形界面，只能用**lxde**这样的轻量化桌面才能运行，自己装桌面而没直接装**lubuntu**是因为它还是附带了很多不必要的组件，不够纯粹。安装过程跳过，注意下网卡的选择，有多张网卡时选择接入外网的网卡，对我来说就是接入校园网的网卡。另外可能需要设置网卡的IP，因为我校校园网是动态分配的IP，所以选择DHCP即可。安装完成后设置root密码``sudo passwd root``,给系统换软件源``vi /etc/apt/source.list ``,以下是我更换的中国官方源，我个人还是喜欢用官方源：
-```# deb cdrom:[Ubuntu 16.04.5 LTS _Xenial Xerus_ - Release i386 (20180731)]/ xenial main restricted
+```
+# deb cdrom:[Ubuntu 16.04.5 LTS _Xenial Xerus_ - Release i386 (20180731)]/ xenial main restricted
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
@@ -82,7 +82,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted
 ![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133248.jpg)
 
 ## 安装完成后配置，允许root用户远程登录
->这部分可有可无，ssh协议为了安全，默认是禁止root超级管理员账户远程登录的，但是linux下很多操作需要使用到root权限，如果不用root登录就需要频繁的使用sudo命令，比较麻烦。
+这部分可有可无，ssh协议为了安全，默认是禁止root超级管理员账户远程登录的，但是linux下很多操作需要使用到root权限，如果不用root登录就需要频繁的使用sudo命令，比较麻烦。
 
 sudo vim /etc/ssh/sshd_config
 
@@ -103,6 +103,7 @@ sudo vim /etc/ssh/sshd_config
 
 **Windows10也可以使用WSL(windows subsystem for linux)来访问，参见[hiwifi的正确打开方式](https://zzzzzzs.github.io/2017/11/21/hiwifiRightWay/)**
 
+ 
 # 配置网络打印机服务，实现局域网内打印
 说到Linux下的网络打印，~~我就想起明年年初，中美合拍的西游记即将正式开机，我继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家能多多关注。~~ 就必须要提到[**CUPS**](https://www.cups.org/)。官方介绍如下：
 >CUPS is the standards-based, open source printing system developed by Apple Inc. for macOS® and other UNIX®-like operating systems. CUPS uses the Internet Printing Protocol (IPP) to support printing to local and network printers.
@@ -135,15 +136,28 @@ sudo vim /etc/ssh/sshd_config
 
 选择默认设置，好了打印机设置完成！接下来就可以在``Printer``选项中管理打印机，查看打印队列或者打印测试页了。
 
-## 配置打印机共享
+## 配置打印机共享和通过域名访问打印机
 
 勾选如下所示的选项即可
 ![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/f.jpg)
 
-好了，到现在打印机共享就设置完成了，在Windows下添加网络打印机就好。![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/g.jpg)
+
+>域名的设置就有点麻烦了，估计也是为了安全，CUPS默认禁止使用域名的方式远程或者本地连接到打印机，初衷是好，但是对于使用动态ip的人来说就很不友好了。我研究了很久很久才搞出来，所以单独列出来。
+
+修改/etc/cups/cupsd.conf文件``sudo vi  /etc/cups/cupsd.conf``，添加``ServerAlias *``即可。如下图所示
+![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/i.jpg)
+
+
+## 电脑和手机远程打印
+
+
+好了，到现在打印机共享就设置完成了，在Windows下添加网络打印机就好。**打开设置->设备->打印机和扫描仪->添加打印机和扫描仪->我需要的打印机不在列表中，就会打开以下界面**
+![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/g.jpg)
 
 共享的打印机地址如图所示
 ![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/h.jpg)
+
+因为CUPS是Apple提供的，所以在iPhone上的设置就尤其的方便，直接在手机里点击打印，然后选择打印机就好了，无需任何设置
 
 ***
 # 未完待续。。。。。。
