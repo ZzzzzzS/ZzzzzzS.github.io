@@ -2,7 +2,7 @@ title: 废旧小主机改造路由器
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-date: 2018-1-22 23:41:34
+date: 2019-01-16 23:41:34
 tags: [ARM,kinetis,register]
 cover: https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg
 # 废旧小主机改造路由器,廉价的家用NAS解决方案
