@@ -5,12 +5,15 @@
 # Site
 title: ZZS
 subtitle: ZZSHub
+description: 
+keywords:
+author: ZZS
 language: zh-cn
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://blog.zzshub.cn/ 
+url: https://blog.zzshub.cn/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -47,7 +50,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 6
+  per_page: 10
   order_by: -date
   
 # Category & Tag
@@ -64,13 +67,13 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 6
+per_page: 10
 pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-skapp
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -78,186 +81,3 @@ deploy:
 - type: git
   repo: https://github.com/ZzzzzzS/ZzzzzzS.github.io.git
   branch: master
-#- type: cos
-#  appId: 1253829354
-#  secretId: AKIDVosgEWzMs88s2zHGXYJp56tRkpgJCqjM
-#  secretKey: Xopa8RVKvHOGtHRLzPZT7VdV6SZ4LNAj
-#  bucket: blog-1253829354
-#  region: ap-chongqing
-
-
-# Sass
-node_sass:
-  outputStyle: nested
-  precision: 5
-  sourceComments: false
-
-# Autoprefixer
-autoprefixer:
-  exclude:
-    - '*.min.css'
-  browsers:
-    - 'last 2 versions'
-
-# Lunr
-lunr:
-  field: all
-  fulltext: false
-  path: assets/lunr/
-
-# filter_cleanup
-hfc_useref:
-  enable: true
-  concat: true
-
-hfc_html:
-  enable: true
-  exclude:
-
-hfc_css:
-  enable: true
-  exclude: 
-    - '*.min.css'
-
-hfc_js:
-  enable: true
-  mangle: true
-  exclude: 
-    - '*.min.js'
-
-hfc_img:
-  enable: false
-  interlaced: false
-  multipass: false
-  optimizationLevel: 2
-  pngquant: false
-  progressive: false
-
-hfc_favicons:
-  enable: false
-  src: img/blog-logo.png
-  target: img/
-  icons:
-    android: true
-    appleIcon: true
-    appleStartup: true
-    coast: false
-    favicons: true
-    firefox: false
-    opengraph: false
-    windows: true
-    yandex: false
-    
-
-menu:
-  home: / 
-  archive: /archives
-  about: /about
-
-
-
-
-
-
-# banner显示的简短介绍
-subtitle_desc: 欢迎访问ZZS的个人小站
-
-# seo关键字
-keywords: 嵌入式,微控制器,单片机,NXP,Kinetis,STM32,Linux,FPGA,DSP,物联网
-
-# 博客介绍（同时用于seo）
-description:
-
-# 个人介绍
-introduction: 我的个人博客,欢迎各种骚扰
-
-# 博客的favicon图标，支持本地及在线两种方式，本地请将图标放置于 themes/hexo-theme-skapp/source/img 目录下
-favicon_ico: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/logo.ico
-
-# 博客的左上角logo图标，支持本地及在线两种方式
-logo: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/ZZSLOGO.png
-
-# 头像/二维码（用于显示在底部）二选一
-avatar: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/zzslogo.jpg
-# qrcode: http://oo12ugek5.bkt.clouddn.com/images/qrcode.png
-
-# 文章的默认封面
-default_cover: https://api.dujin.org/bing/1366.php
-
-# header 的背景图
-header_cover: https://api.dujin.org/bing/1366.php
-
-# 404 页面的背景图
-error_page_bg: https://api.dujin.org/bing/1366.php
-
-# 页面加载loading图标
-loader_img: https://zzshubimage-1253829354.cosbj.myqcloud.com/blog/loading.gif
-
-# 站长信息
-author:
-  name: ZZS
-  link: https://github.com/ZzzzzzS
-# 用于页面 footer 的站长信息
-about:
-  info: 本站是基于 Hexo 搭建的静态资源博客，主要用于分享日常学习、生活及工作的一些心得总结，欢迎点击右下角订阅 rss。
-  address:  威海,山东省,中国
-  email: zzs@mail.zzshub.cn
-
-  
-busuanzi: true 
- 
-feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-
-encrypt:
-    enable: true
-
-
-# Gitalk
-
-gitTalk:
-  enable: true    #用来做启用判断可以不用
-  clientId: 9694bc2db55eb2d27215
-  clientSecret: a69ae19d3dc81b47c3aca670b6a16f64bfd9cd3f
-  repo: 'ZzzzzzS.github.io'
-  owner: 'ZzzzzzS'
-  admin: [ZzzzzzS]
-  id: location.pathname
-
-baidu_statistic: 09dc131ecc4a32a79d7c2688841079dc
-
-
-# Math Equations Render Support
-math:
-  enable: true
-
-  # Default(true) will load mathjax/katex script on demand
-  # That is it only render those page who has 'mathjax: true' in Front Matter.
-  # If you set it to false, it will load mathjax/katex srcipt EVERY PAGE.
-  per_page: false
-
-  engine: mathjax
-  #engine: katex
-
-  # hexo-rendering-pandoc (or hexo-renderer-kramed) needed to full MathJax support.
-  mathjax:
-    # Use 2.7.1 as default, jsdelivr as default CDN, works everywhere even in China
-    cdn: //cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
-    # For newMathJax CDN (cdnjs.cloudflare.com) with fallback to oldMathJax (cdn.mathjax.org).
-    #cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
-    # For direct link to MathJax.js with CloudFlare CDN (cdnjs.cloudflare.com).
-    #cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML
-    # For automatic detect latest version link to MathJax.js and get from Bootcss.
-    #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-
-  # hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin)
-  # needed to full Katex support.
-  katex:
-    # Use 0.7.1 as default, jsdelivr as default CDN, works everywhere even in China
-    cdn: //cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css
-    # CDNJS, provided by cloudflare, maybe the best CDN, but not works in China
-    #cdn: //cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css
-    # Bootcss, works great in China, but not so well in other region
-    #cdn: //cdn.bootcss.com/KaTeX/0.7.1/katex.min.csss

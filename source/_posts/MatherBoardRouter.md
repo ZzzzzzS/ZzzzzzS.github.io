@@ -103,7 +103,12 @@ sudo vim /etc/ssh/sshd_config
 
 **Windows10也可以使用WSL(windows subsystem for linux)来访问，参见[hiwifi的正确打开方式](https://zzzzzzs.github.io/2017/11/21/hiwifiRightWay/)**
 
- 
+# 配置网络，实现路由器功能
+>说了这么多，这一部分才是本文的核心内容。
+
+这个小主机主要实现了一个有线局域网和一个无线局域网桥接连接到外网的功能。主要的思路是用
+
+
 # 配置网络打印机服务，实现局域网内打印
 说到Linux下的网络打印，~~我就想起明年年初，中美合拍的西游记即将正式开机，我继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家能多多关注。~~ 就必须要提到[**CUPS**](https://www.cups.org/)。官方介绍如下：
 >CUPS is the standards-based, open source printing system developed by Apple Inc. for macOS® and other UNIX®-like operating systems. CUPS uses the Internet Printing Protocol (IPP) to support printing to local and network printers.
@@ -158,6 +163,7 @@ sudo vim /etc/ssh/sshd_config
 ![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/h.jpg)
 
 因为CUPS是Apple提供的，所以在iPhone上的设置就尤其的方便，直接在手机里点击打印，然后选择打印机就好了，无需任何设置
+
 
 ***
 # 未完待续。。。。。。
