@@ -2,6 +2,7 @@
 title: 利用相关函数进行元素识别的一个实验性观点
 date: 2019-06-06 22:00:23
 tags: [数字信号处理]
+mathjax: true
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
