@@ -2,6 +2,7 @@
 title: FPGA函数发生器设计
 date: 2020-01-27 00:11:34
 tags: [FPGA]
+mathjax: true
 author:
  nick: ZZS
  link: https://zzzzzzs.github.io/
@@ -26,7 +27,7 @@ author:
 
 DDS(direct digital synthesizer)是在一组存储器单元中按照信号波形数据点的 输出次序存储了将要输出波形的数据，在控制电路的协调控制下，以一定的速率，周而 复始地将波形数据依次发送给 D/A 转换器转换成相应的模拟信号。由于用硬件电路取代 了计算机的控制，信号输出稳定度高。如需更新输出信号，不必改动任何线路和元器件， 只需改写存储器中的波形数据即可。更主要的是，可以将微处理器从信号输出的负担中解脱出来。工作流程图如下：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/FPGADDS/chart.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/FPGADDS/chart.png)
 
 基于对函数信号发生器的几种实现方式的了解，本文选择方便调频的直接频率合成 DDS 技术来实现函数信号发生器。 DDS 的核心就是相位累加器，利用它来产生信号递增的相位信息，整个 DDS 系统在 统一的参考时钟下工作，每个时钟周期相位累加器作加法运算一次。加法运算的步进越大，相应合成的相位值变化越快，输出信号的频率也就越高
 
@@ -62,17 +63,17 @@ DDS(direct digital synthesizer)是在一组存储器单元中按照信号波形�
 
 所有模块如图所示：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/FPGADDS/module.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/FPGADDS/module.png)
 
 ## 仿真效果
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/FPGADDS/result.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/FPGADDS/result.png)
 
 ## 错误分析
 
 ### 频率控制字的理解
 
- 对频率控制字的理解出现了偏差，最初计划对时钟进行分频来控制波形的频率。根据书上的公式，我们发现可以改变频率控制字来改变输出频率。频率控制字：$f_{out}=\frac{B\left[31..0\right]}{2^{32}}f_{clk} $通过改变频率控制字的步进来改变频率步进的大小。
+ 对频率控制字的理解出现了偏差，最初计划对时钟进行分频来控制波形的频率。根据书上的公式，我们发现可以改变频率控制字来改变输出频率。频率控制字： $f_{out}=\frac{B\left[31..0\right]}{2^{32}}f_{clk} $  通过改变频率控制字的步进来改变频率步进的大小。
 
 
 ### ROM 空间不够

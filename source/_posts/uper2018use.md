@@ -5,7 +5,7 @@ tags: [作品,Qt,安卓,718创新实验室]
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg
 categories: [作品]
 ---
 # 718蓝牙助手使用说明
@@ -59,20 +59,20 @@ categories: [作品]
 # 软件界面简单介绍
 
 ### 操作界面
-![操作界面](https://s1.ax1x.com/2017/11/17/c5Deg.png)
+![操作界面](https://zzshubimage-1253829354.file.myqcloud.com/uper2018use/caozuo.png)
 * 小方块是一个操作杆(略丑,一定会改进的,捂脸),操作小车前后左右移动
 * 重力控制(移动版):可以通过前后转动手机控制小车
 * 自动跟踪(桌面版):鼠标移动到操作杆上,不需要按下按键,就能移动操作杆
 * 桌面版本可以通过键盘上q w e r 这四个按键控制功能1,2,3,4
 
 ### 串口连接界面(桌面版)
-![连接桌面版](https://s1.ax1x.com/2017/11/17/c50OS.png)
+![连接桌面版](https://zzshubimage-1253829354.file.myqcloud.com/uper2018use/desktop.png)
 * 扫描端口后设置好波特率和端口好连接就可以了
 * 支持USB转串口线或者蓝牙连接,使用USB连接时可以到设备管理器中查看具体的端口号,只用蓝牙连接,要首先在系统中配对蓝牙,并且查看蓝牙的端口号
 * 可以在下面的对话框中发送和接收串口的数据.
 
 ### 串口连接界面(移动版)
-![连接移动版](https://s1.ax1x.com/2017/11/17/c5wy8.png)
+![连接移动版](https://zzshubimage-1253829354.file.myqcloud.com/uper2018use/mobile.png)
 * 扫描蓝牙名称后连接即可,不需要配置波特率等
 * 请确保蓝牙首先已经在系统中配对过了,未配对的蓝牙能搜索到,但是有可能连接不上.
 * 部分安卓手机可能不支持蓝牙2.0的模块,所以有可能搜索不到HC-05/HC-06蓝牙模块,所以可能需要蓝牙4.0的模块

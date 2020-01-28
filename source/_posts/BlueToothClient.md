@@ -4,7 +4,7 @@ tags: [ARM,STM32,蓝牙,718创新实验室]
 author:
   nick: ZZS
   link: 'https://zzzzzzs.github.io/'
-cover: https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg
+cover: https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg
 categories: []
 date: 2017-11-28 23:48:00
 ---

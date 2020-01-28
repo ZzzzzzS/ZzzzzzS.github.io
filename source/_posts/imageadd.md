@@ -14,7 +14,7 @@ cover:
 
 首先放一张效果图：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/xiaoguo.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/xiaoguo.png)
 
 这张图是两张图拼接而成，看看能找到拼接缝吗
 
@@ -73,7 +73,7 @@ drawKeypoints(img1, KeyPoint1, KeyPointImage1);//画特征点
 
 效果如图所示：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/key.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/key.png)
 
 # 计算特征点的特征向量
 在获取到特征点后下一步就需要判断特征点的方向即特征点的向量，为下一步匹配特征点做准备。详细的计算方法如下：
@@ -87,9 +87,9 @@ drawKeypoints(img1, KeyPoint1, KeyPointImage1);//画特征点
 $m\left(x,y\right)=\sqrt{\left(L\left(x+1,t\right)-L\left(x-1,y\right)\right)^2+\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)^2}$
 $\theta=\alpha tan^2\left(\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)/\left(L\left(x+1,y\right)-L\left(x-1,y\right)\right)\right)$
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/1.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/1.jpg)
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/12.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/12.jpg)
 
 在OpenCV中计算特征点的特征向量的代码如下，由于OpenCV中没有专门针对fast算法的特征向量提取算法，所以我使用了sift算法中的特征向量展开子：
 
@@ -102,7 +102,7 @@ imshow("vector", KeyVector1);
 
 特征点的向量如下图所示：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/vec.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/vec.png)
 
 # 匹配特征点与获取最佳特征点
 
@@ -130,7 +130,7 @@ for (int i = 0; i < img1.rows; i++) //利用最小距离法寻找优秀的匹配
 
 匹配的特征点如下图所示:
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/match.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/match.png)
 
 
 # 计算仿射变换矩阵
@@ -195,7 +195,7 @@ warpPerspective(img2, imageTransform1, homo, Size(MAX(MIN(corners.right_top.x, c
 
 效果如下:
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/trans.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/trans.png)
 
 # 图像拼接与拼接缝处理
 
@@ -220,7 +220,7 @@ for (int j = start; j < cols; j++)
 
 效果如下：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/imageadd/xiaoguo.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/xiaoguo.png)
 
 # 工程源码
 

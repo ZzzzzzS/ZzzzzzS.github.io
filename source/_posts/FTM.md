@@ -108,7 +108,7 @@ typedef struct {
 
 ## PWM几种模式
 
-![](https://zzshubimage-1253829354.cosbj.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/FTM/%E8%8D%892%E5%9B%BE.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/FTM/%E8%8D%892%E5%9B%BE.png)
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/FTM/%E8%8D%893%E5%9B%BE.png)
 

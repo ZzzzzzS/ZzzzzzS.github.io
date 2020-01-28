@@ -35,16 +35,16 @@ st->input->mfcc->dtw->out->e
 ## 倒谱系数是什么
 倒谱是什么这个概念可能大家没有听说过，但学习过信号与系统都应该知道频谱是什么。首先我们来看一个频谱：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/fft.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/fft.png)
 
 图为数字"0"的短时傅里叶变换的频谱。这里又引入了一个概念叫短时傅里叶变换，它的意思是将一段长时间(比如2s)的语音信号进行拆分成一帧一帧的短时信号(这里使用的25ms)，再计算这一帧语音信号的频谱。长时间的傅里叶变换出来的频谱不同语言差异不大，毕竟时间一长数据一多就一不小心依概率收敛到一个差不多的频谱范围了，这样就没办法提取特征。只有短时间的频谱才有明显的差异，并且结合帧与帧之间的变化情况才能更好的获取特征。
 
 此外，观察这张频谱图可以发现在特定位置有一些峰，并且这些峰之间的间隔还差不太多，也就是说这些峰有特定的频率分量。到这里就引入了频谱的频谱的概念，离我们想要的倒谱的距离越来越近了哈。在这里我们把这些峰叫做共振峰，由一个声音的基频和它的高次谐波的叠加，也正是因为谐波分量的幅值不同，从而产生了各种各样的音色。**由于共振峰在频谱上十分明显，我们就想到把他提取出来，通过检测帧与帧之间共振峰的变化情况不就能找到一个语音的特征了吗？** 我们要提取的不仅仅是共振峰的位置，还得提取它们转变的过程。所 以我们提取的是频谱的包络。这包络就是一条连接这些共振峰点的平滑曲线。
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/mfcc1.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/mfcc1.png)
 
 那么我们如何提取这条曲线？我们可以将这条复杂的曲线分成两部分，包络和细节。从而可以写出表达式：$曲线=包络\times细节$，通过对曲线求对数就可以得到新的表达式：$\log(曲线)=\log(包络)+\log(细节)$好了这样我们就把一个乘性信号变成了一个加性信号。对这个加性信号做傅里叶变换再取它的低频分量，我们就成功的获取到了包络的频率，也就是共振峰的频率。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/mfcc2.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/mfcc2.png)
 好了到目前为止，我们获取到的这个频谱就被称之为 **倒谱** 它把乘性信号分离成了加性信号，而这整个过程我们称之为**同态滤波**。因为，做了两次fft得到了频域的频域，从另一个角度来说两次fft又相当与变换到了时域，所以输入输出信号都是时域，所以是同态。
 
 由于我们只关系共振峰，也就是倒谱的低频分量，所以我们通常来说只取倒谱的前13个参数即可。最后再总结一遍流程：
@@ -91,7 +91,7 @@ $$H_m(k)=\begin{cases}
 
 Mel滤波器在hz频率如图所示：
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/mel.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/mel.png)
 
 
 ##完整的mfcc参数提取过程
@@ -208,14 +208,14 @@ DTW算法即动态时间规整算法。对于语音识别我们很简单的想�
 $$ 总距离=\sum^{所有的帧}_{i}\{\sqrt{\sum_j^{维度}(模板_j-信号_j)^2}\}$$
 
 **但是！** 想法虽然简单，不过考虑到人说话的快慢问题和语音信号长短问题，这样计算相似度往往不是很准确，甚至不同长度的信号根本无法计算相似度。比如下图所示信号，相似程度很高但是按照上面的算法却无法计算出来正确的相似度,而通过虚线对应关系计算出来的相似度才是正确的相似度。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/dtw.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/dtw.png)
 **通过将一个信号扭曲之后再和另一个信号计算相似程度**就能解决问题。并且这里的信号扭曲也只能是局部的平移伸长或者缩短，但不能出现局部信号反转的情况。
 
 那么怎样将信号扭曲呢。我们不妨假设信号$\vec a$长度为6，信号$\vec b$长度为4，逐个计算$\vec a$中每个元素和$\vec b$中每个元素的欧式距离，我们就能得到一个$6\times 4$的矩阵，如下所示：
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/des.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/des.png)
 
 其中[A,1]点代表$\vec a[1]$和$\vec b[1]$的距离，[D,3]点代表$\vec a[5]$和$\vec b[3]$的距离以此类推。左下角代表两个信号的起始点，右上角代表两个信号的终点。因为信号是在局部可以扭曲的，所以我们寻找最短距离就在某个点的邻域内寻找最短的距离。但又因为局部信号不能反转，所以我们只需要在某个点的上方，右方和右上方寻找最短距离即可。比如[C,2]点的下一个点的距离分别是7，4，2，这里我们取最小点2。从起始点依次求最短路径后就能得到一条蜿蜒的曲线，将这条曲线上左右的距离加起来就能得到总最短路径，也就是两个信号的相似程度。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/voicerecognition/des2.png)
+![](https://zzshubimage-1253829354.file.myqcloud.com/voicerecognition/des2.png)
 
 当然了直接这样找距离会存在一些问题。因为这个找出来的距离高度依赖起始点的位置，但是如果这个两个信号相似的起始点不在一起这样找出来的距离不就不正确了吗？更好的方法是找出终点后再回溯回来，不过这样略微复杂，而且我发现不回溯其实识别效果也不错，所以我也没有进一步研究。
 

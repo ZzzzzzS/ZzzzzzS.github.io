@@ -71,7 +71,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted
 ```
 之后执行``sudo apt-get update``更新缓存，``sudo apt-get upgrade``
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/SharedScreenshot.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/SharedScreenshot.jpg)
 
 更新软件。好了到目前为止，一个命令行版本的ubuntu安装完成了。
 
@@ -79,7 +79,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted
 既然做服务器，肯定需要有远程控制主机的能力。
 ## 安装ssh服务组件
 执行``sudo apt-get install openssh-server``即可安装，安装完成后输入``service ssh status``查看ssh服务运行状态，服务没启动输入``service ssh start``来启动
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133248.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133248.jpg)
 
 ## 安装完成后配置，允许root用户远程登录
 这部分可有可无，ssh协议为了安全，默认是禁止root超级管理员账户远程登录的，但是linux下很多操作需要使用到root权限，如果不用root登录就需要频繁的使用sudo命令，比较麻烦。
@@ -90,16 +90,16 @@ sudo vim /etc/ssh/sshd_config
 
 重启服务``sudo service ssh restart``
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133837.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133837.jpg)
 
 ## 远程登录
 在开始之前需要确认好主机的ip和端口号(目前没讲到域名的问题所以需要确认好ip)。ssh协议默认使用22端口，ip输入``ifconfig``查看本机ip
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20134434.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20134434.jpg)
 可以看到本机ip为**192.168.3.212**。
 
 **在Windows下使用putty访问**，如图，输入ip，端口，用户名，密码，Go！！！开始你的远程控制小主机之旅吧。
 
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%7BB31A6894-D382-4E39-8608-DD67D0978E62%7D.png.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/%7BB31A6894-D382-4E39-8608-DD67D0978E62%7D.png.jpg)
 
 **Windows10也可以使用WSL(windows subsystem for linux)来访问，参见[hiwifi的正确打开方式](https://zzzzzzs.github.io/2017/11/21/hiwifiRightWay/)**
 
@@ -118,49 +118,49 @@ sudo vim /etc/ssh/sshd_config
 一般Linux安装完成的时候都默认带了CUPS的，但是如果没有安装就需要我们手动安装了。执行以下命令 ``sudo apt-get install CUPS``即可安装完成
 执行``sudo service cups start``来启动服务
 完成后用浏览器访问[http://localhost:631/admin](http://localhost:631/admin),如果出现界面了就证明安装成功。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%7B2C197BE2-E904-49B3-BF66-F584685A77DB%7D.png.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/%7B2C197BE2-E904-49B3-BF66-F584685A77DB%7D.png.jpg)
 
 ## 添加打印机
 > 关于添加打印机，网上有很多教程都是基于图形化桌面的，我想讲的是如何在CUPS提供的网页里设置打印机。
 
 如下图所示，在**Administration**选项卡选择``add printer``
 **注意：有对话框弹出来要求输入root用户名密码，如果没有弹出就换个浏览器试试，我的Chrome浏览器就无法弹出导致一直卡在那里，而edge就能输入**
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/a.png.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/a.png.jpg)
 
 如下图所示，进入后可看到打印机已经被发现，选中即可。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/b.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/b.jpg)
 
 如下图所示，下一步确定打印机名称，位置啥的，这个随意填写就好，注意勾选共享打印机。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/c.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/c.jpg)
 
 如下图所示，选择驱动，它一般默认推荐的驱动就能够使用，可以配置完成后打印一张测试页看看正不正常。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/d.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/d.jpg)
 
 如下图所示，一些乱七八糟的打印参数，看着慢慢改吧，之前我的打印机老是卡纸，就是改了很多参数才慢慢正常的。
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/e.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/e.jpg)
 
 选择默认设置，好了打印机设置完成！接下来就可以在``Printer``选项中管理打印机，查看打印队列或者打印测试页了。
 
 ## 配置打印机共享和通过域名访问打印机
 
 勾选如下所示的选项即可
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/f.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/f.jpg)
 
 
 >域名的设置就有点麻烦了，估计也是为了安全，CUPS默认禁止使用域名的方式远程或者本地连接到打印机，初衷是好，但是对于使用动态ip的人来说就很不友好了。我研究了很久很久才搞出来，所以单独列出来。
 
 修改/etc/cups/cupsd.conf文件``sudo vi  /etc/cups/cupsd.conf``，添加``ServerAlias *``即可。如下图所示
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/i.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/i.jpg)
 
 
 ## 电脑和手机远程打印
 
 
 好了，到现在打印机共享就设置完成了，在Windows下添加网络打印机就好。**打开设置->设备->打印机和扫描仪->添加打印机和扫描仪->我需要的打印机不在列表中，就会打开以下界面**
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/g.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/g.jpg)
 
 共享的打印机地址如图所示
-![](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/h.jpg)
+![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/h.jpg)
 
 因为CUPS是Apple提供的，所以在iPhone上的设置就尤其的方便，直接在手机里点击打印，然后选择打印机就好了，无需任何设置
 
