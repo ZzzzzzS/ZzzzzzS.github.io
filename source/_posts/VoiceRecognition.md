@@ -269,5 +269,7 @@ def dtw(t,r):
 2.	周志权等.数字信号处理.哈尔滨工业大学出版社,2012.12
 3.	张学工.模式识别(第三版).清华大学出版社,2010.8
 4.	金大(臣尔).Qt5开发实战.人民邮电出版社,2015.9
-5.	IT-Sunshine.动态规划DTW算法的实现, https://blog.csdn.net/weixin_39338645/article/details/84063108
-6.	Zouxy09.语音信号处理之（四）梅尔频率倒谱系数（MFCC）, https://blog.csdn.net/zouxy09/article/details/9156785
+5.	IT-Sunshine.动态规划DTW算法的实现, 
+https://blog.csdn.net/weixin_39338645/article/details/84063108
+6.	Zouxy09.语音信号处理之（四）梅尔频率倒谱系数（MFCC）, 
+https://blog.csdn.net/zouxy09/article/details/9156785

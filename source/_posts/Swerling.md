@@ -46,7 +46,7 @@ Swerling3、4型适用于由一个较大反射体和许多小反射体合成的�
 
 若n个相互独立的随机变量$ \xi_1,\xi_2\ldots\ldots\xi_n $，均服从标准正态分布（也称独立同分布于标准正态分布），则这n个服从标准正态分布的随机变量的平方和构成一新的随机变量，其分布规律称为卡方分布（chi-square distribution）。
 
-$ f\left(x\right)=\frac{1}{2^\frac{n}{2}\Gamma\left(\frac{n}{2}\right)}e^{-\frac{x}{2}}x^{\frac{n}{2}-1},x>0 $
+$$ f\left(x\right)=\frac{1}{2^\frac{n}{2}\Gamma\left(\frac{n}{2}\right)}e^{-\frac{x}{2}}x^{\frac{n}{2}-1},x>0 $$
 
 其中$\Gamma\left(s\right)$是Gamma函数$\Gamma\left(s\right)=\int_{0}^{\infty}{t^se^{-t}}dt$
 
@@ -54,13 +54,13 @@ $ f\left(x\right)=\frac{1}{2^\frac{n}{2}\Gamma\left(\frac{n}{2}\right)}e^{-\frac
 
 瑞利分布（Rayleigh Distribution）:当一个随机二维向量的两个分量呈独立的、有着相同的方差的正态分布时，这个向量的模呈瑞利分布。
 
-$ f\left(x\right)=\frac{x}{\sigma^2}e^{-\frac{x^2}{2\sigma^2}},x>0 $
+$$ f\left(x\right)=\frac{x}{\sigma^2}e^{-\frac{x^2}{2\sigma^2}},x>0 $$
 
 ## 莱斯分布
 
 莱斯分布实际上可以理解为主信号与服从瑞利分布的多径信号分量的和。概率密度函数公式中，R即为正弦（余弦）信号加窄带高斯随机信号的包络，参数A是主信号幅度的峰值，$ \sigma^2 $是多径信号分量的功率，$ I_0 $是修正的0阶第一类贝塞尔函数。
 
-$ P\left(R\right)=\frac{R}{\sigma^2}e^{\left(-\frac{R^2+A^2}{2\sigma^2}\right)}\cdot I_0\left(\frac{RA}{\sigma^2}\right) $
+$$ P\left(R\right)=\frac{R}{\sigma^2}e^{\left(-\frac{R^2+A^2}{2\sigma^2}\right)}\cdot I_0\left(\frac{RA}{\sigma^2}\right) $$
 
 
 # 仿真结果

@@ -84,8 +84,8 @@ drawKeypoints(img1, KeyPoint1, KeyPointImage1);//画特征点
 
 * 对每个格子进行分析，将格子中的像素计算梯度，映射到8个方向上，对于每一个格子，可以得到一个8维的向量，对于一个关键点周围16个格子，则得到了$16\times8=128$维的向量，这就是一个关键点特征向量。
 
-$m\left(x,y\right)=\sqrt{\left(L\left(x+1,t\right)-L\left(x-1,y\right)\right)^2+\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)^2}$
-$\theta=\alpha tan^2\left(\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)/\left(L\left(x+1,y\right)-L\left(x-1,y\right)\right)\right)$
+$$m\left(x,y\right)=\sqrt{\left(L\left(x+1,t\right)-L\left(x-1,y\right)\right)^2+\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)^2}$$
+$$\theta=\alpha tan^2\left(\left(L\left(x,y+1\right)-L\left(x,y-1\right)\right)/\left(L\left(x+1,y\right)-L\left(x-1,y\right)\right)\right)$$
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/imageadd/1.jpg)
 
