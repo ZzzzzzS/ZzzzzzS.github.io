@@ -13,6 +13,9 @@ before_install:
 install:
   - npm install hexo-cli -g #安装hexo及插件
   - npm install hexo-deployer-git --save
+  - npm install hexo-renderer-pug hexo-renderer-stylus --save
+  - npm install --save hexo-helper-live2d
+
 script:
   - hexo clean  #清除
   - hexo g   #生成
