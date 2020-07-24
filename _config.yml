@@ -7,7 +7,7 @@ title: ZZSHUB
 subtitle: ZZSHUB
 description: ''
 keywords:
-author: ZZSHUB
+author: ZZS
 language: zh-CN
 timezone: ''
 
@@ -104,14 +104,14 @@ deploy:
 
 live2d:
   enable: true
-  scriptFrom: local
+  scriptFrom: jsdelivr
   pluginRootPath: live2dw/
   pluginJsPath: lib/
   pluginModelPath: assets/
   tagMode: false
   debug: false
   model:
-    use: https://zzshubimage-1253829354.file.myqcloud.com/live2d/live2d-widget-model-shizuku/assets/shizuku.model.json
+    use: live2d-widget-model-shizuku
   display:
     position: left
     width: 150

@@ -1,6 +1,6 @@
 language: node_js  #设置语言
 
-node_js: '8.16.0'  #设置相应的版本
+node_js: stable  #设置相应的版本
 
 cache:
     apt: true
@@ -15,6 +15,7 @@ install:
   - npm install hexo-deployer-git --save
   - npm install hexo-renderer-pug hexo-renderer-stylus --save
   - npm install --save hexo-helper-live2d
+  - npm install live2d-widget-model-shizuku
 
 script:
   - hexo clean  #清除
