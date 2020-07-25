@@ -123,7 +123,7 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover: 
-    - https://zzshubimage-1253829354.file.myqcloud.com/blog/IMG_0025.JPG
+    - https://zzshubimage-1253829354.file.myqcloud.com/blog/Shapes.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:

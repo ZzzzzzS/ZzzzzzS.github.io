@@ -6,10 +6,8 @@ mathjax: false
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover:
+cover: https://zzshubimage-1253829354.file.myqcloud.com/docker/vertical-logo-monochromatic.png
 ---
-
-![](https://zzshubimage-1253829354.file.myqcloud.com/docker/vertical-logo-monochromatic.png)
 
 > 一直以来都听说docker功能十分强大，最近闲来无事终于稍微研究了一下，确实是一个强大的工具。昨晚利用docker部署了一个webdav服务器，几分钟就弄好了，如果使用传统方法我可能甚至会搞一晚上，还容易把系统搞的一地鸡毛。利用docker可以做到开箱即用，非常方便。
 

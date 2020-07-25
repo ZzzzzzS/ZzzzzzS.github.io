@@ -6,7 +6,7 @@ mathjax: true
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover:
+cover: https://zzshubimage-1253829354.file.myqcloud.com/Swerling/MatlabLogo.png
 ---
 
 > 雷达散射截面积(RCS)是表征雷达散射雷达信号强弱的物理量，随着雷达入射角的改变而起伏变化，起伏的RCS导致雷达检测概率、链路损耗均发生改变，为了准确地表述RCS的起伏特性，人们建立了RCS分布的统计模型，最为典型的是非起伏模型和Swerling起伏模型。

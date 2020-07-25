@@ -6,7 +6,7 @@ mathjax: true
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover:
+cover: https://zzshubimage-1253829354.file.myqcloud.com/imageadd/logo.png
 ---
 # 简易图像拼接原理初探
 
