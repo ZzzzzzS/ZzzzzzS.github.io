@@ -53,3 +53,4 @@ notifications:
     - m18996002212@me.com
   on_success: always
   on_failure: always
+  
