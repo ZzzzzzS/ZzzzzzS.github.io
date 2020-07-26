@@ -50,7 +50,6 @@ env:
 # https://docs.travis-ci.com/user/notifications/
 notifications:
   email:
-    - m18996002212@me.com
+    - zhouzishun@mail.zzshub.cn
   on_success: always
   on_failure: always
-  
