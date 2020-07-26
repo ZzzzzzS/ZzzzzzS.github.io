@@ -708,7 +708,7 @@ pangu:
 # https://github.com/verlok/lazyload
 lazyload:
   enable: true
-  post: https://zzshubimage-1253829354.file.myqcloud.com/blog/loading.gif
+  post: https://zzshubimage-1253829354.file.myqcloud.com/blog/LoadingPhoto.gif
 
 # PWA
 # See https://github.com/JLHwung/hexo-offline
