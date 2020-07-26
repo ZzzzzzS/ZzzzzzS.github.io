@@ -16,6 +16,11 @@ install:
   - npm install hexo-renderer-pug hexo-renderer-stylus --save
   - npm install --save hexo-helper-live2d
   - npm install live2d-widget-model-shizuku
+  - npm install hexo-douban
+  - npm install hexo-wordcount --save
+  - npm install --save hexo-filter-flowchart
+  - npm install hexo-generator-search --save
+
 
 script:
   - hexo clean  #清除

@@ -12,8 +12,9 @@ menu:
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
   列表||fas fa-list:
-    - 音乐 || /music/ || fas fa-music
+    - 游戏 || /games/ || fas fa-gamepad
     - 电影 || /movies/ || fas fa-video
+    - 图书 || /books/ || fas fa-book
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
 
@@ -37,7 +38,7 @@ copy:
 #   icon: link || the description
 social:
   fab fa-github: https://github.com/ZzzzzzS || Github
-  fas fa-envelope: mailto:zhouzishun@mail.zzshub.cn || Email
+  fas fa-envelope: mailto:zzs@mail.zzshub.cn || Email
 
 # search (搜索)
 # --------------------------------------
@@ -55,7 +56,7 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
   labels:
     input_placeholder: Search for Posts
     hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
@@ -148,7 +149,7 @@ post_meta:
 
 # wordcount (字數統計)
 wordcount:
-  enable: false
+  enable: true
   post_wordcount: true
   min2read: true
   total_wordcount: true
@@ -183,7 +184,7 @@ reward:
     - img: https://zzshubimage-1253829354.file.myqcloud.com/blog/wechatpay.JPG
       link:
       text: wechat
-    - img: /img/alipay.jpg
+    - img: 
       link:
       text: alipay
 
@@ -262,8 +263,8 @@ livere:
 # https://github.com/gitalk/gitalk
 gitalk:
   enable: true
-  client_id: 405900181161752c501f
-  client_secret: 5009971bbd658cca6e181e1a051d20a16c8a2b49
+  client_id: 9694bc2db55eb2d27215
+  client_secret: a69ae19d3dc81b47c3aca670b6a16f64bfd9cd3f
   repo: ZzzzzzS.github.io
   owner: ZzzzzzS
   admin: ZzzzzzS
@@ -354,7 +355,7 @@ gitter:
 
 since: 2017
 
-footer_custom_text: JXU2QjIyJXU4RkNFJXU2NzY1JXU1MjMwJXU2MjExJXU3Njg0JXU1MzVBJXU1QkEy
+footer_custom_text: JXU5MDFBJXU1NTQ2JXU1QkJEJXU4ODYz
 
 footer_copyright: true
 
@@ -686,7 +687,7 @@ note:
 # 可選 top-left / top-center / top-right / bottom-left / bottom-center / bottom-right
 snackbar:
   enable: true
-  position: bottom-left
+  position: top-center
   bg_light: '#49b1f5' # The background color of Toast Notification in light mode
   bg_dark: '#121212' # The background color of Toast Notification in dark mode
 
@@ -747,8 +748,8 @@ CDN:
   # main
   main_css: /css/index.css
   jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
-  main: /js/main.js
-  utils: /js/utils.js
+  main: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/main.js
+  utils: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/utils.js
 
   # comments
   blueimp_md5: https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js
@@ -765,8 +766,8 @@ CDN:
   sharejs_css: https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css
 
   # search
-  local_search: /js/search/local-search.js
-  algolia_js: /js/search/algolia.js
+  local_search: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/search/local-search.js
+  algolia_js: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/search/algolia.js
   algolia_search: https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js
   algolia_search_css: https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css
 
@@ -778,12 +779,12 @@ CDN:
   mermaid: https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
 
   # count
-  busuanzi: //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+  busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
 
   # background effect
-  canvas_ribbon: /js/third-party/canvas-ribbon.js
-  canvas_ribbon_piao: /js/third-party/piao.js
-  canvas_nest: /js/third-party/canvas-nest.js
+  canvas_ribbon: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/canvas-ribbon.js
+  canvas_ribbon_piao: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/piao.js
+  canvas_nest: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/canvas-nest.js
 
   lazyload: https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js
   instantpage: https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js
@@ -801,16 +802,16 @@ CDN:
 
   # effect
   anime: https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js
-  activate_power_mode: /js/third-party/activate-power-mode.js
-  fireworks: /js/third-party/fireworks.js
-  click_heart: /js/third-party/click_heart.js
-  ClickShowText: /js/third-party/ClickShowText.js
+  activate_power_mode: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/activate-power-mode.js
+  fireworks: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/fireworks.js
+  click_heart: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/click_heart.js
+  ClickShowText: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/ClickShowText.js
 
   # fontawesome
   fontawesome: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css
 
   # Conversion between Traditional and Simplified Chinese
-  translate: /js/tw_cn.js
+  translate: https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/tw_cn.js
 
   # justifiedGallery
   justifiedGallery_js: https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js

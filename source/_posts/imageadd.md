@@ -43,7 +43,6 @@ next(yes,right)->in
 next(no)->out->e
 ```
 
-
 # FAST算法提取特征点
 
 FAST的提出者Rosten等将FAST角点定义为：若某像素与其周围邻域内足够多的像素点相差较大，则该像素可能是角点。

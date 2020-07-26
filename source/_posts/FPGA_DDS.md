@@ -6,7 +6,7 @@ mathjax: true
 author:
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover: https://zzshubimage-1253829354.file.myqcloud.com/FPGADDS/xilinx-header-logo.svg
+cover: 
 ---
 # FPGA函数发生器设计
 

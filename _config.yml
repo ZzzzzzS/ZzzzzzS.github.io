@@ -4,7 +4,7 @@
 
 # Site
 title: ZZSHUB
-subtitle: ZZSHUB
+subtitle: ZZS
 description: ''
 keywords:
 author: ZZS
@@ -114,9 +114,30 @@ live2d:
     use: https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json
   display:
     position: left
+    hOffset: 40
+    vOffset: 0
     width: 150
     height: 300
   mobile:
     show: true
   react:
-    opacity: 0.7
+    opacity: 1.0
+
+douban:
+  user: 173053512
+  builtin: true
+  book:
+    title: '我读过的书'
+    quote: '我读过的书'
+  movie:
+    title: '我看过的电影'
+    quote: '我看过的电影'
+  game:
+    title: '我玩过的游戏'
+    quote: '我玩过的游戏'
+  timeout: 10000
+
+  search:
+    path: search.xml
+    field: post
+    content: true
