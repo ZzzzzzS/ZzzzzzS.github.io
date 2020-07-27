@@ -176,7 +176,7 @@ feed:
   path: atom.xml
   limit: 0
   hub:
-  content: false
+  content: true
   content_limit: 140
   content_limit_delim: ' '
   order_by: -date

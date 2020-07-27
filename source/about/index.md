@@ -8,7 +8,7 @@ type: "about"
 # 刚刚终于建立了站点
 ***
 
-> 刚刚终于基本建立了这个博客。博客是采用hexo框架托管在github page上面的.首先感谢[Mrminfive](https://github.com/Mrminfive)无私贡献的[skapp](https://github.com/Mrminfive/hexo-theme-skapp)主题模板。
+> 刚刚终于基本建立了这个博客。博客是采用hexo框架托管在github page上面的.首先 ~~感谢[Mrminfive](https://github.com/Mrminfive)无私贡献的[skapp](https://github.com/Mrminfive/hexo-theme-skapp)~~ 感谢[jerryc127](https://demo.jerryc.me/)无私贡献的[butterfly](https://github.com/jerryc127/hexo-theme-butterfly)主题模板。
 
 ***
 
