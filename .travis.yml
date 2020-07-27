@@ -20,10 +20,14 @@ install:
   - npm install hexo-wordcount --save
   - npm install --save hexo-filter-flowchart
   - npm install hexo-generator-search --save
+  - npm install hexo-generator-sitemap --save
+  - npm install --save hexo-submit-urls-to-search-engine
+  - npm install hexo-generator-feed --save
 
 
 script:
   - hexo clean  #清除
+  - hexo douban -bgm #生成豆瓣页面
   - hexo g   #生成
 after_script:
     - git clone https://${GH_REF} .deploy_git  # GH_REF是最下面配置的仓库地址

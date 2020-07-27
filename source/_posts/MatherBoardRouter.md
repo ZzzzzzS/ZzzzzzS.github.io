@@ -9,10 +9,13 @@ cover:
 ---
 # 废旧小主机改造路由器,廉价的家用NAS解决方案
 
-> 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。</div>
-最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电也不行，还把我硬盘给搞坏了。把这次捡的这小主机改造成路由器岂不是美滋滋。改造，开干！</div>
-关于改造过程，因为篇幅有限，这篇博客只谈软件改造部分，关于硬件部分其实也没什么好说的，就是着重处理了一下散热，然后因为需要wifi就买了一块7260AC无线网卡插上，另外弄了两根6dB天线装上。</div>
+> 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。
+
+
+最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电也不行，还把我硬盘给搞坏了。把这次捡的这小主机改造成路由器岂不是美滋滋。改造，开干！
+关于改造过程，因为篇幅有限，这篇博客只谈软件改造部分，关于硬件部分其实也没什么好说的，就是着重处理了一下散热，然后因为需要wifi就买了一块7260AC无线网卡插上，另外弄了两根6dB天线装上。
 主机配置如下:
+
 Intel Atom n270处理器(32位)
 1GB DDR2L 内存
 32GB 固态
@@ -23,24 +26,25 @@ Intel 7260AC双频无线网卡
 
 # 装系统
 关于系统，我最终选择了``Ubuntu 16.04.5 LTS Server``这个版本，然后自己安装了**lxde**桌面。几方面的原因，主要是主机算力还是不太够，不能支撑复杂的图形界面，只能用**lxde**这样的轻量化桌面才能运行，自己装桌面而没直接装**lubuntu**是因为它还是附带了很多不必要的组件，不够纯粹。安装过程跳过，注意下网卡的选择，有多张网卡时选择接入外网的网卡，对我来说就是接入校园网的网卡。另外可能需要设置网卡的IP，因为我校校园网是动态分配的IP，所以选择DHCP即可。安装完成后设置root密码``sudo passwd root``,给系统换软件源``vi /etc/apt/source.list ``,以下是我更换的中国官方源，我个人还是喜欢用官方源：
-```
+
+```Shell
 # deb cdrom:[Ubuntu 16.04.5 LTS _Xenial Xerus_ - Release i386 (20180731)]/ xenial main restricted
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
 ## Major bug fix updates produced after the final release of the
 ## distribution.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team. Also, please note that software in universe WILL NOT receive any
 ## review or updates from the Ubuntu security team.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial universe
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial universe
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial universe
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
@@ -48,9 +52,9 @@ deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
@@ -58,17 +62,18 @@ deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
 deb http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
-# deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+## deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
 
 ## Uncomment the following two lines to add software from Canonical's
 ## 'partner' repository.
 ## This software is not part of Ubuntu, but is offered by Canonical and the
 ## respective vendors as a service to Ubuntu users.
-# deb http://archive.canonical.com/ubuntu xenial partner
-# deb-src http://archive.canonical.com/ubuntu xenial partner
+## deb http://archive.canonical.com/ubuntu xenial partner
+## deb-src http://archive.canonical.com/ubuntu xenial partner
 
 deb http://security.ubuntu.com/ubuntu xenial-security main restricted
 ```
+
 之后执行``sudo apt-get update``更新缓存，``sudo apt-get upgrade``
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/MatherBoardRouter/SharedScreenshot.jpg)

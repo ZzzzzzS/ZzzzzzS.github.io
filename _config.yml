@@ -101,6 +101,9 @@ deploy:
   - type: git
     repo: git@github.com:ZzzzzzS/ZzzzzzS.github.io.git
     branch: master
+  - type: cjh_google_url_submitter
+  - type: cjh_bing_url_submitter
+  - type: cjh_baidu_url_submitter
 
 live2d:
   enable: true
@@ -114,18 +117,22 @@ live2d:
     use: https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json
   display:
     position: left
-    hOffset: 40
+    hOffset: 60
     vOffset: 0
     width: 150
     height: 300
   mobile:
-    show: true
+    show: false
   react:
     opacity: 1.0
+  dialog:
+    enable: true
+    hitokoto: true
+    
 
 douban:
   user: 173053512
-  builtin: true
+  builtin: false
   book:
     title: '我读过的书'
     quote: '我读过的书'
@@ -137,7 +144,42 @@ douban:
     quote: '我玩过的游戏'
   timeout: 10000
 
-  search:
-    path: search.xml
-    field: post
-    content: true
+search:
+  path: search.xml
+  field: post
+  content: true
+
+sitemap:
+  path: sitemap.xml
+  template: 
+  rel: false
+  tags: true
+  categories: true
+
+hexo_submit_urls_to_search_engine:
+  submit_condition: count #链接被提交的条件，可选值：count | period 现仅支持count
+  count: 100 # 提交最新的10个链接
+  period: 900 # 提交修改时间在 900 秒内的链接
+  google: 0 # 是否向Google提交，可选值：1 | 0（0：否；1：是）
+  bing: 0 # 是否向bing提交，可选值：1 | 0（0：否；1：是）
+  baidu: 1 # 是否向baidu提交，可选值：1 | 0（0：否；1：是）
+  txt_path: submit_urls.txt ## 文本文档名， 需要推送的链接会保存在此文本文档里
+  baidu_host: https://blog.zzshub.cn ## 在百度站长平台中注册的域名
+  baidu_token: QmobHzv7mtko5JCq ## 请注意这是您的秘钥， 所以请不要把它直接发布在公众仓库里!
+  bing_host: https://blog.zzshub.cn ## 在bing站长平台中注册的域名
+  bing_token: xxxxx ## 请注意这是您的秘钥， 所以请不要把它直接发布在公众仓库里!
+  google_host: https://blog.zzshub.cn ## 在google站长平台中注册的域名
+  google_key_file: Project.json #存放google key的json文件，放于网站根目录（与hexo _config.yml文件位置相同），请不要把json文件内容直接发布在公众仓库里!
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 0
+  hub:
+  content: false
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: 
+  autodiscovery: true
+  template:

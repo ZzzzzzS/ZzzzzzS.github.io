@@ -39,6 +39,7 @@ copy:
 social:
   fab fa-github: https://github.com/ZzzzzzS || Github
   fas fa-envelope: mailto:zzs@mail.zzshub.cn || Email
+  fas fa-rss: /atom.xml || RSS
 
 # search (搜索)
 # --------------------------------------
@@ -398,7 +399,7 @@ google_adsense:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-google_site_verification:
+google_site_verification: blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster/
