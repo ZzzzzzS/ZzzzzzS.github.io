@@ -32,7 +32,7 @@ script:
 after_script:
   - git config user.name "Travis"  #修改name
   - git config user.email "zhouzishun@mail.zzshub.cn"  #修改email
-  - sed -i "s/git@github.com/${Travis_Token}@github.com/g" _config.yml
+  - sed -i "s/git@github.com/https:\/\/${Travis_Token}@github.com/g" _config.yml
   - hexo deploy
 
 branches:
