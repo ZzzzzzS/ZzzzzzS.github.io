@@ -109,8 +109,8 @@ tag_img:
 category_img:
 
 # If you are using hexo-douban, you can configure it (如果你有使用 hexo-douban,可配置這個)
- douban:
-    meta: true
+douban:
+  meta: true
 #   movies_img:
 #   books_img:
 #   games_img:
