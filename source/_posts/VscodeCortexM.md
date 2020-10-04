@@ -32,6 +32,7 @@ cover: https://zzshubimage-1253829354.file.myqcloud.com/VSCodeCortexM/cover.png
 
 ![](https://zzshubimage-1253829354.file.myqcloud.com/VSCodeCortexM/xpresso.png)
 
+
 # 开发流程
 
 ```flow
@@ -44,9 +45,10 @@ Debug=>operation: 调试
 Xpresso->Config->Build->ConfigDebug->Debug
 ```
 由此可见过程可以分为编译和下载调试两部分。编译部分使用CMake+GNU toolchain来生成elf文件。下载调试部分使用GNU toolchain中的GDB来调试，使用OpenOCD来做GDBServer。
+
 # 配置CMake
 
-由MCUXpresso生成的工程自带``CMakeLists.txt``和``toolchain file``，我们只需要指定``toolchain file``给vsc的cmake插件就可以自动配置必要的编译环境了，我最开始还走了一些弯路，想着手动配置编译器。根据[CMake的文档](https://vector-of-bool.github.io/docs/vscode-cmake-tools/kits.html?highlight=toolchain)：**在``.vscode``文件夹中创建``cmake-kits.json``文件，并输入以下内容即可**
+由MCUXpresso生成的工程自带``CMakeLists.txt``和``toolchain file``，我们只需要指定``toolchain file``给vsc的cmake插件就可以自动配置必要的编译环境了，我最开始还走了一些弯路，想着手动配置编译器。根据[CMake的文档](https://vector-of-bool.github.io/docs/vscode-cmake-tools/kits.html?highlight=toolchain)：**在``.vscode``文件夹中创建``cmake-kits.json``文件，并输入以下内容**
 
 ```json
 
@@ -58,7 +60,7 @@ Xpresso->Config->Build->ConfigDebug->Debug
 }
 ]
 ```
-然后还需要指定generator的类型，在工程的``.vscode/settings.json``中指定``MinGW Makefiles``。由于这个``toolchain file``中使用了``ARMGCC_DIR``这个变量，所以要么在系统的环境变量中添加，要么在``settings.json``中一并添加。
+然后还需要指定``generator``的类型，在工程的``.vscode/settings.json``中指定``MinGW Makefiles``。由于这个``toolchain file``中使用了``ARMGCC_DIR``这个变量，所以要么在系统的环境变量中添加，要么在``settings.json``中一并添加。
 
 ```json
 //settings.json
@@ -82,7 +84,7 @@ mingw32-make
 
 # 配置调试
 
-关于Cortex-M系列的调试，这里也是用的GDB+GDBServer的模式，GDB对应的GNU工具链中的GDB，使用OpenOCD作为GDBServer。其实本可以在task.json中手动配置并启动OpenOCD，然后在launch.json中配置并启动GDB来下载调试，但是这样过程有些繁琐。好在我发现了``Cortex-Debug``这个插件，可以帮助我们完成上诉操作。由上述所述，调试配置包含启动OpenOCD和启动GDB两个部分，首先需要在全局``settings.json``中指定``Cortex-Debug``需要的GDB和openOCD的位置。之后创建launch.json输入以下内容：
+关于Cortex-M系列的调试，这里也是用的GDB+GDBServer的模式，GDB对应的GNU工具链中的GDB，使用OpenOCD作为GDBServer。其实本可以在``task.json``中手动配置并启动OpenOCD，然后在``launch.json``中配置并启动GDB来下载调试，但是这样过程有些繁琐。好在我发现了``Cortex-Debug``这个插件，可以帮助我们完成上诉操作。由上述所述，调试配置包含启动OpenOCD和启动GDB两个部分，首先需要在全局``settings.json``中指定``Cortex-Debug``需要的GDB和openOCD的位置。之后创建``launch.json``输入以下内容：
 
 ```json
 //launch.jsom
