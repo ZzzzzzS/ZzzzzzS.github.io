@@ -57,7 +57,8 @@ UEFI安全引导（Secure Boot）的核心职能就是利用数字签名来确�
 
 
 * 首先制作启动盘，制作工具和镜像链接在后文有提到，制作完成后如下图所示。
-![2601694036151687](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/2601694036151687.jpg)
+![2601694036151687](https://zzshubimage-1253829354.file.myqcloud.com/media/image/2601694036151687.jpg)
+
 
   其中``ENROLL_THIS_KEY_IN_MOKMANAGER.cer``就是需要注册的公钥文件。
 
