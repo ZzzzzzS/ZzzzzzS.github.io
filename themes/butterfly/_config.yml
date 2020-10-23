@@ -38,7 +38,7 @@ copy:
 #   icon: link || the description
 social:
   fab fa-github: https://github.com/ZzzzzzS || Github
-  fas fa-envelope: mailto:zzs@mail.zzshub.cn || Email
+  fas fa-envelope: mailto:zhouzishun@mail.zzshub.cn || Email
   fas fa-rss: /atom.xml || RSS
 
 # search (搜索)
