@@ -5,7 +5,7 @@ tags: [Hacintosh]
 author: 
  nick: ZZS
  link: https://zzzzzzs.github.io/
-cover: https://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/u%3D1593298829%2C2003225384%26fm%3D27%26gp%3D0.jpg
+cover: https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/10880134416723042.jpg
 ---
 
 # 在ASUS ROG枪神3上安装黑苹果并启用secure boot
@@ -57,27 +57,27 @@ UEFI安全引导（Secure Boot）的核心职能就是利用数字签名来确�
 
 
 * 首先制作启动盘，制作工具和镜像链接在后文有提到，制作完成后如下图所示。
-![2601694036151687](https://zshubimage-1253829354.cosbj.myqcloud.com/media/image/2601694036151687.jpg)
+![2601694036151687](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/2601694036151687.jpg)
 
   其中``ENROLL_THIS_KEY_IN_MOKMANAGER.cer``就是需要注册的公钥文件。
 
 * 之后进入UEFI设置，注意不同机型可能存在差异，在secure->secure boot选项卡中选择 ``key exchange keys``
 
-![03698316002590052](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/03698316002590052.jpg)
+![03698316002590052](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/03698316002590052.jpg)
 
 * 选择``Append``添加证书
 
-![014435539452277268](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/014435539452277268.jpg)
+![014435539452277268](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/014435539452277268.jpg)
 
 * 选择``No``从外部设备添加
 
-![07049956718966244](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/07049956718966244.jpg)
+![07049956718966244](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/07049956718966244.jpg)
 
 * 找到启动盘，并添加``ENROLL_THIS_KEY_IN_MOKMANAGER.cer``
 
-![40736526710036935](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/40736526710036935.jpg)
+![40736526710036935](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/40736526710036935.jpg)
 
-![9272594442544191](https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/9272594442544191.jpg)
+![9272594442544191](https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/9272594442544191.jpg)
 
 好了，到这里为止公钥就添加好了，之后的步骤就是和项目里所述的相同了。
 
