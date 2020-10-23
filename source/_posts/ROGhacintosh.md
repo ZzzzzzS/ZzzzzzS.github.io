@@ -1,6 +1,6 @@
 ---
 title: 安装黑苹果并启用secure boot
-date: 2020-10-22T23:22:12+08:00
+date: 2020-10-22 14:12:32
 tags: [Hacintosh]
 author: 
  nick: ZZS
