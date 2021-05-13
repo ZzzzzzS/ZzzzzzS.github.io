@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>翻译 BLE低功耗蓝牙协议简介 | ZZSHUB</title><meta name="description" content="原文连接 https:&#x2F;&#x2F;doc.qt.io&#x2F;qt-5&#x2F;qtbluetooth-le-overview.html BLE低功耗蓝牙简介什么是低功耗蓝牙低功耗蓝牙又被称为智能蓝牙(Bluetooth Smart),是一个于2011年提出的无线网络技术.与经典蓝牙(“classic”Bluetooth)一样工作在2.4GHz.它的主要特点正如其名字一样,低能量消耗.它提供了一种仅仅用一颗纽扣电池就工"><meta name="keywords" content="蓝牙,Qt,BLE"><meta name="author" content="ZZS"><meta name="copyright" content="ZZS"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2018/05/19/TranslateBLE/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><meta property="og:type" content="article"><meta property="og:title" content="翻译 BLE低功耗蓝牙协议简介"><meta property="og:url" content="https://blog.zzshub.cn/2018/05/19/TranslateBLE/"><meta property="og:site_name" content="ZZSHUB"><meta property="og:description" content="原文连接 https:&#x2F;&#x2F;doc.qt.io&#x2F;qt-5&#x2F;qtbluetooth-le-overview.html BLE低功耗蓝牙简介什么是低功耗蓝牙低功耗蓝牙又被称为智能蓝牙(Bluetooth Smart),是一个于2011年提出的无线网络技术.与经典蓝牙(“classic”Bluetooth)一样工作在2.4GHz.它的主要特点正如其名字一样,低能量消耗.它提供了一种仅仅用一颗纽扣电池就工"><meta property="og:image" content="https://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/Inked09fa513d269759ee5be897d8b9fb43166d22df6d_LI.jpg"><meta property="article:published_time" content="2018-05-19T06:12:32.000Z"><meta property="article:modified_time" content="2020-12-06T14:11:09.134Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pwa/manifest.json"/><meta name="theme-color" content="#fff"/><meta name="msapplication-TileColor" content="#fff"/><link rel="apple-touch-icon" sizes="180x180" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="32x32" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="mask-icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png" color="#5bbad5"/><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="prev" title="kinetis KV58 DAC模块食用指南" href="https://blog.zzshub.cn/2018/05/19/DAC/"><link rel="next" title="mathjax数学公式编辑工具" href="https://blog.zzshub.cn/2018/05/04/mathjax/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://zzshubimage-1253829354.file.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#原文连接-https-doc-qt-io-qt-5-qtbluetooth-le-overview-html"><span class="toc-number">1.</span> <span class="toc-text">原文连接 https:&#x2F;&#x2F;doc.qt.io&#x2F;qt-5&#x2F;qtbluetooth-le-overview.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BLE低功耗蓝牙简介"><span class="toc-number"></span> <span class="toc-text">BLE低功耗蓝牙简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是低功耗蓝牙"><span class="toc-number"></span> <span class="toc-text">什么是低功耗蓝牙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本服务结构"><span class="toc-number"></span> <span class="toc-text">基本服务结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ATT协议"><span class="toc-number">1.</span> <span class="toc-text">ATT协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GATT配置文件"><span class="toc-number">2.</span> <span class="toc-text">GATT配置文件</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://zzshubimage-1253829354.cosbj.myqcloud.com/BLE/Inked09fa513d269759ee5be897d8b9fb43166d22df6d_LI.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">ZZSHUB</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">翻译 BLE低功耗蓝牙协议简介</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-05-19 14:12:32"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2018-05-19</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-12-06 22:11:09"><i class="fas fa-history fa-fw"></i> 更新于 2020-12-06</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">459</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 1 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<h3 id="原文连接-https-doc-qt-io-qt-5-qtbluetooth-le-overview-html"><a href="#原文连接-https-doc-qt-io-qt-5-qtbluetooth-le-overview-html" class="headerlink" title="原文连接 https://doc.qt.io/qt-5/qtbluetooth-le-overview.html"></a>原文连接 <a href="https://doc.qt.io/qt-5/qtbluetooth-le-overview.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qtbluetooth-le-overview.html</a></h3></blockquote>
+<h1 id="BLE低功耗蓝牙简介"><a href="#BLE低功耗蓝牙简介" class="headerlink" title="BLE低功耗蓝牙简介"></a>BLE低功耗蓝牙简介</h1><h2 id="什么是低功耗蓝牙"><a href="#什么是低功耗蓝牙" class="headerlink" title="什么是低功耗蓝牙"></a>什么是低功耗蓝牙</h2><p>低功耗蓝牙又被称为智能蓝牙(Bluetooth Smart),是一个于2011年提出的无线网络技术.与经典蓝牙(“classic”Bluetooth)一样工作在2.4GHz.它的主要特点正如其名字一样,低能量消耗.它提供了一种仅仅用一颗纽扣电池就工作几月甚至几年的可能性.该项技术作为蓝牙4.0技术的子协议被叫做Bluetooth Smart Ready Devices.它的主要技术特点如下:</p>
+<ul>
+<li>极低峰值,平均值功耗</li>
+<li>可以使用纽扣电池驱动数年时间</li>
+<li>低功耗</li>
+<li>多网络互联</li>
+<li>距离增强</li>
+</ul>
+<p>低功耗蓝牙使用了一种客户端-服务端(client-server)结构.服务端(外围设备)提供服务,例如温度,心率等,并广播它们.客户端(中心设备)连接到服务端并读取被广播的数据.</p>
+<h2 id="基本服务结构"><a href="#基本服务结构" class="headerlink" title="基本服务结构"></a>基本服务结构</h2><p>低功耗蓝牙BLE主要依靠两个协议:ATT(Attribute Protocol)以及GATT(Generic Attribute Protocol).它们是通信层中最重要的协议.</p>
+<h3 id="ATT协议"><a href="#ATT协议" class="headerlink" title="ATT协议"></a>ATT协议</h3><p>基本的ATT协议主要包含三个元素:</p>
+<ul>
+<li>value - 一句被希望广播的信息</li>
+<li>UUID - 一种被GATT使用的属性</li>
+<li>16bit的句柄 - 一个唯一的识别码</li>
+</ul>
+<p>服务端储存这些属性,客户端利用ATT协议来读写这些属性</p>
+<h3 id="GATT配置文件"><a href="#GATT配置文件" class="headerlink" title="GATT配置文件"></a>GATT配置文件</h3><p>GATT定义了不同的UUID编码来识别不同的服务,以下是一个例子:</p>
+<p><img src= "https://zzshubimage-1253829354.file.myqcloud.com/blog/LoadingPhoto.gif" data-src="https://zzshubimage-1253829354.file.myqcloud.com/BLE/%E8%8D%89%E5%9B%BE.png" alt=""><br>以上这些UUID由<strong>Bluetooth Special Interest Group</strong>官方定义,同样我们可以使用未被定义的UUID来实现我们的私有协议.总的来说,一个设备可以实现多个功能,由不同的UUID解释器来解释.</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZZS</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2018/05/19/TranslateBLE/">https://blog.zzshub.cn/2018/05/19/TranslateBLE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%93%9D%E7%89%99/">蓝牙</a><a class="post-meta__tags" href="/tags/Qt/">Qt</a><a class="post-meta__tags" href="/tags/BLE/">BLE</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/10880134416723042.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/05/19/DAC/"><img class="prev-cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">kinetis KV58 DAC模块食用指南</div></div></a></div><div class="next-post pull-right"><a href="/2018/05/04/mathjax/"><img class="next-cover" data-src="https://zzshubimage-1253829354.cosbj.myqcloud.com/mathjax/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-04%2005.42.45%20PM.png" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">mathjax数学公式编辑工具</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2017/11/28/BlueToothClient/" title="蓝牙接收端帮助文档"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-28</div><div class="relatedPosts_title">蓝牙接收端帮助文档</div></div></a></div><div class="relatedPosts_item"><a href="/2017/10/29/diansai2017Uper/" title="diansai2017上位机"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/1_androidstich3.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-10-29</div><div class="relatedPosts_title">diansai2017上位机</div></div></a></div><div class="relatedPosts_item"><a href="/2017/11/13/uper2018use/" title="uper2018使用说明"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-13</div><div class="relatedPosts_title">uper2018使用说明</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '9694bc2db55eb2d27215',
+  clientSecret: 'a69ae19d3dc81b47c3aca670b6a16f64bfd9cd3f',
+  repo: 'ZzzzzzS.github.io',
+  owner: 'ZzzzzzS',
+  admin: ['ZzzzzzS'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 100,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2021 By ZZS</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">JXU5MDFBJXU1NTQ2JXU1QkJEJXU4ODYz</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/main.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="true" src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 网站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">点击刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

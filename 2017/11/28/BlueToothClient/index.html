@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>蓝牙接收端帮助文档 | ZZSHUB</title><meta name="description" content="新生杯智能车大赛蓝牙接收端帮助文档 写在前面 这个蓝牙接收端于蓝牙上位机配套使用,使用当蓝牙上位机发出指令后,接收程序能够分析上位机发送的信号,并且执行相关的函数  大体流程串口接收数据-&gt;将数据加入数据缓冲区-&gt;在while中一直判断缓冲区中的数据-&gt;如果有相关的指令-&gt;执行相关数据处理函数 添加源文件使用蓝牙接收端程序需要手动在工程中添加SerialPortImform"><meta name="keywords" content="ARM,STM32,蓝牙,718创新实验室"><meta name="author" content="ZZS"><meta name="copyright" content="ZZS"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2017/11/28/BlueToothClient/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><meta property="og:type" content="article"><meta property="og:title" content="蓝牙接收端帮助文档"><meta property="og:url" content="https://blog.zzshub.cn/2017/11/28/BlueToothClient/"><meta property="og:site_name" content="ZZSHUB"><meta property="og:description" content="新生杯智能车大赛蓝牙接收端帮助文档 写在前面 这个蓝牙接收端于蓝牙上位机配套使用,使用当蓝牙上位机发出指令后,接收程序能够分析上位机发送的信号,并且执行相关的函数  大体流程串口接收数据-&gt;将数据加入数据缓冲区-&gt;在while中一直判断缓冲区中的数据-&gt;如果有相关的指令-&gt;执行相关数据处理函数 添加源文件使用蓝牙接收端程序需要手动在工程中添加SerialPortImform"><meta property="og:image" content="https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg"><meta property="article:published_time" content="2017-11-28T15:48:00.000Z"><meta property="article:modified_time" content="2020-12-06T14:11:09.128Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pwa/manifest.json"/><meta name="theme-color" content="#fff"/><meta name="msapplication-TileColor" content="#fff"/><link rel="apple-touch-icon" sizes="180x180" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="32x32" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="mask-icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png" color="#5bbad5"/><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="prev" title="ARM寄存器食用感受" href="https://blog.zzshub.cn/2018/01/22/KinetisRegistar/"><link rel="next" title="ARM weak指令巧用" href="https://blog.zzshub.cn/2017/11/28/ARMweak/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://zzshubimage-1253829354.file.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新生杯智能车大赛蓝牙接收端帮助文档"><span class="toc-number">1.</span> <span class="toc-text">新生杯智能车大赛蓝牙接收端帮助文档</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面"><span class="toc-number">2.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#大体流程"><span class="toc-number">3.</span> <span class="toc-text">大体流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#添加源文件"><span class="toc-number">4.</span> <span class="toc-text">添加源文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于-SerialPortImformation-h"><span class="toc-number">5.</span> <span class="toc-text">关于 SerialPortImformation.h</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化"><span class="toc-number">6.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用"><span class="toc-number">7.</span> <span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重要说明"><span class="toc-number">8.</span> <span class="toc-text">重要说明</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://zzshubimage-1253829354.file.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">ZZSHUB</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">蓝牙接收端帮助文档</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2017-11-28 23:48:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2017-11-28</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-12-06 22:11:09"><i class="fas fa-history fa-fw"></i> 更新于 2020-12-06</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="新生杯智能车大赛蓝牙接收端帮助文档"><a href="#新生杯智能车大赛蓝牙接收端帮助文档" class="headerlink" title="新生杯智能车大赛蓝牙接收端帮助文档"></a>新生杯智能车大赛蓝牙接收端帮助文档</h1><hr>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><blockquote>
+<p>这个蓝牙接收端于蓝牙上位机配套使用,使用当蓝牙上位机发出指令后,接收程序能够分析上位机发送的信号,并且执行相关的函数</p>
+</blockquote>
+<h1 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h1><p>串口接收数据-&gt;将数据加入数据缓冲区-&gt;在while中一直判断缓冲区中的数据-&gt;如果有相关的指令-&gt;执行相关数据处理函数</p>
+<h1 id="添加源文件"><a href="#添加源文件" class="headerlink" title="添加源文件"></a>添加源文件</h1><p>使用蓝牙接收端程序需要手动在工程中添加<code>SerialPortImformation.c</code> 和 <code>SerialPortImformation.h</code> 之后再<code>include &quot;SerialPortImformation.h&quot;</code></br>另外,因为需要使用串口,所以也需要添加串口USART相关的头文件</p>
+<h1 id="关于-SerialPortImformation-h"><a href="#关于-SerialPortImformation-h" class="headerlink" title="关于 SerialPortImformation.h"></a>关于 SerialPortImformation.h</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> GoSpeed;</span><br><span class="line">	<span class="keyword">int</span> GoSpeedOld;</span><br><span class="line">	<span class="keyword">int</span> TurnSpeed;</span><br><span class="line">	<span class="keyword">int</span> TurnSpeedOld;</span><br><span class="line">	<span class="keyword">uint8_t</span> OtherInfo;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> serialPortQueueBuffer[BUFFERSIZE+<span class="number">5</span>];</span><br><span class="line">&#125; serialPortInfo;</span><br></pre></td></tr></table></figure>
+<p>这个结构体用于判断上位机发送过来的数据,serialPortQueueBuffer是一个用来暂时储存发来的数据的数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFFERSIZE 20</span></span><br></pre></td></tr></table></figure>
+<p>这个用来调节数据缓冲区的大小,一般不需要修改</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addSerialPortDate</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> data,serialPortInfo *<span class="keyword">this</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>将数据添加进缓冲区,第一个参数是需要添加的数据,第二个参数是需要添加到的结构体的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serialPortexec(serialPortInfo *serialPortInfo)</span><br></pre></td></tr></table></figure>
+<p>这个是判断信息的函数,参数是serialPortInfo结构体的地址</p>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>任何外设使用以前都需要初始化,串口也一样.所以使用之前一定要初始化串口,串口如何初始化我就不再赘述了,不熟悉的同学可以查看我们之前的例程和教程.或者看我新写的这个例程也可以.</br>另一部分就是这个判断串口指令的初始化,这个由于不是外设,只需要创建一个全局变量就好了</p>
+<p><code>serialPortInfo blueToothInfo;</code></p>
+<h1 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h1><p>以前已经讲过,串口接收到数据之后就会进入串口中断函数.我们这时只需要将串口接收到的数据传输给蓝牙判断的结构体中就好了,以下是串口中断的部分代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">USART1_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">uint8_t</span> ucTemp;</span><br><span class="line">	<span class="keyword">if</span>(USART_GetITStatus(USARTx,USART_IT_RXNE)!=RESET)		</span><br><span class="line">	&#123;		</span><br><span class="line">		ucTemp = USART_ReceiveData(USARTx);</span><br><span class="line">		addSerialPortDate(ucTemp,&amp;blueToothInfo);</span><br><span class="line">	&#125;	 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这一句<code>addSerialPortDate(ucTemp,&amp;blueToothInfo);</code>就是将接收到的数据传输给蓝牙结构体的</p>
+<p>使用的另一个部分就是判断接收到的数据,这个只需要使用<code>serialPortexec(serialPortInfo *serialPortInfo);</code>函数即可.由于需要一直判断,所以需要在while里面一直执行这个函数,以下是部分代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	serialPortexec(&amp;blueToothInfo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后一个部分就是执行操作了,因为大家对上位机上不同的按键执行的操作不同,所以就需要大家自己编写函数了.比如想让功能键1被按下时执行的任务,那么只需要写一个函数名为<code>void function1ButtonClickedEvent()</code>,那么当功能键一被按下时就会执行这个函数里面的内容.同理,当上位机上面速度设定发生改变的时候就会执行<code>speedchangeEvent(int xSpeed,int ySpeed)</code>这个函数里面的内容.以下是一些函数</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>执行的函数</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能键1被按下</td>
+<td>function1ButtonClickedEvent(void)</td>
+<td></td>
+</tr>
+<tr>
+<td>功能键2被按下</td>
+<td>function2ButtonClickedEvent(void)</td>
+<td></td>
+</tr>
+<tr>
+<td>功能键3被按下</td>
+<td>function3ButtonClickedEvent(void)</td>
+<td></td>
+</tr>
+<tr>
+<td>功能键4被按下</td>
+<td>function4ButtonClickedEvent(void)</td>
+<td></td>
+</tr>
+<tr>
+<td>停车键被按下</td>
+<td>stopButtonClickedEvent(void)</td>
+<td></td>
+</tr>
+<tr>
+<td>设定速度发生改变</td>
+<td>speedchangeEvent(int xSpeed,int ySpeed)</td>
+<td>传进来的参数xSpeed和ySpeed就是改变之后的速度</td>
+</tr>
+</tbody></table>
+<p>有兴趣想知道这个是怎么实现的可以看我的另一篇文章<a href="/2017/11/28/ARMweak/index.html">ARMWeak指令</a></p>
+<h1 id="重要说明"><a href="#重要说明" class="headerlink" title="重要说明"></a>重要说明</h1><ul>
+<li>例程144行的函数<code>int fputc(int ch, FILE *f)</code>不要删去,否则printf函数将无法使用</li>
+<li>关于”执行的函数”如果不写的话也没有关系,就会执行我默认的函数,不过这样就无法实现你们想要的功能了</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZZS</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2017/11/28/BlueToothClient/">https://blog.zzshub.cn/2017/11/28/BlueToothClient/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ARM/">ARM</a><a class="post-meta__tags" href="/tags/STM32/">STM32</a><a class="post-meta__tags" href="/tags/%E8%93%9D%E7%89%99/">蓝牙</a><a class="post-meta__tags" href="/tags/718%E5%88%9B%E6%96%B0%E5%AE%9E%E9%AA%8C%E5%AE%A4/">718创新实验室</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/10880134416723042.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/01/22/KinetisRegistar/"><img class="prev-cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ARM寄存器食用感受</div></div></a></div><div class="next-post pull-right"><a href="/2017/11/28/ARMweak/"><img class="next-cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/blog/Shapes.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ARM weak指令巧用</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2017/10/30/STM32Course/" title="STM32培训"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/STM32%E5%9F%B9%E8%AE%AD/0060lm7Tly1fkyepbkoosj30u01hc7bx.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-10-30</div><div class="relatedPosts_title">STM32培训</div></div></a></div><div class="relatedPosts_item"><a href="/2017/11/28/ARMweak/" title="ARM weak指令巧用"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/blog/Shapes.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-28</div><div class="relatedPosts_title">ARM weak指令巧用</div></div></a></div><div class="relatedPosts_item"><a href="/2018/05/19/DAC/" title="kinetis KV58 DAC模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-19</div><div class="relatedPosts_title">kinetis KV58 DAC模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/01/22/KinetisRegistar/" title="ARM寄存器食用感受"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-22</div><div class="relatedPosts_title">ARM寄存器食用感受</div></div></a></div><div class="relatedPosts_item"><a href="/2018/01/30/DMAregister/" title="kinetis KV58 DMA模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-30</div><div class="relatedPosts_title">kinetis KV58 DMA模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/02/04/HSADC/" title="kinetis KV58 HSADC模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-04</div><div class="relatedPosts_title">kinetis KV58 HSADC模块食用指南</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '9694bc2db55eb2d27215',
+  clientSecret: 'a69ae19d3dc81b47c3aca670b6a16f64bfd9cd3f',
+  repo: 'ZzzzzzS.github.io',
+  owner: 'ZzzzzzS',
+  admin: ['ZzzzzzS'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 100,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2021 By ZZS</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">JXU5MDFBJXU1NTQ2JXU1QkJEJXU4ODYz</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/main.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="true" src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 网站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">点击刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

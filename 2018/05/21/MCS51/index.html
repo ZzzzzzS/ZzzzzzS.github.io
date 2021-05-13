@@ -1,0 +1,804 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCS51单片机常用寄存器及汇编指令梳理 | ZZSHUB</title><meta name="description" content="MCS51单片机寄存器简介 最近马上要考试51单片机了,借着这个机会梳理了一下51单片机的各个寄存器以及我个人常弄混淆的一些东西.  管脚   名称 描述    PSEN ROM选通信号   EA &#x3D;0 只访问片外ROM   ALE 地址锁存器信号   RESET 2机器周期高电平复位   XTAL1 crystal oscillator    一共40脚 32个IO 注意P1可以驱动4个LSTT"><meta name="keywords" content="register,MCS51"><meta name="author" content="ZZS"><meta name="copyright" content="ZZS"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2018/05/21/MCS51/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><meta property="og:type" content="article"><meta property="og:title" content="MCS51单片机常用寄存器及汇编指令梳理"><meta property="og:url" content="https://blog.zzshub.cn/2018/05/21/MCS51/"><meta property="og:site_name" content="ZZSHUB"><meta property="og:description" content="MCS51单片机寄存器简介 最近马上要考试51单片机了,借着这个机会梳理了一下51单片机的各个寄存器以及我个人常弄混淆的一些东西.  管脚   名称 描述    PSEN ROM选通信号   EA &#x3D;0 只访问片外ROM   ALE 地址锁存器信号   RESET 2机器周期高电平复位   XTAL1 crystal oscillator    一共40脚 32个IO 注意P1可以驱动4个LSTT"><meta property="og:image" content="https://zzshubimage-1253829354.file.myqcloud.com/blog/Shapes.jpg"><meta property="article:published_time" content="2018-05-21T15:20:00.000Z"><meta property="article:modified_time" content="2020-12-06T14:11:09.131Z"><meta name="twitter:card" content="summary"><link rel="manifest" href="/pwa/manifest.json"/><meta name="theme-color" content="#fff"/><meta name="msapplication-TileColor" content="#fff"/><link rel="apple-touch-icon" sizes="180x180" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="32x32" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="icon" type="image/png" sizes="16x16" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png"/><link rel="mask-icon" href="https://zzshubimage-1253829354.file.myqcloud.com/blog/PWA/PWAicon.png" color="#5bbad5"/><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = '1'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="prev" title="GitHub Pages开启全站https连接" href="https://blog.zzshub.cn/2018/09/17/fullhttps/"><link rel="next" title="kinetis KV58 DAC模块食用指南" href="https://blog.zzshub.cn/2018/05/19/DAC/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><style type="text/css">.app-refresh{position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease}.app-refresh-wrap{display:flex;color:#fff;height:100%;align-items:center;justify-content:center}.app-refresh-wrap a{color:#fff;text-decoration:underline;cursor:pointer}</style><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://zzshubimage-1253829354.file.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MCS51单片机寄存器简介"><span class="toc-number">1.</span> <span class="toc-text">MCS51单片机寄存器简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管脚"><span class="toc-number">2.</span> <span class="toc-text">管脚</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#P3口第二功能"><span class="toc-number">2.1.</span> <span class="toc-text">P3口第二功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内存"><span class="toc-number">3.</span> <span class="toc-text">内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">3.1.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#寄存器"><span class="toc-number">4.</span> <span class="toc-text">寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PCON-电源控制寄存器-不可位寻址"><span class="toc-number">4.0.1.</span> <span class="toc-text">PCON 电源控制寄存器 (不可位寻址)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCON-定时器控制寄存器-中断"><span class="toc-number">4.0.2.</span> <span class="toc-text">TCON 定时器控制寄存器&#x2F;中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TMOD-定时器工作方式寄存器-不可位寻址"><span class="toc-number">4.0.3.</span> <span class="toc-text">TMOD 定时器工作方式寄存器 (不可位寻址)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AUXR-辅助寄存器-不可位寻址"><span class="toc-number">4.0.4.</span> <span class="toc-text">AUXR 辅助寄存器(不可位寻址)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SCON-串口寄存器"><span class="toc-number">4.0.5.</span> <span class="toc-text">SCON 串口寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AUXR1-辅助寄存器1-不可位寻址"><span class="toc-number">4.0.6.</span> <span class="toc-text">AUXR1 辅助寄存器1(不可位寻址)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IE-interrupt-enable-中断允许寄存器"><span class="toc-number">4.0.7.</span> <span class="toc-text">IE (interrupt enable)中断允许寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IP-interrupt-priority-中断优先级寄存器"><span class="toc-number">4.0.8.</span> <span class="toc-text">IP (interrupt priority)中断优先级寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PSW-程序状态字寄存器"><span class="toc-number">4.0.9.</span> <span class="toc-text">PSW 程序状态字寄存器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#低功耗"><span class="toc-number">5.</span> <span class="toc-text">低功耗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#汇编"><span class="toc-number">6.</span> <span class="toc-text">汇编</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#寻址方式"><span class="toc-number">6.1.</span> <span class="toc-text">寻址方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项-1"><span class="toc-number">6.2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#汇编指令"><span class="toc-number">6.3.</span> <span class="toc-text">汇编指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#汇编伪指令"><span class="toc-number">6.4.</span> <span class="toc-text">汇编伪指令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#中断"><span class="toc-number">7.</span> <span class="toc-text">中断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项-2"><span class="toc-number">7.1.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定时器"><span class="toc-number">8.</span> <span class="toc-text">定时器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项-3"><span class="toc-number">8.1.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初值计算"><span class="toc-number">8.2.</span> <span class="toc-text">初值计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#16位"><span class="toc-number">8.2.1.</span> <span class="toc-text">16位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计时时长"><span class="toc-number">8.2.2.</span> <span class="toc-text">计时时长</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#串口UART"><span class="toc-number">9.</span> <span class="toc-text">串口UART</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项-4"><span class="toc-number">9.1.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#波特率"><span class="toc-number">9.2.</span> <span class="toc-text">波特率</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方式1或3波特率"><span class="toc-number">9.2.1.</span> <span class="toc-text">方式1或3波特率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方式0-2波特率"><span class="toc-number">9.2.2.</span> <span class="toc-text">方式0&#x2F;2波特率</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://zzshubimage-1253829354.file.myqcloud.com/blog/Shapes.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">ZZSHUB</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 图书</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">MCS51单片机常用寄存器及汇编指令梳理</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-05-21 23:20:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2018-05-21</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-12-06 22:11:09"><i class="fas fa-history fa-fw"></i> 更新于 2020-12-06</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 5 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="MCS51单片机寄存器简介"><a href="#MCS51单片机寄存器简介" class="headerlink" title="MCS51单片机寄存器简介"></a>MCS51单片机寄存器简介</h1><blockquote>
+<p>最近马上要考试51单片机了,借着这个机会梳理了一下51单片机的各个寄存器以及我个人常弄混淆的一些东西.</p>
+</blockquote>
+<h1 id="管脚"><a href="#管脚" class="headerlink" title="管脚"></a>管脚</h1><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PSEN</td>
+<td>ROM选通信号</td>
+</tr>
+<tr>
+<td>EA</td>
+<td>=0 只访问片外ROM</td>
+</tr>
+<tr>
+<td>ALE</td>
+<td>地址锁存器信号</td>
+</tr>
+<tr>
+<td>RESET</td>
+<td>2机器周期高电平复位</td>
+</tr>
+<tr>
+<td>XTAL1</td>
+<td>crystal oscillator</td>
+</tr>
+</tbody></table>
+<p> 一共40脚 32个IO 注意P1可以驱动4个LSTTL,其他为8个</p>
+<h2 id="P3口第二功能"><a href="#P3口第二功能" class="headerlink" title="P3口第二功能"></a>P3口第二功能</h2><table>
+<thead>
+<tr>
+<th>管脚</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P3.0</td>
+<td>RXD</td>
+</tr>
+<tr>
+<td>P3.1</td>
+<td>TXD</td>
+</tr>
+<tr>
+<td>P3.2</td>
+<td>INT0</td>
+</tr>
+<tr>
+<td>P3.3</td>
+<td>INT1</td>
+</tr>
+<tr>
+<td>P3.4</td>
+<td>T0</td>
+</tr>
+<tr>
+<td>P3.5</td>
+<td>T1</td>
+</tr>
+<tr>
+<td>P3.6</td>
+<td>WR</td>
+</tr>
+<tr>
+<td>P3.7</td>
+<td>RD</td>
+</tr>
+</tbody></table>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><table>
+<thead>
+<tr>
+<th>地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00H~07H</td>
+<td>第0工作区</td>
+</tr>
+<tr>
+<td>08H~0FH</td>
+<td>第1工作区</td>
+</tr>
+<tr>
+<td>……</td>
+<td>…….</td>
+</tr>
+<tr>
+<td>20H~2FH</td>
+<td>可位寻址区</td>
+</tr>
+<tr>
+<td>30H~7FH</td>
+<td>用户RAM区</td>
+</tr>
+<tr>
+<td>80H~FFH</td>
+<td>SFR</td>
+</tr>
+</tbody></table>
+<p>上电建议将SP改成60H避免冲突</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>内存中对应的位地址为 00H~7FH</p>
+<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><p>注意 SP复位值为07H(越过第0工作组寄存器区),IO复位是FFH,其他的都是0</p>
+<h3 id="PCON-电源控制寄存器-不可位寻址"><a href="#PCON-电源控制寄存器-不可位寻址" class="headerlink" title="PCON 电源控制寄存器 (不可位寻址)"></a>PCON 电源控制寄存器 (不可位寻址)</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>IDL</td>
+<td>空闲模式</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>PD</td>
+<td>掉电模式</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>GF0</td>
+<td>用户标志位</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>GF1</td>
+<td>用户标志位</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>SMOD</td>
+<td>波特率倍频</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="TCON-定时器控制寄存器-中断"><a href="#TCON-定时器控制寄存器-中断" class="headerlink" title="TCON 定时器控制寄存器/中断"></a>TCON 定时器控制寄存器/中断</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>IT0</td>
+<td>外部中断0触发方式=0电平触发</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>IE0</td>
+<td>外部中断0标志位,自动清0</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>IT1</td>
+<td></td>
+</tr>
+<tr>
+<td>D3</td>
+<td>IE1</td>
+<td></td>
+</tr>
+<tr>
+<td>D4</td>
+<td>TR0</td>
+<td>定时器计数允许位</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>TF0</td>
+<td>定时器溢出标志位,中断自动清0</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>TR1</td>
+<td></td>
+</tr>
+<tr>
+<td>D7</td>
+<td>TF1</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="TMOD-定时器工作方式寄存器-不可位寻址"><a href="#TMOD-定时器工作方式寄存器-不可位寻址" class="headerlink" title="TMOD 定时器工作方式寄存器 (不可位寻址)"></a>TMOD 定时器工作方式寄存器 (不可位寻址)</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>M0</td>
+<td>工作方式选择</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>M1</td>
+<td>工作方式选择</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>C/$\overline{T}$</td>
+<td>工作模式=0定时器模式</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>GATE</td>
+<td>门控=0 仅由$TR_x$控制</td>
+</tr>
+<tr>
+<td>D4~D7</td>
+<td>……</td>
+<td>功能同上</td>
+</tr>
+</tbody></table>
+<h3 id="AUXR-辅助寄存器-不可位寻址"><a href="#AUXR-辅助寄存器-不可位寻址" class="headerlink" title="AUXR 辅助寄存器(不可位寻址)"></a>AUXR 辅助寄存器(不可位寻址)</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>DISABLE</td>
+<td>ALE脉冲寄存器 =0 时刻发出脉冲</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>DISTRO</td>
+<td>看门狗 =0开启看门狗</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>WDILE</td>
+<td>空闲看门狗 =0 允许看门狗空闲计数</td>
+</tr>
+</tbody></table>
+<h3 id="SCON-串口寄存器"><a href="#SCON-串口寄存器" class="headerlink" title="SCON 串口寄存器"></a>SCON 串口寄存器</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>RI</td>
+<td>接收中断标志位</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>TI</td>
+<td>发送中断标志位</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>RB8</td>
+<td>接收的第9位</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>TB8</td>
+<td>发送的第9位</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>REN</td>
+<td>允许串口接收</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>SM2</td>
+<td>多机通信控制=1,RB8=1才中断请求</td>
+</tr>
+<tr>
+<td>D6/D7</td>
+<td>SM1/SM0</td>
+<td>工作方式选择</td>
+</tr>
+</tbody></table>
+<h3 id="AUXR1-辅助寄存器1-不可位寻址"><a href="#AUXR1-辅助寄存器1-不可位寻址" class="headerlink" title="AUXR1 辅助寄存器1(不可位寻址)"></a>AUXR1 辅助寄存器1(不可位寻址)</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>DPS</td>
+<td>选择DPTR</td>
+</tr>
+</tbody></table>
+<h3 id="IE-interrupt-enable-中断允许寄存器"><a href="#IE-interrupt-enable-中断允许寄存器" class="headerlink" title="IE (interrupt enable)中断允许寄存器"></a>IE (interrupt enable)中断允许寄存器</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>EX0</td>
+<td>外部中断0允许位</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>ET0</td>
+<td>定时器0中断允许位</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>EX1</td>
+<td></td>
+</tr>
+<tr>
+<td>D3</td>
+<td>ET1</td>
+<td></td>
+</tr>
+<tr>
+<td>D4</td>
+<td>ES</td>
+<td>串口中断允许位</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>ET2</td>
+<td></td>
+</tr>
+<tr>
+<td>D7</td>
+<td>EA</td>
+<td>全局中断允许位</td>
+</tr>
+</tbody></table>
+<h3 id="IP-interrupt-priority-中断优先级寄存器"><a href="#IP-interrupt-priority-中断优先级寄存器" class="headerlink" title="IP (interrupt priority)中断优先级寄存器"></a>IP (interrupt priority)中断优先级寄存器</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>PX0</td>
+<td></td>
+</tr>
+<tr>
+<td>D1</td>
+<td>PT0</td>
+<td></td>
+</tr>
+<tr>
+<td>D2</td>
+<td>PX1</td>
+<td></td>
+</tr>
+<tr>
+<td>D3</td>
+<td>PT1</td>
+<td></td>
+</tr>
+<tr>
+<td>D4</td>
+<td>PS</td>
+<td></td>
+</tr>
+<tr>
+<td>D5</td>
+<td>PT2</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="PSW-程序状态字寄存器"><a href="#PSW-程序状态字寄存器" class="headerlink" title="PSW 程序状态字寄存器"></a>PSW 程序状态字寄存器</h3><table>
+<thead>
+<tr>
+<th>位</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0</td>
+<td>P</td>
+<td>Acc奇偶校验,偶为0</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>OV</td>
+<td>溢出标志位</td>
+</tr>
+<tr>
+<td>D3/D4</td>
+<td>RS0/RS1</td>
+<td>工作组选择寄存器</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>F0</td>
+<td>用户标志位</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>Ac</td>
+<td>辅助进位标志位</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>Cy或C</td>
+<td>进位标志位或位累加器</td>
+</tr>
+</tbody></table>
+<h1 id="低功耗"><a href="#低功耗" class="headerlink" title="低功耗"></a>低功耗</h1><p><strong>空闲模式</strong>:仅CPU停机,其他工作正常,WatchDog可以计数,可由中断退出<br><strong>掉电模式</strong>:振荡器停机,内存中值保留,Vcc可以下降到2V,WatchDog停止计数,外部中断唤醒</p>
+<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><ul>
+<li>寄存器寻址(R0~R7 A B C DPTR)</li>
+<li>直接寻址</li>
+<li>寄存器间接寻址</li>
+<li>基址+变址间接寻址</li>
+<li>立即数寻址</li>
+<li>相对寻址</li>
+<li>位寻址</li>
+</ul>
+<h2 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>以字母开头的数字量需要添加前导0</li>
+<li>只有R0 R1能间接寻址</li>
+<li>读引脚-&gt;读修改写</li>
+<li>$符号表示跳转到标号</li>
+</ul>
+<h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MOVC</td>
+<td>查表指令</td>
+</tr>
+<tr>
+<td>MOVX</td>
+<td>读取外部RAM</td>
+</tr>
+<tr>
+<td>XCH</td>
+<td>字节交换指令</td>
+</tr>
+<tr>
+<td>XCHD</td>
+<td>半字节交换指令</td>
+</tr>
+<tr>
+<td>ADDC</td>
+<td>带进位的加法指令</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>十进制调整指令</td>
+</tr>
+<tr>
+<td>SUBB</td>
+<td>带借位的减法指令</td>
+</tr>
+<tr>
+<td>MUL</td>
+<td>乘法指令(高字节在B 低字节在A,乘积大于255,OV置1)</td>
+</tr>
+<tr>
+<td>DIV</td>
+<td>除法指令(A/B=A(商)……B(余数)),除数为0,OV置1</td>
+</tr>
+<tr>
+<td>SWAP</td>
+<td>A累加器半字节交换指令</td>
+</tr>
+<tr>
+<td>LJMP</td>
+<td>长跳转指令</td>
+</tr>
+<tr>
+<td>SJMP</td>
+<td>相对跳转(地址+偏移量+2)</td>
+</tr>
+<tr>
+<td>JMP</td>
+<td>间接跳转指令@A+DPTR,用于分支选择</td>
+</tr>
+<tr>
+<td>DJNZ</td>
+<td>减一不为零指令</td>
+</tr>
+<tr>
+<td>LCALL</td>
+<td>调用子程序指令,<strong>先低字节后高字节</strong></td>
+</tr>
+<tr>
+<td>RET</td>
+<td>子程序返回指令</td>
+</tr>
+<tr>
+<td>RETI</td>
+<td>中断子程序返回指令,清除了内部中断相关寄存器的状态</td>
+</tr>
+<tr>
+<td>CLR</td>
+<td>清零</td>
+</tr>
+<tr>
+<td>ANL</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>ORL</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>XRL</td>
+<td>逻辑异或</td>
+</tr>
+<tr>
+<td>JZ</td>
+<td>累加器为0跳转</td>
+</tr>
+<tr>
+<td>JNZ</td>
+<td>累加器不为0跳转</td>
+</tr>
+<tr>
+<td>CJNE</td>
+<td>比较不相等跳转</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>位指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SETB</td>
+<td>置位</td>
+</tr>
+<tr>
+<td>CLR</td>
+<td>清零</td>
+</tr>
+<tr>
+<td>CPL</td>
+<td>取反</td>
+</tr>
+<tr>
+<td>ANL</td>
+<td>与</td>
+</tr>
+<tr>
+<td>ORL</td>
+<td>或</td>
+</tr>
+<tr>
+<td>JC</td>
+<td>C为1跳转</td>
+</tr>
+<tr>
+<td>JNC</td>
+<td>C为0跳转</td>
+</tr>
+</tbody></table>
+<h2 id="汇编伪指令"><a href="#汇编伪指令" class="headerlink" title="汇编伪指令"></a>汇编伪指令</h2><table>
+<thead>
+<tr>
+<th>伪指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ORG</td>
+<td>标记开始</td>
+</tr>
+<tr>
+<td>END</td>
+<td>结束汇编</td>
+</tr>
+<tr>
+<td>EQU</td>
+<td>相当于宏定义</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>Define Byte</td>
+</tr>
+<tr>
+<td>DW</td>
+<td>Define Word</td>
+</tr>
+<tr>
+<td>SDA</td>
+<td>Define Bit</td>
+</tr>
+<tr>
+<td>DS</td>
+<td>Define Storage</td>
+</tr>
+</tbody></table>
+<h1 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h1><h2 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>串口中断TI和RI需要软件清除</li>
+<li>中断最小相应3周期 查询1+跳转2</li>
+<li>中断最长相应8周期 RETI2+DIV4+跳转2</li>
+<li>中断在压栈和出栈的时候需要现场保护关闭中断</li>
+</ul>
+<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><h2 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>定时器工作方式0 TL5位 TH8位</li>
+<li>计数器最大频率为晶振频率的1/24,12MHz的最大为500KHz</li>
+</ul>
+<h2 id="初值计算"><a href="#初值计算" class="headerlink" title="初值计算"></a>初值计算</h2><h3 id="16位"><a href="#16位" class="headerlink" title="16位"></a>16位</h3><p>($2^{16}-x$)x(1/主频)=期望的时间</p>
+<h3 id="计时时长"><a href="#计时时长" class="headerlink" title="计时时长"></a>计时时长</h3><p>以6MHz的晶振</p>
+<ul>
+<li>方式0:16.384ms</li>
+<li>方式1: 131.072ms</li>
+<li>方式2: 512$\mu$s</li>
+</ul>
+<h1 id="串口UART"><a href="#串口UART" class="headerlink" title="串口UART"></a>串口UART</h1><h2 id="注意事项-4"><a href="#注意事项-4" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>方式0时RXD=数据线 TXD=时钟线</li>
+<li>方式1接收一位采样3次<h2 id="波特率"><a href="#波特率" class="headerlink" title="波特率"></a>波特率</h2><h3 id="方式1或3波特率"><a href="#方式1或3波特率" class="headerlink" title="方式1或3波特率"></a>方式1或3波特率</h3>bandrate=$(2^{SMOD}/32)\times$定时器T1的溢出速率<br>bandrate=$(2^{SMOD}/32)\times(f_{osc}/12)/(256-x)$ 8位自动重装</li>
+</ul>
+<h3 id="方式0-2波特率"><a href="#方式0-2波特率" class="headerlink" title="方式0/2波特率"></a>方式0/2波特率</h3><p>bandrate=$(2^{SMOD}/64)\times f_{osc}$</p>
+<hr>
+<p>EOF</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZZS</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2018/05/21/MCS51/">https://blog.zzshub.cn/2018/05/21/MCS51/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/register/">register</a><a class="post-meta__tags" href="/tags/MCS51/">MCS51</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/10880134416723042.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/09/17/fullhttps/"><img class="prev-cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%85%A8%E7%AB%99https/20180522ssl.png" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GitHub Pages开启全站https连接</div></div></a></div><div class="next-post pull-right"><a href="/2018/05/19/DAC/"><img class="next-cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png" onerror="onerror=null;src='https://zzshubimage-1253829354.file.myqcloud.com/blog/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">kinetis KV58 DAC模块食用指南</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/05/19/DAC/" title="kinetis KV58 DAC模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-19</div><div class="relatedPosts_title">kinetis KV58 DAC模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/01/22/KinetisRegistar/" title="ARM寄存器食用感受"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/1F2101110-5%5B1%5D.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-22</div><div class="relatedPosts_title">ARM寄存器食用感受</div></div></a></div><div class="relatedPosts_item"><a href="/2018/01/30/DMAregister/" title="kinetis KV58 DMA模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-30</div><div class="relatedPosts_title">kinetis KV58 DMA模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/02/04/HSADC/" title="kinetis KV58 HSADC模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-04</div><div class="relatedPosts_title">kinetis KV58 HSADC模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/02/07/FTM/" title="kinetis KV58 FTM模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-07</div><div class="relatedPosts_title">kinetis KV58 FTM模块食用指南</div></div></a></div><div class="relatedPosts_item"><a href="/2018/02/05/kinetisadc/" title="kinetis KV58 ADC模块食用指南"><img class="relatedPosts_cover" data-src="https://zzshubimage-1253829354.file.myqcloud.com/%E5%AF%84%E5%AD%98%E5%99%A8%E9%A3%9F%E7%94%A8/DMA/%E8%8D%89999%E5%9B%BE.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-05</div><div class="relatedPosts_title">kinetis KV58 ADC模块食用指南</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '9694bc2db55eb2d27215',
+  clientSecret: 'a69ae19d3dc81b47c3aca670b6a16f64bfd9cd3f',
+  repo: 'ZzzzzzS.github.io',
+  owner: 'ZzzzzzS',
+  admin: ['ZzzzzzS'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 100,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2021 By ZZS</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">JXU5MDFBJXU1NTQ2JXU1QkJEJXU4ODYz</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/main.js"></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="true" src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/third-party/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/gh/ZzzzzzS/ZzzzzzS.github.io@3.0/themes/butterfly/source/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><div class="app-refresh" id="app-refresh"> <div class="app-refresh-wrap"> <label>✨ 网站已更新最新版本 👉</label> <a href="javascript:void(0)" onclick="location.reload()">点击刷新</a> </div></div><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>
