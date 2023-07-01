@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/</loc>
+    
+    <lastmod>2023-07-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.zzshub.cn/2022/11/13/360VO_Research/</loc>
     
     <lastmod>2023-07-01</lastmod>
@@ -537,6 +546,13 @@
   
   <url>
     <loc>https://blog.zzshub.cn/tags/hexo/</loc>
+    <lastmod>2023-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.zzshub.cn/tags/Computer-Vision/</loc>
     <lastmod>2023-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

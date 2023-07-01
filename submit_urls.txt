@@ -1,3 +1,4 @@
+https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/
 https://blog.zzshub.cn/2022/11/13/360VO_Research/
 https://blog.zzshub.cn/2017/11/03/2017Conclusion/
 https://blog.zzshub.cn/2018/05/19/DAC/
