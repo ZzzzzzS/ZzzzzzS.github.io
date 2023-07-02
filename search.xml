@@ -3507,4 +3507,142 @@ The segmentation difficulty is high for the above images, and even for the human
         <tag>Computer Vision</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Visual Place Recognition via HMM Filter and Smoother</title>
+    <url>/2022/10/28/visual_place_recognition/</url>
+    <content><![CDATA[<h1 id="Visual-Place-Recognition-via-HMM-Filter-and-Smoother"><a href="#Visual-Place-Recognition-via-HMM-Filter-and-Smoother" class="headerlink" title="Visual Place Recognition via HMM Filter and Smoother"></a>Visual Place Recognition via HMM Filter and Smoother</h1><blockquote>
+<p><strong>Abstract</strong>—Visual position recognition affects the safety and accuracy of automatic driving. To accurately identify the location, this paper studies a visual place recognition algorithm based on HMM filter and HMM smoother. Firstly, we constructed the traffic situations in Canberra city. Then the mathematical models of the HMM filter and HMM smoother were performed. Finally, the vehicle position was predicted based on the algorithms. Experiment results show that HMM smoother is better than HMM filter in terms of prediction accuracy. </p>
+</blockquote>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>Visual place recognition is a well-defined problem: given an image taken at a certain place, people, animals, computers or robots should judge whether the corresponding place of the image has been seen before; If it has been seen, where is the image taken [1]. This technique provides basic position information for automatic driving, and its accuracy directly determines the safety and accuracy of automatic driving. Therefore, the research on visual place recognition is particularly basic and important.</p>
+<p>Due to the large amount of data, low latency and the limitation of the hardware in autonomous driving vison-based scenarios, it is required to develop an algorithm that can not only process the image data output by the camera sensor quickly and efficiently but also reduce the storage and computing burden for the hardware chips.  </p>
+<p>For vision-based location recognition, the sophisticated local-invariant feature extractors, such as Scale-Invariant Feature Transformation and Speed-Up Robust Features, hand-crafted global image descriptors, such as Generalized Search Tress, and the bag-of-visual-words approach were widely used [2]. Recent years, with the development of the deep learning, the convolution neural network is a widely used technique. It offers state-of-the-art performance on many category-level recognition tasks, such as object classification, scene recognition, and image classification.  </p>
+<p>However, all the techniques above required not only high-performance computing of the hardware but also a huge storage of the memory. It needs to store all the past picture data and compare it with the sensor’s current measurements, which will highly increase the cost of the autonomous vehicle.</p>
+<p>Markov chain has the characteristics of the current state only depends on the previous state, fast computation, easy deployment and does not require too high performance. Hidden Markov Chains only require the measurements of each current state. This feature can significantly improve the speed of the recognition and highly reduce the amount of data to be processed and stored for the place recognition. In this paper, we proposed two methods based on Hidden Markov Chains.</p>
+<p>Filtering is the problem if estimating the current state at this time given the history of the sensor (camera) measurements. Hidden Markov filter obtains the estimated current state based on the past measurements, while hidden Markov Smoother obtains the estimated state based on the measurements before and after it, which are forward pass and backward pass. It is the problem of estimating the state at this time given past, present and future sensor measurements. The key point in the algorithms above is to obtain a reasonable transmission matrix that can compute to estimate the current state of the autonomous driving vehicle. On the basis of the filter, the smoother introduces more state data, which will improve the accuracy of location recognition.</p>
+<p>Thus, in this paper, the filter and smoother of Hidden Markov Chains were used in place recognition. It is expected that the algorithms can avoid the hardware performance requirements while maintaining high accuracy. It can improve computing speed and simplify the complexity of location recognition algorithms. This paper is organized as follows. In section 1, we introduced the topic of this paper, system modeling and problem statement is in section 2, the proposed algorithm is described in section 3, detailed simulation result is shown in section 4 and in section 5 summarize this paper.</p>
+<h1 id="SYSTEM-MODELING"><a href="#SYSTEM-MODELING" class="headerlink" title="SYSTEM MODELING"></a>SYSTEM MODELING</h1><p>As mentioned above, this paper mainly discusses the problem of re-localization in autonomous driving systems. Different from existing hierarchical clustering-based bag-of-words methods, this paper introduces a directed graph-based Hidden Markov Model. Combined with observation it can relocate vehicle positions. This paper uses a Hidden Markov Model based filter to solve the location. In addition, this paper also uses HMM based smoother to verify the results.</p>
+<h2 id="map-prior-probability"><a href="#map-prior-probability" class="headerlink" title="map prior probability"></a>map prior probability</h2><p>In order to describe the actual position of the vehicle in the map, we establish a position set $V&#x3D;{p_1,p_2,\ldots p_i,\ldots,p_M}$. Where $p_i\in V$ represents a certain position in the map. Let $E_{ij}$ represent the connection from the $p_i$ to the $p_j$ , where $i,j \in M$. Let $\Phi_{ij}$ represent the transition probability from position $p_i$ to position $p_j$, that is, the probability that the next status is $p_j$ when the current position is $p_i$, which also can be represented as $P\left(p_j\middle| p_i\right)$. Since $\Phi_{ij}$ is expressed as probability, the sum of transition probabilities should be one.</p>
+<p>$$<br>\sum_{j}^{j\in s}\Phi_{i,j}&#x3D;1<br>$$</p>
+<p>where <em>s</em> is the position directly connected to the current position. Since the transition probability is position dependent, $E_{ij}\neq E_{ji}$, which is $P\left(p_j\middle| p_i\right)\neq P\left(p_i\middle| p_j\right)$. From this we can build a directed graph.</p>
+<p>$$<br>G\left(V,E,\Phi\right)<br>$$</p>
+<p>In the graph, $V, E, \Phi$ represent the vertex, edge, and edge weight, respectively, and the specific definitions are as above. As shown in the figure below, this project uses the Canberra city center map as the system map then simulates the status by combining the actual traffic flow data. The red vertex in the figure represents the position $p_i$ in the model, and the blue edge represents that the position $p_i$ is directly connected to $p_j$, that is, $P\left(p_j\middle| p_i\right)\neq0$. We establish different transition probabilities $\Phi_{ij}$ for different edges according to the traffic flow. At vertex such as 1 to 9 on the main road, there will be a higher probability of going straight and a lower probability of stopping. Take node 1 as an example,  $\Phi_{1,2}&gt;\Phi_{1,70}&gt;\Phi_{1,1}$. For nodes that are not on the main road, such as node 66, the probability of driving in each direction is roughly the same, and there is also a certain probability of parking. The full transition probability table designed in this paper is attached in the appendix.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image1.png"></p>
+<center>Fig.1 The connection between positions in the simulated system.</center>
+
+<h2 id="vehicle-position-measurement"><a href="#vehicle-position-measurement" class="headerlink" title="vehicle position measurement"></a>vehicle position measurement</h2><p>Let the observation result of the vehicle at a certain position $x$ be $y_x$, where $y,x \in V$. The vehicle may have different observations at this location, and the probability of observing different positions can be expressed as the following probability. $P\left(y&#x3D;p_j\middle| x&#x3D;p_i\right)$, where $\sum_{p_j}^{p_j\in V}{P\left(y&#x3D;p_j\middle| x&#x3D;p_i\right)}&#x3D;1.$</p>
+<p>This project uses designed discrete observation probabilities then add Gaussian noise to simulate real observations. Let the preset discrete observation probability be $P_c$, and the superimposed Gaussian noise be $P_{gaussian}$. </p>
+<p>In this project, different observation probabilities are designed according to different road conditions. Among them, the probability between the nodes directly connected to the node is not 0, and the observation probability of the node cannot directly connect to the current node is 0. Since this project believes that the sensor itself has high measurement accuracy, the probability of correct observation is much greater than the probability of incorrect observation, namely.</p>
+<p>$$<br>P\left(y&#x3D;p_i\middle| x&#x3D;p_i\right)\gg P\left(y\neq p_i\middle| x&#x3D;p_i\right)<br>$$</p>
+<p>On average $P\left(y&#x3D;p_i\middle| x&#x3D;p_i\right)\approx0.7$. The final observation probability of the vehicle still needs to add Gaussian noise on the basis of the discrete probability described above to simulate the noise situation in the observation, then normalize it so that the probability sum is 1. The Gaussian noise superimposed in this project is $\mu&#x3D;p_i,\delta&#x3D;1$. The final observation probability is as follows:<br>$$<br>P\left(y&#x3D;p_j\middle| x&#x3D;p_i\right)<br>$$</p>
+<p>$$<br>&#x3D;\left(P_c\left(y&#x3D;p_j\middle| x&#x3D;p_i\right)+P_{gaussian}\left(p_j;p_i\right)\right)\times\delta<br>$$</p>
+<p>$$<br>P_{gaussian}\left(p_j;p_i\right)&#x3D;\frac{1}{\sqrt{2\pi}}exp{\left(-\frac{\left(p_j-p_i\right)^2}{2}\right)}<br>$$</p>
+<p>where $\delta$ is the normalization coefficient. </p>
+<p>$$<br>\delta&#x3D;1+\sum_{p_j}^{p_j\in V}{P_{gaussian}\left(p_j;p_i\right)}<br>$$</p>
+<h1 id="PROPOSED-INFERENCE-ALGORITHM"><a href="#PROPOSED-INFERENCE-ALGORITHM" class="headerlink" title="PROPOSED INFERENCE ALGORITHM"></a>PROPOSED INFERENCE ALGORITHM</h1><p>HMM is an unobservable motion sequence randomly generated by a hidden Markov chain. We use HMM filter and HMM smoother for visual place recognition. In this way, we could use time sequence of the images and the high relationship between the time and position due to the limited movement [3]. The mathematical details of HMM filter and HMM smoother are shown below.</p>
+<h2 id="HMM-filter"><a href="#HMM-filter" class="headerlink" title="HMM filter"></a>HMM filter</h2><p>he vector ${\hat{X}}_k\in R^n$ is defined as the filter estimate, which represents the conditional probability mass function of $X_k$ given $y_1,y_2,\ldots,y_k$:<br>$$<br>{\hat{X}}_k&#x3D;\left[\begin{matrix}p\left(X_k&#x3D;1\middle| y_1,y_2,\ldots,y_k\right)\<br> p\left(X_k&#x3D;2\middle| y_1,y_2,\ldots,y_k\right)\<br>  \vdots\<br>   p\left(X_k&#x3D;n\middle| y_1,y_2,\ldots,y_k\right)\<br>   \end{matrix} \right]<br>$$</p>
+<p>The matrix $A\in R^{n\times n}$ is defined as the transition probability matrix:</p>
+<p>$$<br>A&#x3D;\left[\begin{matrix}p\left(X_k&#x3D;1\middle| X_{k-1}&#x3D;1\right)&amp;\cdots&amp;p\left(X_k&#x3D;1\middle| X_{k-1}&#x3D;n\right)\ \vdots&amp;\ddots&amp;\vdots\ p\left(X_k&#x3D;n\middle| X_{k-1}&#x3D;1\right)&amp;\cdots&amp;p\left(X_k&#x3D;n\middle| X_{k-1}&#x3D;n\right)\ \end{matrix}\right]<br>$$<br>Diagonal matrix $B(y_k)\in R^{n\times n}$ is defined with likelihoods for measurement $y_k$ on its diagonal:</p>
+<p>$$<br>B\left(y_k\right)&#x3D;\left[\begin{matrix}p\left(y_k\middle| X_{k-1}&#x3D;1\right)&amp;\cdots&amp;0\ \vdots&amp;\ddots&amp;\vdots\ 0&amp;\cdots&amp;p\left(y_k\middle| X_{k-1}&#x3D;n\right)\ \end{matrix}\right]<br>$$</p>
+<p>Then we could written the HMM filter as follows:</p>
+<p>$$<br>{\hat{X}}_k&#x3D;N_k^{-1}B\left(y_k\right) A{\hat{X}} _{k-1}<br>$$</p>
+<p>where $A{\hat{X}}_{k-1}$ represents the “prediction step”,  $N_k^{-1}B\left(y_k\right)$ represents the “update step”, and $N_k\in R$ normalizes to ensure ${\hat{X}}_k$ is a probability mass function, i.e., </p>
+<p>$$<br>N_k&#x3D;\sum_{i&#x3D;1}^{n}{V(i)} with  V&#x3D;B(y_k)A{\hat{X}}_{k-1}<br>$$</p>
+<h2 id="HMM-smoother"><a href="#HMM-smoother" class="headerlink" title="HMM smoother"></a>HMM smoother</h2><p>The first step for HMM smoother called Forward Pass. In this step, we have to calculate the unnormalized filter estimate. The details are as follows.</p>
+<ul>
+<li>The vector is defined as the unnormalized filter estimate:</li>
+</ul>
+<p>$$<br>\alpha_k&#x3D;\left[\begin{matrix}p\left(X_k&#x3D;1,y_1,y_2,\ldots,y_k\right)\ p\left(X_k&#x3D;2,y_1,y_2,\ldots,y_k\right)\ \vdots\ p\left(X_k&#x3D;n,y_1,y_2,\ldots,y_k\right)\ \end{matrix}\right]<br>$$</p>
+<ul>
+<li>When k change from 1 to T, compute the unnormalized filter estimate:<br>$$<br>\alpha_k&#x3D;B\left(y_k\right)A\alpha_{k-1}<br>$$</li>
+</ul>
+<p>with$\alpha_0&#x3D;\pi_0$</p>
+<p>The second step called Backward Pass. In this step, we have to calculate the unnormalized backward filter estimate. The details are as follows.</p>
+<ul>
+<li><p>The vector $\beta_k\in R^n$ is defined as the unnormalized backward filter estimate:<br>$$<br>\beta_k&#x3D;\left[\begin{matrix}p\left(X_k&#x3D;1,y_{k+1},y_{k+2},\ldots,y_T\right)\ p\left(X_k&#x3D;2,y_{k+1},y_{k+2},\ldots,y_T\right)\ \vdots\ p\left(X_k&#x3D;n,y_{k+1},y_{k+2},\ldots,y_T\right)\ \end{matrix}\right]<br>$$</p>
+</li>
+<li><p>When k change from T to 1, compute the unnormalized backward filter estimate:<br>$$<br>\beta_{k-1}&#x3D;A^\prime B\left(y_k\right)\beta_k<br>$$</p>
+</li>
+</ul>
+<p>where $\beta_T&#x3D;1$ representing the vector of ones, and $ A^\prime$ represents the transpose of A.</p>
+<p>The final step called Multiply and Normalize. In this step, we have to calculate the smoother estimate, which represents the final result. The details are as follows.</p>
+<ul>
+<li><p>The vector $ \gamma_k\in R^n$ is defined as the smoother estimate:<br>$$<br>\gamma_k&#x3D;\left[\begin{matrix}p\left(X_k&#x3D;1\middle| y_1,y_2,\ldots,y_T\right)\ p\left(X_k&#x3D;2\middle| y_1,y_2,\ldots,y_T\right)\ \vdots\ p\left(X_k&#x3D;n\middle| y_1,y_2,\ldots,y_T\right)\ \end{matrix}\right]<br>$$</p>
+</li>
+<li><p>When k change from 0 to T, computer and normalize via elementwise multiplication:<br>$$\gamma_k\left(x_k\right)&#x3D;\frac{\alpha_k\left(x_k\right)\beta_k\left(x_k\right)}{\sum{\alpha_k\left(x_k\right)\beta_k\left(x_k\right)}}$$</p>
+</li>
+</ul>
+<h1 id="Simulation-Results"><a href="#Simulation-Results" class="headerlink" title="Simulation Results"></a>Simulation Results</h1><p>We selected 105 traffic intersections in Canberra central, and found the current location of cars through HMM filter and HMM smoother model. To make comparison, we set the length of the state sequence to be generated to 50. It was required to design an evaluation method. In this simulation, we used accuracy.</p>
+<p>$$<br>accuracy&#x3D;\frac{Number\ of\ correct\ estimated\ states}{Number\ of\ all\ states}<br>$$</p>
+<p>The simulation results are shown below.</p>
+<h2 id="Initial-state-x3D-5"><a href="#Initial-state-x3D-5" class="headerlink" title="Initial state &#x3D; 5"></a>Initial state &#x3D; 5</h2><p>We started experiment from setting initial state as 5 and did the following experiments.</p>
+<h3 id="Initial-state-x3D-5-Sigma-x3D-1"><a href="#Initial-state-x3D-5-Sigma-x3D-1" class="headerlink" title="Initial state&#x3D;5, Sigma &#x3D; 1"></a>Initial state&#x3D;5, Sigma &#x3D; 1</h3><p>Firstly, we set the covariance of Gaussian Variance as 1. The HMM filter result can be seen in the image below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image3.png"></p>
+<center>Fig.2 Filter simulation: Initial state=5, sigma=1</center>
+
+<p>The accuracy of HMM filter is 0.76.</p>
+<p>The result of HMM smoother can be seen in the image below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image4.png"></p>
+<center>Fig.3 Smoother simulation: Initial state=5, sigma=1</center>
+
+<p>The accuracy of HMM Smoother is 0.88.</p>
+<p>The image below shows the performance of filter and smoother when initial state is 5 and sigma is 1.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image5.png"></p>
+<center>Fig.4 Comparison: Initial state=5, sigma=1</center>
+
+<h3 id="Initial-state-x3D-5-Sigma-x3D-2"><a href="#Initial-state-x3D-5-Sigma-x3D-2" class="headerlink" title="Initial state&#x3D;5, Sigma &#x3D; 2"></a>Initial state&#x3D;5, Sigma &#x3D; 2</h3><p>When setting the covariance of Gaussian noise is 2, the result of HMM filter can be seen in the image below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image6.png"></p>
+<center>Fig.5 Filter simulation: Initial state=5, sigma=2</center>
+
+<p>The accuracy of HMM filter when sigma equals 2 is 0.68.</p>
+<p>The result of HMM smoother can be seen in the image below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image7.png"></p>
+<center>Fig.6 Smoother simulation: Initial state=5, sigma=2</center>
+
+<p>The accuracy of HMM smoother is 0.82.</p>
+<p>The image below shows the performance of filter and smoother when initial state is 5 and sigma is 2.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image8.png"></p>
+<center>Fig.7 Comparison: Initial state=5, sigma=2</center>
+
+<h2 id="Initial-state-x3D-90"><a href="#Initial-state-x3D-90" class="headerlink" title="Initial state &#x3D; 90"></a>Initial state &#x3D; 90</h2><p>Then we set the initial state as 90, sigma &#x3D; 1</p>
+<p>Similarly, we set the covariance of Gaussian Variance as 1. The HMM filter result can be seen in the image below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image9.png"></p>
+<center>Fig.8 Filter simulation: Initial state=90, sigma=1</center>
+
+<p>The accuracy of HMM filter in this assumption is 0.76.</p>
+<p>The result of HMM smoother can be seen below.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image10.png"></p>
+<center>Fig.9 Smoother simulation: Initial state=90, sigma=1</center>
+
+<p>The accuracy of HMM smoother in this assumption is 0.82.</p>
+<p>The image below shows the performance of filter and smoother when initial state is 90 and sigma is 1.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image11.png"></p>
+<center>Fig.10 Comparison: Initial state=90, sigma=1</center>
+
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We record the accuracy in the figure above in the following table.</p>
+<p>Table 1. The accuracy of HMM Filter and HMM Smoother</p>
+<p>|| <strong>HMM filter accuracy</strong>|<strong>HMM smoother accuracy</strong>|<br>| — | — | — |<br>| Initial state&#x3D;5 Sigma &#x3D; 1 | 76% | 88% |<br>| Initial state&#x3D;5 Sigma &#x3D; 2 | 68% | 82% |<br>| Initial state&#x3D;90 Sigma &#x3D; 1 | 76% | 82% |</p>
+<p>It could be drawn the following conclusions.</p>
+<p>Firstly, it can be found that at the beginning, both the filter and smoother show a good performance. Then it can be seen that the smoother validates a more accurate estimations of the state. We could see that the error between the true and estimated state of the HMM smother is less than the error of the HMM filter. Especially at the end of the states, the results of the smoother are more consistent with the real state.</p>
+<p>Due to the HMM smoother considered not only the past measurements of the autonomous vehicle, but also the future states of the vehicle. In other words, through backward pass, more knowledge is considered into the model when estimating the current state, which will lead a better estimation, while the filter can only estimate the state by using the past knowledge. Thus, it is reasonable that as the time went by, the advantages of the smoother over the filter become more and more obvious.</p>
+<p>However, the smoother will meet more limitations in practice. In practical scenarios, it is difficult to obtain a large number of subsequent measurements of the state to be estimated. Thus, to use the smoother in practice, it is required more sensors on the vehicle and a good fusion of the sensors.</p>
+<p>Secondly, the added Gaussian noise when generated measurements have also made affects in HMM filter and HMM smoother. It could be found that the higher the variance of the noise, the worse the results of the filter and smoother.</p>
+<p>Thirdly, for the states where the mismatch happened, the confusion matrix affected the HMM filter and smoother. In practice, it is the accuracy of the sensor. Due to the errors in sensors when capture the places, the algorithm cannot obtain absolutely accurate measurements as the input, which will lead mismatches in the simulations results. What’s more, Bayesian algorithm is based on possibilities. If the prior belief or likelihood are inaccurate, the result will be bound to a mismatch. For this point, the algorithm like HMM smoother that introduces more knowledge will have an even greater advantage. Especially in the use of autonomous driving which requires extreme security and reliability, HMM smoother will be a better choice.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>In this paper, HMM filter and HMM smoother were used for visual position recognition. By comparing the state observation results under different initial positions, we found that the HMM smoother had better performance. By comparing different gaussian noise, we found that the higher the noise variance, the worse the results of filter and smoother. Besides, after the theoretical analysis, we thought that the errorswhich led to the difference between the real states and the simulation resultsare the accuracy of the sensor. Thus, In order to improve the accuracy of position recognition, we put forward the followingconclusions:firstly, HMM smoother performs a better performance with more limitations.Secondly, the sensors which used to do measurements played an important role in predictions. Improving the performance of the sensors will be an essential solution if the prediction algorithmdoesn’t work well.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li>S. Lowry, N. Sunderhauf, P. Newman, J. J. Leonard, D. Cox, P. Corke, and M. J. Milford, “Visual place recognition: A survey,” IEEE Transactions on Robotics, vol. 32, no. 1, pp. 1–19, 2016.</li>
+<li>Z. Zeng, J. Zhang, X. Wang, Y. Chen, and C. Zhu, “Place recognition: An overview of Vision Perspective,” Applied Sciences, vol. 8, no. 11, p. 2257, 2018.</li>
+<li>D. Doan, Y. Latif, T.-J. Chin, Y. Liu, T.-T. Do, and I. Reid, “Scalable place recognition under appearance change for autonomous driving,” 2019 IEEE&#x2F;CVF International Conference on Computer Vision (ICCV), 2019.</li>
+</ol>
+<h1 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h1><h2 id="A-The-transition-probability-table"><a href="#A-The-transition-probability-table" class="headerlink" title="A.The transition probability table"></a>A.The transition probability table</h2><p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image12.png"></p>
+<p><strong>Figure</strong>  <strong>A.</strong> the full transition matrix, since the matrix has 105 cols and 105 rows, it can only be presented as a figure. This figure has 105x105 pixels, each pixel represents one of the elements in the matrix. The brightness of pixels represents the probability of that element. The lighter pixel will have a larger probability. The sum of each cols are equal to one.</p>
+<h2 id="B-The-observation-matrix"><a href="#B-The-observation-matrix" class="headerlink" title="B.The observation matrix"></a>B.The observation matrix</h2><p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/image13.png"></p>
+<p><strong>Figure B</strong> The full observation matrix. This is a 105x105 figure, where each pixel represents one of the elements in observation matrix, the definition of brightness is the same as transition matrix figure. The average value of diagonal elements is 0.7.</p>
+<h1 id="PDF-Version-Download"><a href="#PDF-Version-Download" class="headerlink" title="PDF Version Download"></a>PDF Version Download</h1><p>The PDF version of this article can be downloaded from the following link:</p>
+<p><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/visual_place_recog/Report.pdf">Download Here</a></p>
+]]></content>
+      <tags>
+        <tag>Computer Vision</tag>
+        <tag>State Estimation</tag>
+      </tags>
+  </entry>
 </search>
