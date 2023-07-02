@@ -3620,7 +3620,30 @@ The segmentation difficulty is high for the above images, and even for the human
 
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We record the accuracy in the figure above in the following table.</p>
 <p>Table 1. The accuracy of HMM Filter and HMM Smoother</p>
-<p>|| <strong>HMM filter accuracy</strong>|<strong>HMM smoother accuracy</strong>|<br>| — | — | — |<br>| Initial state&#x3D;5 Sigma &#x3D; 1 | 76% | 88% |<br>| Initial state&#x3D;5 Sigma &#x3D; 2 | 68% | 82% |<br>| Initial state&#x3D;90 Sigma &#x3D; 1 | 76% | 82% |</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>HMM filter accuracy</strong></th>
+<th><strong>HMM smoother accuracy</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initial state&#x3D;5 Sigma &#x3D; 1</td>
+<td>76%</td>
+<td>88%</td>
+</tr>
+<tr>
+<td>Initial state&#x3D;5 Sigma &#x3D; 2</td>
+<td>68%</td>
+<td>82%</td>
+</tr>
+<tr>
+<td>Initial state&#x3D;90 Sigma &#x3D; 1</td>
+<td>76%</td>
+<td>82%</td>
+</tr>
+</tbody></table>
 <p>It could be drawn the following conclusions.</p>
 <p>Firstly, it can be found that at the beginning, both the filter and smoother show a good performance. Then it can be seen that the smoother validates a more accurate estimations of the state. We could see that the error between the true and estimated state of the HMM smother is less than the error of the HMM filter. Especially at the end of the states, the results of the smoother are more consistent with the real state.</p>
 <p>Due to the HMM smoother considered not only the past measurements of the autonomous vehicle, but also the future states of the vehicle. In other words, through backward pass, more knowledge is considered into the model when estimating the current state, which will lead a better estimation, while the filter can only estimate the state by using the past knowledge. Thus, it is reasonable that as the time went by, the advantages of the smoother over the filter become more and more obvious.</p>
