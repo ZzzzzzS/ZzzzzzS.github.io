@@ -3695,7 +3695,7 @@ The segmentation difficulty is high for the above images, and even for the human
 <h2 id="Raisim目录结构"><a href="#Raisim目录结构" class="headerlink" title="Raisim目录结构"></a>Raisim目录结构</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Name</span><br><span class="line">----</span><br><span class="line">cmake       <span class="comment"># cmake文件</span></span><br><span class="line">DEVELOPERS_ONLY</span><br><span class="line">docs        <span class="comment"># 文档</span></span><br><span class="line">examples    <span class="comment"># 例子</span></span><br><span class="line">raisim      <span class="comment"># raisim库二进制文件和头文件</span></span><br><span class="line">raisimGymTorch <span class="comment"># raisimGymTorch库和实例，用于和gym，以及pytorch配合使用</span></span><br><span class="line">raisimMatlab</span><br><span class="line">raisimPy    <span class="comment"># raisim的python接口</span></span><br><span class="line">raisimUnity <span class="comment"># 基于unity3D的仿真器</span></span><br><span class="line">raisimUnityOpengl <span class="comment"># 基于unity3D的仿真器，使用opengl渲染（linux下使用）</span></span><br><span class="line">rsc         <span class="comment"># 资源文件，主要是例子里的各种模型文件</span></span><br><span class="line">thirdParty  <span class="comment"># 第三方库，包括了Eigen和pybind11（共raisimGymTorch使用）</span></span><br><span class="line">CMakeLists.txt</span><br><span class="line">COPYING</span><br><span class="line">LICENSE.md</span><br><span class="line">package.xml</span><br><span class="line">README.md</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="Raisim激活"><a href="#Raisim激活" class="headerlink" title="Raisim激活"></a>Raisim激活</h2><p>激活部分建议参阅官方文档的激活章节<a href="https://raisim.com/sections/License.html">https://raisim.com/sections/License.html</a>, 由于raisim使用了Google Doc来填写申请，因此可能需要一些神奇工具才能打开网页。注意申请学术账户可以使用自己的google账户来申请，但是后续需要填写学校邮箱，激活码将发给学校邮箱内。学术账户最多可以申请10个，应该够用了。</p>
-<p>将通过电子邮件收到的激活密钥重命名为 activation.raisim。将该文件保存在 <code>&lt;YOUR-HOME-DIR&gt;/.raisim/</code> 中。在 Linux 和 Mac 中，这是<code> /home/&lt;YOUR-USERNAME&gt;/.raisim/</code>。在 Windows 中，这是 <code>C/Users/&lt;YOUR-USERNAME&gt;/.raisim/</code>（您可能不使用 C 作为主目录）。</p>
+<p>将通过电子邮件收到的激活密钥重命名为 activation.raisim。将该文件保存在 <code>&lt;YOUR-HOME-DIR&gt;/.raisim/</code> 中。在 Linux 和 Mac 中，这是<code>/home/&lt;YOUR-USERNAME&gt;/.raisim/</code>。在 Windows 中，这是 <code>C/Users/&lt;YOUR-USERNAME&gt;/.raisim/</code>（您可能不使用 C 作为主目录）。</p>
 <h1 id="Raisim的Visualizers"><a href="#Raisim的Visualizers" class="headerlink" title="Raisim的Visualizers"></a>Raisim的Visualizers</h1><p>Raisim目前包含3个Visualizers，分别是raisimUnity，RaisimUnreal，和RaisimOgre。</p>
 <ul>
 <li>如果你只在Linux上工作，并且你想自定义可视化工具 - RaisimOgre。</li>
@@ -3713,7 +3713,7 @@ The segmentation difficulty is high for the above images, and even for the human
 <ul>
 <li><p>网络防火墙问题，如果你的电脑上有防火墙，那么需要将raisimUnity添加到防火墙的白名单中，否则会导致无法连接到远程仿真器，在Windows上列入白名单后仍可能会出现问题，建议重启或者关闭防火墙后使用。</p>
 </li>
-<li><p>wslg问题，如果使用的是wsl运行仿真器，那么请不要尝试在wslg中运行RaisimUnity，wslg的图形对3D类应用程序支持欠佳（包括ros的rviz也是），会导致RaisimUnity无法正常运行。建议还是在Windows上运行Visualizers，将wsl视为远端服务器。</p>
+<li><p>wslg问题，如果使用的是wsl运行仿真器，那么请不要尝试在wslg中运行RaisimUnity，wslg的图形对3D类应用程序支持欠佳（包括ros的rviz也是）（关闭wslg的缩放会缓解该问题，wslg目前尚不支持vulkan API, 对OpenGL支持还行），会导致RaisimUnity无法正常运行。建议还是在Windows上运行Visualizers，将wsl视为远端服务器。</p>
 </li>
 </ul>
 <h1 id="Raisim的API"><a href="#Raisim的API" class="headerlink" title="Raisim的API"></a>Raisim的API</h1><p>Raisim的API文档可以在<a href="https://raisim.com/">https://raisim.com/</a>查看，这里简单介绍一下Raisim的API。</p>
@@ -3740,7 +3740,7 @@ The segmentation difficulty is high for the above images, and even for the human
 </blockquote>
 <p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/materials.png"></p>
 <p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/materials.gif"></p>
-<h2 id="Server类"><a href="#Server类" class="headerlink" title="Server类"></a>Server类</h2><p>使用<code>Raisim::Server</code>类可以创立服务器供Visualizers监听。使用<code>inline explicit RaisimServer(World *world)</code>方法将World类绑定到server上，之后使用<code>inline explicit RaisimServer(World *world)</code>方法即可开始监听。<strong>注意Server与Visualizers的通信和实际仿真过程发生在不同的线程上，因此需要一些锁来进行线程同步</strong>。</p>
+<h2 id="Server类"><a href="#Server类" class="headerlink" title="Server类"></a>Server类</h2><p>使用<code>Raisim::Server</code>类可以创立服务器供Visualizers监听。使用<code>inline explicit RaisimServer(World *world)</code>方法将World类绑定到server上，之后使用<code>inline explicit RaisimServer(World*world)</code>方法即可开始监听。<strong>注意Server与Visualizers的通信和实际仿真过程发生在不同的线程上，因此需要一些锁来进行线程同步</strong>。</p>
 <p>例如在更新World的过程中使用Server类的<code>lockVisualizationServerMutex(),unlockVisualizationServerMutex()</code>来加锁防止在更新World时读取数据。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//节选自 examples/server/balls.cpp</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>;; i++) &#123;</span><br><span class="line">    <span class="built_in">RS_TIMED_LOOP</span>(<span class="built_in">int</span>(world.<span class="built_in">getTimeStep</span>()*<span class="number">1e6</span>))</span><br><span class="line">    server.<span class="built_in">lockVisualizationServerMutex</span>(); <span class="comment">//加锁</span></span><br><span class="line">    <span class="keyword">if</span> (i % interval == <span class="number">0</span> &amp;&amp; j &lt; numBalls) &#123;</span><br><span class="line">      <span class="keyword">auto</span>* ball = world.<span class="built_in">addSphere</span>(<span class="number">0.1</span>, <span class="number">1.0</span>);</span><br><span class="line">      ball-&gt;<span class="built_in">setPosition</span>(<span class="number">0</span>, <span class="number">-2</span>, <span class="number">0.8</span>);</span><br><span class="line">      ball-&gt;<span class="built_in">setVelocity</span>(<span class="number">0</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">      ball-&gt;<span class="built_in">setAppearance</span>(<span class="string">&quot;red&quot;</span>);</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    server.<span class="built_in">applyInteractionForce</span>();  <span class="comment">//更新交互力，这句话不能删除，否则会出问题</span></span><br><span class="line">    world.<span class="built_in">integrate</span>(); <span class="comment">//更新World</span></span><br><span class="line">    server.<span class="built_in">unlockVisualizationServerMutex</span>();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
@@ -3872,6 +3872,29 @@ The segmentation difficulty is high for the above images, and even for the human
       <tags>
         <tag>Computer Vision</tag>
         <tag>Control</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WSL中的GPU原理总结</title>
+    <url>/2023/08/30/wslgperformace/</url>
+    <content><![CDATA[<h1 id="WSL中的GPU原理总结"><a href="#WSL中的GPU原理总结" class="headerlink" title="WSL中的GPU原理总结"></a>WSL中的GPU原理总结</h1><blockquote>
+<p>自wsl(Windows Subsystem on Linux)发布以来，许多性能已经得到了长足的进步。经过多年的发展，该项目从一个玩具项目发展成现在可以真正用于生产环境的项目，给需要使用Linux环境但是又不想脱离Windows便利生态的开发者们来说带来了福音。<br>wsl的图形性能也受到许多人的关注，特别是自微软2020build大会官方发布支持图形界面的wslg之后，wsl的图形性能发展进入了快车道。本文主要结合微软和英伟达提供的资料简要总结了一下wsl中调用GPU的原理以及使用GPU进行3D渲染加速和CUDA编程可能遇到的问题。</p>
+</blockquote>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>关于wsl是如何调用GPU加速的主要参考了这篇微软推出的<a href="https://devblogs.microsoft.com/directx/directx-heart-linux/">博客</a>。这篇博客里把大概的原理讲清楚了，简单来说就是hyperv虚拟机虚拟了一个<code>/dev/dxg</code>硬件，这个硬件通过WDDM(Windows Display Driver Model)(版本不低于2.9)共享了Windows端的显卡，然后在这个虚拟出的硬件上建立了一个Direct 3D的API实现了在Linux上使用Direct 3D(真的会有人在Linux上用这个吗。。。)。然后通过修改Mesa(OpenGL的开源实现)来实现了对OpenGL的支持(暂时还不支持vulkan)，以及让Nvidia单独推出了一个版本的CUDA调用D3D的API来实现通用计算。这样，显卡虚拟化最重要的图形流水线和计算流水线都得到了支持。其实下面这几张从官方博客中截取出来的图能够更好的说明这个调用关系。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/dxg.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/d3d.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/opengl.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/cuda.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/directml.png"></p>
+<p>可以看出这套方案还是很精妙的，是目前我已知的唯一不使用显卡直通，不适用英伟达专业卡的虚拟化接口等技术的虚拟化方案了。显卡直通会让宿主机无法使用显卡，而后者仅供专业卡使用。都有一些缺陷。而vmware等虽然能实现图形流水线从而进行3D加速，但是无法使用CUDA并行加速计算，因此难以用来进行科学计算等任务。这套方案的精妙之处是巧妙的使用了windows的显示驱动模型实现共享，以及让Nvidia单独推出了wsl版本的CUDA来支持计算流水线。了解原理后对出现故障的修复很有帮助。</p>
+<h1 id="CUDA使用与性能分析"><a href="#CUDA使用与性能分析" class="headerlink" title="CUDA使用与性能分析"></a>CUDA使用与性能分析</h1><p>CUDA的使用还是比较简单，按照原理的描述，首先需要找一个支持WDDM2.9以上的显卡驱动(官网下载的最新版就支持)，然后去Nvidia的CUDA下载页面下载wsl专用的CUDA工具包。安装完成后分别在wsl和Windows上执行<code>nvidia-smi</code>命令，应该可以发现驱动版本是完全一致的。之后就一切按照正常的Linux环境配置就可以开启炼丹之旅了。由于wsl对内存进行了虚拟化，因此显存不够时可以使用内存作为虚拟显存使用，这么虽然慢一点，但是可以缓解小显存无法开大batch size的情况。<br>从原理上看增加了这么多调用确实会降低一些性能。这篇来自Nvidia的<a href="https://developer.nvidia.com/blog/leveling-up-cuda-performance-on-wsl2-with-new-enhancements/">技术报告</a>详细的测试了性能的损失。从这张图中可以看到随着batch_size的增加，wsl与原生linux之间的性能差距在逐渐缩小。这是由于额外开销只发生在调用GPU的阶段。所以尽可能的减少对GPU的调用，并让GPU充分忙碌，提升性能，这对所有的cuda编程都有效。（毕竟就算是原生系统，创建cuda核函数，复制内存等也需要时间）。总的来说，确实有很大的性能下降，但是也还在可接受范围内，此外nvidia在报告中也提到他们在改善性能，比最初发布的版本已经快很多了。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/PyTorch-MNIST-sample-time.png"></p>
+<h1 id="3D加速"><a href="#3D加速" class="headerlink" title="3D加速"></a>3D加速</h1><p>与上一段讲的通用计算不同，本章讲的图形渲染加速又是另一个故事了。这里主要介绍OpenGL的配置，目前来看想使用GPU加速直接下载最新版本的Mesa即可。但可能需要设置一下后端的名字。使用<code>MESA_D3D12_DEFAULT_ADAPTER_NAME</code>变量来指定。具体可以参考<a href="https://github.com/microsoft/wslg/wiki/GPU-selection-in-WSLg">这篇文档</a>。<br>安装完成后可以输入<code>glxinfo -B</code>命令来查看，如果输出有显卡的名字那么基本安装成功了，如果还是输出LLVM等字样那么说明还是使用CPU在计算。也可以通过<code>glxgears</code>程序来判断，如果在任务管理器中发现GPU占用上升，且CPU负载不高那么证明加速成功。当然显示情况也跟RDP有关，这里放一张窗口显示的框架。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/wslg-wayland.png"></p>
+<p>最后说一个任务管理器的奇怪特性，如果在设置中关闭了<code>GPU加速调度</code>选项，那么无法看到wsl的3D渲染对gpu的占用情况，但是任务管理器此时可以看到CUDA的占用，如果开启，可以看到wsl的3D渲染占用gpu了，但是CUDA的选项就消失了。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/acc.png"></p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>本文大概总结了一下wslg的现状，详细内容建议阅读本文出现的几篇官方文档。总的来说wslg经过调教基本可以作为生产工具使用，但是还存在一些问题，比如各种lib需要手动安装，不支持vulkan，cuda效率不高等问题，相信只要微软不弃坑，这些问题都会逐渐得到解决。（至少比wsl1的技术路线好多了）</p>
+<hr>
+<p>EOF</p>
+]]></content>
+      <tags>
+        <tag>wsl</tag>
       </tags>
   </entry>
 </search>
