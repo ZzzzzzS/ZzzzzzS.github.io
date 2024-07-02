@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>强化学习仿真器Isaac Gym的安装，配置，与初步使用 | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="强化学习仿真器Isaac Gym的安装，配置，与初步使用 写在前面 – 最近强化学习强化学习在机器人领域真是大放异彩，鉴于IsaacGym+LeggedGym的仿真器和训练框架组合已经成为了机器人领域强化学习算法的主流工具，于是我打算写一篇博客来记录一下这个仿真环境的安装和使用。   本文主要参考了这篇博客的内容。  Isaac Gym简介本文主要介绍Isaac Gym强化学习仿真器和Legged">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习仿真器Isaac Gym的安装，配置，与初步使用">
+<meta property="og:url" content="https://blog.zzshub.cn/2024/06/21/DRL_LeggedgymInstall/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="强化学习仿真器Isaac Gym的安装，配置，与初步使用 写在前面 – 最近强化学习强化学习在机器人领域真是大放异彩，鉴于IsaacGym+LeggedGym的仿真器和训练框架组合已经成为了机器人领域强化学习算法的主流工具，于是我打算写一篇博客来记录一下这个仿真环境的安装和使用。   本文主要参考了这篇博客的内容。  Isaac Gym简介本文主要介绍Isaac Gym强化学习仿真器和Legged">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png">
+<meta property="article:published_time" content="2024-06-21T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.679Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="机器人">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2024/06/21/DRL_LeggedgymInstall/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '强化学习仿真器Isaac Gym的安装，配置，与初步使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">强化学习仿真器Isaac Gym的安装，配置，与初步使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.679Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="强化学习仿真器Isaac-Gym的安装，配置，与初步使用"><a href="#强化学习仿真器Isaac-Gym的安装，配置，与初步使用" class="headerlink" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"></a>强化学习仿真器Isaac Gym的安装，配置，与初步使用</h1><blockquote>
+<p><strong>写在前面</strong> – 最近强化学习强化学习在机器人领域真是大放异彩，鉴于IsaacGym+LeggedGym的仿真器和训练框架组合已经成为了机器人领域强化学习算法的主流工具，于是我打算写一篇博客来记录一下这个仿真环境的安装和使用。</p>
+</blockquote>
+<blockquote>
+<p>本文主要参考了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/560826876">这篇博客</a>的内容。</p>
+</blockquote>
+<h1 id="Isaac-Gym简介"><a href="#Isaac-Gym简介" class="headerlink" title="Isaac Gym简介"></a>Isaac Gym简介</h1><p>本文主要介绍Isaac Gym强化学习仿真器和Legged Gym强化学习训练框架的安装和使用。Isaac Gym是一个基于GPU加速的并行计算仿真环境，主要可进行强化学习研究。它支持导入URDF和MJCF文件、基于张量(tensor)的API、域随机化(domain randomlization)以及各种传感器和环境。该仿真器使用GPU并行加速，比传统使用cpu计算的仿真如mujoco&#x2F;raisim等可提速上百倍，非常适合需要大量采样的深度学习类算法使用，但仿真精度相较于mujoco等有略微下降，Isaac Gym框架对显存大小有较高要求，最低显存配置为4GB，(个人推荐8GB以上)，对显卡算力最低要求不高GTX10系列及以上可运行。Legged Gym是一个由ETH推出的腿足机器人强化学习训练框架，实现了如ppo等算法和ANYmal&#x2F;Cassie等机器人的训练权重等，该框架需要配合Isaacgym仿真器使用。经过我的测试<strong>Isaac Gym可以运行在Ubuntu20.04，Ubuntu22.04系统上，且python版本为python3.8。python3.9及以上版本实测无法运行，Windows10&#x2F;11，Windows Subsystem on Linux, Docker for Windows等环境实测无法运行，Linux虚拟机实测无法运行，Ubuntu24.04可以运行但坑比较多因此也不太建议</strong>，其余未提及的系统未测试，Docker for Linux理论上可以支持。<strong>但强烈建议安装Ubuntu20.04&#x2F;22.04配合anaconda的python3.8环境使用</strong>。</p>
+<p>该环境安装主要包括以下几个部分，鉴于Ubuntu操作系统的安装网上资料已经很多，因此本文不会介绍这部分内容，建议读者自行获取资料。</p>
+<ul>
+<li>Nvidia 显卡驱动安装</li>
+<li>Nvidia CUDA环境安装</li>
+<li>anaconda python虚拟环境安装</li>
+<li>Isaac Gym 仿真器安装</li>
+<li>Legged Gym(我修改的版本) 训练框架安装</li>
+</ul>
+<h1 id="Isaac-Gym安装"><a href="#Isaac-Gym安装" class="headerlink" title="Isaac Gym安装"></a>Isaac Gym安装</h1><h2 id="Nvidia-显卡驱动安装"><a href="#Nvidia-显卡驱动安装" class="headerlink" title="Nvidia 显卡驱动安装"></a>Nvidia 显卡驱动安装</h2><p>显卡驱动安装，在终端中输入<code>sudo  ubuntu-drivers autoinstall</code>即可完成安装系统推荐的显卡驱动。</p>
+<p>安装完成后在终端窗口中输入<code>nvidia-smi</code>命令，如果出现以下内容，则证明显卡驱动已经安装完成。如下所示，我安装的驱动版本是546.12, CUDA版本是12.3。**注意后续安装CUDA和pytorch时大版本号需要与之对齐，即对于这里的情况来说需要对应安装CUDA12.x版本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+---------------------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 546.12                 Driver Version: 546.12       CUDA Version: 12.3     |</span><br><span class="line">|-----------------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name                     TCC/WDDM  | Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                                         |                      |               MIG M. |</span><br><span class="line">|=========================================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce RTX 4090      WDDM  | 00000000:01:00.0 Off |                  Off |</span><br><span class="line">|  0%   32C    P8               3W / 450W |      0MiB / 24564MiB |      0%      Default |</span><br><span class="line">|                                         |                      |                  N/A |</span><br><span class="line">+-----------------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+---------------------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                            |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |</span><br><span class="line">|        ID   ID                                                             Usage      |</span><br><span class="line">|=======================================================================================|</span><br><span class="line">|  No running processes found                                                           |</span><br><span class="line">+---------------------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>若安装失败，可以参阅<a target="_blank" rel="noopener" href="https://blog.csdn.net/Perfect886/article/details/119109380">这篇文章</a>提供的方法手动安装和卸载。注意如果安装时出现需要设置密码等情况可以从计算机bios中关闭security boot选项来避免一些麻烦，但这会破坏计算机启动过程中的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25279889">可信计算链条</a>从而导致安全性略微降低。</p>
+<h2 id="安装CUDA环境"><a href="#安装CUDA环境" class="headerlink" title="安装CUDA环境"></a>安装CUDA环境</h2><p>CUDA 是 NVIDIA 发明的一种并行计算平台和编程模型。它通过利用图形处理器 (GPU) 的处理能力，可大幅提升计算性能。是使用Nvidia显卡进行通用计算的基础。安装CUDA的方式较为简单，按照nvidia官网教程走基本上不会有太大问题。访问cuda<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads">下载官网</a>。选择适合自己系统的版本, 这里我选择的是离线安装的版本。<strong>请注意不建议使用apt源安装，apt源包含的cuda版本较为老旧，可能产生冲突！</strong></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cuda_dl.png" alt="cuda_dl"></p>
+<p>选择完成后将官网给出的下列代码依次输入即可完成安装，可以忽略下方可选的驱动更新选项。注意保持网络畅通，<code>wget</code>那一步报错是网络问题。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cuda_ins.png" alt="cuda_ins"><br>安装完成后在命令行里输入<code>/usr/local/cuda/bin/nvcc --version</code>, 若出现类似如下内容即证明安装成功。（可以将该路径加入环境变量。）<strong>注意：千万不能使用<code>sudo apt install nvidia-cuda-toolkit</code>命令，否则会重新安装apt源的过时版本的CUDA</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nvcc: NVIDIA (R) Cuda compiler driver</span><br><span class="line">Copyright (c) 2005-2023 NVIDIA Corporation</span><br><span class="line">Built on Fri_Nov__3_17:51:05_Pacific_Daylight_Time_2023</span><br><span class="line">Cuda compilation tools, release 12.3, V12.3.103</span><br><span class="line">Build cuda_12.3.r12.3/compiler.33492891_0</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Anaconda虚拟环境"><a href="#安装Anaconda虚拟环境" class="headerlink" title="安装Anaconda虚拟环境"></a>安装Anaconda虚拟环境</h2><p>Anaconda是一个开源的Python发行版，用于科学计算和数据分析。它包含了许多常用的科学计算和数据分析库，如NumPy、Pandas、Matplotlib等，并且提供了一个方便的环境管理工具。Anaconda的目标是简化Python环境的配置和管理，使得科学计算和数据分析的工作更加高效和便捷。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。Miniconda是Conda的轻量级版本，只包含最基本的内容——Python与conda以及相关的必须依赖项123。它适用于空间要求严格的用户或只需要Python和Conda核心功能的用户。本教程将安装miniconda。</p>
+<p>访问miniconda的<a target="_blank" rel="noopener" href="https://docs.anaconda.com/miniconda/">官方网站</a>下载linux版本的miniconda。并逐行在终端中执行官网最底部显示的快速安装教程(注意选择linux版本的教程)，miniconda默认安装在用户主目录下的miniconda3文件夹中。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/conda_ins.png" alt="conda_ins"></p>
+<p>关闭终端并重新打开后发现终端命令行开头出现<code>(base)</code>字样即说明安装成功。这是安装后conda自动启动了base环境引起的现象，可正常使用(ros环境下能不能用不清楚)，也可以通过<code>conda config --set auto_activate_base false</code>命令来设置不自动启动base环境。</p>
+<p>之后新建一个python3.8的虚拟环境供我们后续使用。使用如下命令新建一个python3.8环境。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n &quot;legged-gym&quot; python=3.8</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>-n</code>参数指定新环境的名字，可根据需要自行修改。<code>python=3.8</code>参数指定使用python3.8环境。</p>
+<p>之后使用<code>conda activate legged-gym</code>命令激活新建的环境。在命令行中输入<code>python</code>，若出现<code>Anaconda</code>, <code>python3.8</code>等字样则说明安装成功。之后输入<code>exit()</code>即可退出python命令行解释器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python 3.8.19 (default, Mar 20 2024, 19:58:24)</span><br><span class="line">[GCC 11.2.0] :: Anaconda, Inc. on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可参阅<a target="_blank" rel="noopener" href="https://anaconda.org.cn/">此链接</a>，或<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenxy_bwave/article/details/119996001">此链接</a>来快速入门anaconda。</p>
+<h2 id="安装Isaac-Gym环境"><a href="#安装Isaac-Gym环境" class="headerlink" title="安装Isaac Gym环境"></a>安装Isaac Gym环境</h2><p>安装Isaac Gym可以从<a target="_blank" rel="noopener" href="https://developer.nvidia.com/isaac-gym">官网下载</a>，但由于Nvidia官方已经不再维护该仿真器(Nvidia已经转向<a target="_blank" rel="noopener" href="https://docs.omniverse.nvidia.com/isaacsim/latest/index.html">Omniverse Sim</a>了，但其API过于复杂，暂时用不到)，从官网下载的版本存在一些细小的依赖问题需要我们手动修复。</p>
+<h3 id="修复官方版本的Isaac-Gym"><a href="#修复官方版本的Isaac-Gym" class="headerlink" title="修复官方版本的Isaac Gym"></a>修复官方版本的Isaac Gym</h3><p>下载软件包后将其解压缩 **(推荐解压缩到用户根目录，解压到的目录就是Isaac Gym的安装位置，配置好后无法变更)**。使用<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode</a>等文本编辑器打开<code>./python/isaacgym/torch_utils.py</code>文件，将第135行的<code>np.float</code>修改为<code>float</code>如下所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_axis_params</span>(<span class="params">value, axis_idx, x_value=<span class="number">0.</span>, dtype=np.<span class="built_in">float</span>, n_dims=<span class="number">3</span></span>):</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将np.float修改为float</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_axis_params</span>(<span class="params">value, axis_idx, x_value=<span class="number">0.</span>, dtype=<span class="built_in">float</span>, n_dims=<span class="number">3</span></span>):</span><br></pre></td></tr></table></figure>
+
+<p>由于官方版本的Isaac Gym会默认安装cpu版本的<a target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/topics/pytorch">pytorch</a>，因此我们还需要提前手动安装gpu版本的pytorch防止被覆盖安装。首先激活刚才新建的anaconda环境：<code>conda activate legged-gym</code>，之后前往<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a>下载pytorch，向下滑动一些后在如下图所示的界面中选择对应的版本，并在激活的conda环境中输入指令来完成安装。<strong>请注意，推荐选择使用conda的方式安装，使用pip安装也可以，注意一定要安装对应的cuda大版本，如这里是cuda12。</strong></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/pytorch_ins.png" alt="torch_ins"></p>
+<p>在激活的环境中启动python, 并输入<code>import torch</code>，和<code>print(torch.cuda.is_available())</code>，若输出为True则证明gpu版本的pytorch已经安装到位。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Python <span class="number">3.10</span><span class="number">.13</span> | packaged by Anaconda, Inc. | (main, Sep <span class="number">11</span> <span class="number">2023</span>, <span class="number">13</span>:<span class="number">24</span>:<span class="number">38</span>) [MSC v<span class="number">.1916</span> <span class="number">64</span> bit (AMD64)] on win32</span><br><span class="line"><span class="type">Type</span> <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> <span class="keyword">or</span> <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(torch.cuda.is_available())</span><br><span class="line"><span class="literal">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="正式安装Isaac-Gym与测试"><a href="#正式安装Isaac-Gym与测试" class="headerlink" title="正式安装Isaac Gym与测试"></a>正式安装Isaac Gym与测试</h3><p>激活刚才新建的anaconda环境：<code>conda activate legged-gym</code>。使用<code>cd</code>命令跳转到<code>./python</code>目录下。执行<code>pip install -e .</code>命令即可完成安装。</p>
+<p>下面将测试Isaac Gym是否安装成功。使用<code>cd</code>命令跳转到<code>./python/examples</code>目录下。在激活的环境下执行<code>python ./joint_monkey.py</code> 或该文件夹下的其他任意一个文件，若能正常弹出窗口并运行，则说明安装成功。</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/isaacgym_run.png" alt="Isaacgym_run"></p>
+<h2 id="安装Legged-Gym环境"><a href="#安装Legged-Gym环境" class="headerlink" title="安装Legged Gym环境"></a>安装Legged Gym环境</h2><p>使用<code>conda activate legged-gym</code>命令激活刚才建立的环境。</p>
+<p>在激活的环境中使用<code>git clone https://github.com/leggedrobotics/rsl_rl</code>命令克隆rsl_rl仓库到本地,<strong>注意请妥善选择克隆位置，安装后无法修改位置</strong>。<br>执行<code>cd rsl_rl &amp;&amp; git checkout v1.0.2 &amp;&amp; pip install -e .</code>命令完成rsl_rl的安装。</p>
+<p>在激活的环境中使用<code>git clone https://github.com/leggedrobotics/legged_gym.git</code>命令克隆Legged Gym仓库到本地,<strong>注意请妥善选择克隆位置，安装后无法修改位置</strong>。<br>执行<code>cd legged_gym &amp;&amp; pip install -e .</code>命令完成安装。</p>
+<p>使用<code>python legged_gym/scripts/train.py --task=anymal_c_flat</code>命令来测试环境是否能正常训练。</p>
+<p>使用<code>python legged_gym/scripts/play.py --task=anymal_c_flat</code>命令来测试您刚才训练出的策略。</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/leggedgym_train.png" alt="leg_train"></p>
+<p>恭喜您，到目前为止您已经成功安装了Isaac Gym+Legged Gym环境。在下一篇文章中我将通过一个二阶倒立摆的例子来初步展示一个完整的训练过程。</p>
+<h2 id="延申阅读：更多的训练框架"><a href="#延申阅读：更多的训练框架" class="headerlink" title="延申阅读：更多的训练框架"></a>延申阅读：更多的训练框架</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ZzzzzzS/legged_gym">Legged Gym(zzs_version)</a>: 由我本人修改，目前我正在使用的Legged Gym版本，添加了一些更友好的可视化功能，和一个注释完整，对新手友好的二阶倒立摆训练环境(comming soon)。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/roboterax/humanoid-gym">Humanoid Gym</a>: 由星动纪元推出的对ETH Legged Gym框架的改进版本。实现了IsaacGym仿真器到mujoco仿真器的sim2sim迁移。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/isaac-sim/IsaacGymEnvs">IsaacGymEnv</a>: 由Nvidia官方推出的强化学习训练框架，实现了如AMP模仿学习，基于SDF函数的碰撞检测等更多功能。但框架较复杂。</p>
+</li>
+</ul>
+<h1 id="API参考文档和入门教程"><a href="#API参考文档和入门教程" class="headerlink" title="API参考文档和入门教程"></a>API参考文档和入门教程</h1><ul>
+<li>Pytorch 文档: <a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">https://pytorch.org/docs/stable/index.html</a></li>
+<li>Pytorch 官方教程: <a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/">https://pytorch.org/tutorials/</a></li>
+<li>Pytorch 中文教程(建议看英文原版): <a target="_blank" rel="noopener" href="https://www.w3cschool.cn/pytorch/">https://www.w3cschool.cn/pytorch/</a></li>
+<li>Isaac Gym 文档(本站镜像，官方不提供在线文档): <a href="https://blog.zzshub.cn/legged_gym/">https://blog.zzshub.cn/legged_gym/</a></li>
+<li>Isaac Gym 论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2108.10470">https://arxiv.org/abs/2108.10470</a></li>
+<li>Legged Gym 项目主页： <a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/legged_gym">https://github.com/leggedrobotics/legged_gym</a></li>
+<li>RSL_RL 项目主页：<a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/rsl_rl">https://github.com/leggedrobotics/rsl_rl</a></li>
+</ul>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><ul>
+<li><p>Ubuntu18-22.04安装和干净卸载nvidia显卡驱动：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Perfect886/article/details/119109380">https://blog.csdn.net/Perfect886/article/details/119109380</a></p>
+</li>
+<li><p>安装IsaacGym报错ImportError: libpython3.8.so.1.0: cannot open shared object file: No such file or directory <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43989965/article/details/136612205">https://blog.csdn.net/weixin_43989965/article/details/136612205</a></p>
+</li>
+<li><p>isaacgym启动时窗口黑屏：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/isaac-gym-examples-black-window-when-running-joint-monkey-py/165975">https://forums.developer.nvidia.com/t/isaac-gym-examples-black-window-when-running-joint-monkey-py/165975</a></p>
+</li>
+<li><p>isaacgym与远程桌面问题：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/viewer-gui-with-virtual-display/187835">https://forums.developer.nvidia.com/t/viewer-gui-with-virtual-display/187835</a></p>
+</li>
+</ul>
+<p>更多问题和解决方案建议访问Nvidia<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/">官方论坛</a>查询。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2024/06/21/DRL_LeggedgymInstall/">https://blog.zzshub.cn/2024/06/21/DRL_LeggedgymInstall/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/">机器人</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器人控制中的强化学习极简入门指南</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-21</div><div class="title">机器人控制中的强化学习极简入门指南</div></div></a></div><div><a href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-26</div><div class="title">强化学习仿真器Raisim进行深度强化学习的初步尝试</div></div></a></div><div><a href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-26</div><div class="title">强化学习仿真器Raisim的安装，配置，与初步使用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%BF%E7%9C%9F%E5%99%A8Isaac-Gym%E7%9A%84%E5%AE%89%E8%A3%85%EF%BC%8C%E9%85%8D%E7%BD%AE%EF%BC%8C%E4%B8%8E%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">强化学习仿真器Isaac Gym的安装，配置，与初步使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Isaac-Gym%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">Isaac Gym简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Isaac-Gym%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">Isaac Gym安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nvidia-%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.</span> <span class="toc-text">Nvidia 显卡驱动安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85CUDA%E7%8E%AF%E5%A2%83"><span class="toc-number">3.2.</span> <span class="toc-text">安装CUDA环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Anaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">3.3.</span> <span class="toc-text">安装Anaconda虚拟环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Isaac-Gym%E7%8E%AF%E5%A2%83"><span class="toc-number">3.4.</span> <span class="toc-text">安装Isaac Gym环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E5%AE%98%E6%96%B9%E7%89%88%E6%9C%AC%E7%9A%84Isaac-Gym"><span class="toc-number">3.4.1.</span> <span class="toc-text">修复官方版本的Isaac Gym</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%8F%E5%AE%89%E8%A3%85Isaac-Gym%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="toc-number">3.4.2.</span> <span class="toc-text">正式安装Isaac Gym与测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Legged-Gym%E7%8E%AF%E5%A2%83"><span class="toc-number">3.5.</span> <span class="toc-text">安装Legged Gym环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E7%94%B3%E9%98%85%E8%AF%BB%EF%BC%9A%E6%9B%B4%E5%A4%9A%E7%9A%84%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6"><span class="toc-number">3.6.</span> <span class="toc-text">延申阅读：更多的训练框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%E5%92%8C%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">API参考文档和入门教程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">常见问题</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

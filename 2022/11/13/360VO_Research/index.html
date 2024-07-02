@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Research Report of 360VO Visual Odometry Using A Single 360 Camera | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Research Report of 360VO: Visual Odometry Using A Single 360 Camera Abstract—This article is a review and evaluation of the paper 360VO: Visual Odometry Using A Single 360 Camera in the 2022 IEEE Inte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Research Report of 360VO Visual Odometry Using A Single 360 Camera">
+<meta property="og:url" content="https://blog.zzshub.cn/2022/11/13/360VO_Research/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="Research Report of 360VO: Visual Odometry Using A Single 360 Camera Abstract—This article is a review and evaluation of the paper 360VO: Visual Odometry Using A Single 360 Camera in the 2022 IEEE Inte">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg">
+<meta property="article:published_time" content="2022-11-13T06:12:32.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.679Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="SLAM">
+<meta property="article:tag" content="Computer Vision">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2022/11/13/360VO_Research/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Research Report of 360VO Visual Odometry Using A Single 360 Camera',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Research Report of 360VO Visual Odometry Using A Single 360 Camera</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-13T06:12:32.000Z" title="发表于 2022-11-13 14:12:32">2022-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.679Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>30分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Research Report of 360VO Visual Odometry Using A Single 360 Camera"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Research-Report-of-360VO-Visual-Odometry-Using-A-Single-360-Camera"><a href="#Research-Report-of-360VO-Visual-Odometry-Using-A-Single-360-Camera" class="headerlink" title="Research Report of 360VO: Visual Odometry Using A Single 360 Camera"></a>Research Report of 360VO: Visual Odometry Using A Single 360 Camera</h1><blockquote>
+<p><strong>Abstract</strong>—This article is a review and evaluation of the paper 360VO: Visual Odometry Using A Single 360 Camera in the 2022 IEEE International Conference on Robotics and Automation (ICRA). Starts from this article and summarizes the method of it and then presents the related works. Then, some improvement directions are proposed for this article. Finally, the commercial value and social value of the visual slam field are discussed. After decades of development in the field of visual slam, good localization and mapping effects have been achieved. This article proposes a slam framework based on 360 cameras and combines direct methods to complete localization and mapping tasks. Experiments show that the method proposed in this paper has good robustness and accuracy.</p>
+</blockquote>
+<h1 id="EXECUTIVE-SUMMARY"><a href="#EXECUTIVE-SUMMARY" class="headerlink" title="EXECUTIVE SUMMARY"></a>EXECUTIVE SUMMARY</h1><p>This article is a summary and review of the paper <em><a target="_blank" rel="noopener" href="https://doi.org/10.1109/ICRA46639.2022.9812203"> 360VO: Visual Odometry Using A Single 360 Camera</a></em> published in the 2022 IEEE International Conference on Robotics and Automation (ICRA). This paper uses a 360° omnidirectional camera to complete the simultaneous localization and mapping task (SLAM). simulation experiment and the real indoor and outdoor mapping experiments using a handheld 360° camera demonstrate that the method achieves good results. A 360 camera is a special kind of camera that can capture 360° horizontal and 180° vertical information at once.</p>
+<p>360° camera can be achieved using only 2 fisheye cameras placed back-to-back. This significantly reduces costs, such these commercial products are becoming more popular and accessible, such as insta 360, go pro, etc. To utilize 360° cameras for localization and mapping, this paper proposes slam method based on direct method. Direct methods estimate camera pose and depth features by minimizing the photometric error. Pinhole and various fisheye camera models are not suitable for describing projections from 360 cameras. This paper proposes an appropriate 360 camera model, which uses a spherical model for projection. Images using equidistant projection assume that the 360 camera is an undistorted camera. The spherical camera model only needs two parameters, namely the width and height of the image, to complete the projection. The defined photometric error in DSO is expressed as the energy loss of the corresponding pattern. For the mapping, this paper models the inverse depth estimation of points with probability distributions. The depth range was initially assumed over a wide range. As new frames appear, it will continuously search for the best corresponding point to estimate depth more accurately. In order to speed up the search and guarantee the accuracy, the search process should follow the epipolar constraints. This paper searches for the minimum error on the epipolar line with a certain step to complete the depth estimation. To quantitatively evaluate the performance of this method, this paper proposes a synthetic dataset with dense features. The dataset contains 10 sequences whose features appear in different urban models. 360VO achieves a similar effect compared to the indirect method of Open-VSLAM. At the same time this article cuts the image and then runs orb-slam3. Apparently, methods using 360 cameras are generally more robust and accurate because there is more features in widefield camera than normal cameras. Then, physical experiments of indoor and outdoor mapping based on handheld 360 cameras have well demonstrated the effect of the algorithm.</p>
+<h1 id="BACKGROUND"><a href="#BACKGROUND" class="headerlink" title="BACKGROUND"></a>BACKGROUND</h1><p>The visual odometry (VO) or visual-inertial odometry (VIO) problem has been extensively studied in the past few decades. This problem mainly uses the information obtained from the image to complete the estimation of camera pose and the estimation of 3D landmarks in map. Visual SLAM platforms can be mainly divided into three categories according to different camera types: monocular cameras, stereo cameras and RGBD cameras. The monocular camera refers to a system that uses a single camera to complete mapping (such as Apple ARKit). stereo camera refers to a system that uses two cameras with known extrinsic parameters to complete the mapping (such as Leap Motion, ZED). Since the monocular camera loses the scale information in the process of pose estimation, it is necessary to introduce auxiliary method such as odometer to calculate the scale information. However, the scale information can be more easily recovered when the stereo cameras are used. Neither monocular nor binocular cameras can easily calculate depth information, and the use of RGBD cameras is a good solution to this problem. RGBD cameras usually use the time-of-flight method ToF (such as Microsoft Kinect-2), and the structured light method (such as Microsoft Kinect-1, Apple Prime Sense) to obtain depth information [1]. good positioning and mapping performance can also be obtained in areas such as dark light and weak textures. But its higher cost compared to cameras limits its widesp use.</p>
+<p>MonoSLAM [2][3] is the pioneer work of visual slam systems. Produced by Andrew J Davison with support from the Engineering and Physical Sciences Research Council (EPSRC) Advanced Research Fellowship programme in the UK. MonoSLAM uses Extended Kalman Filter as the backend to track sparse feature points in the frontend. MonoSLAM is based on EKF, taking the current state of the camera and all landmark points as state quantities, and updating its mean and covariance. </p>
+<p>In 2007, Klein et al. proposed PTAM (Parallel Tracking and Mapping) [6], which is also an important event in the development of visual SLAM, and the project was mainly funded by Oxford University. The significance of PTAM lies in the following two aspects: </p>
+<ul>
+<li>PTAM proposes and realizes the parallelization of the tracking and mapping process. </li>
+<li>PTAM is the first slam framework to use nonlinear optimization instead of traditional filter as backend.</li>
+<li>The system also introduces a keyframe mechanism to reduce computation and better optimize the map.</li>
+</ul>
+<p>ORB-SLAM is a very famous successor of PTAM [7], This work was supported by the Direccion General de Investigaci ´ on of ´ Spain. It was proposed in 2015 and is one of the most well-established and easy-to-use systems in modern SLAM systems. Currently ORB-SLAM has been developed to ORB-SLAM3[8]. The advantages of the ORB-SLAM3 system can be mainly summarized as follows:</p>
+<ul>
+<li>Supports monocular, binocular and RGBD modes.</li>
+<li>The system mainly based on calculate FAST-ORB feature, including visual odometry and close-loop detection modules. Compared with feature points such as SIFT or SURF, ORB feature points have faster calculation speed and can realize real-time calculation. In addition, the feature descriptor of ORB can provide certain rotation and scaling invariance.</li>
+<li>The system introduces a loop closure detection system based on hierarchical clustering model DBoW2[5]. Compared with the traditional SLAM system based on extended Kalman filter, this system can better solve the problem of cumulative error. At the same time, it can be quickly retrieved after being lost.</li>
+<li>The system uses multiple threads to synchronously complete the tasks of tracking, local optimization and global optimization, making the operation more efficient.</li>
+</ul>
+<p>The main system components of orb-slam are shown in Figure 1</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Research360Vo/Figure1.png"><br><em>Figure 1 Main system components of ORB-SLAM3</em></p>
+<p>Large Scale Direct monocular SLAM is a SLAM work proposed by J. Engle et al. in 2014 [9][10], sponsored by the Technical University of Munich. Unlike ORB-SLAM, which uses feature points to extract image features, LSD-SLAM uses a direct method to complete feature extraction. The core contribution of LSD-SLAM is the application of direct methods to semi-dense monocular SLAM. Not only does it not need to compute feature points, it also builds semi-dense maps. Compared with the feature point method, the direct method can be used to complete the mapping in the missing feature point area, but it is prone to loss problems when the camera moves too fast. Furthermore, since loop closure detection usually relies on the clustering of feature points[5], LSD-SLAM still needs to compute feature points.</p>
+<p>Semi-direct Visual Odoemtry (SVO) [11]. It is a semi-direct method based visual odometry proposed by Forster et al. The framework mixes feature points with direct methods. SVO tracks some keypoints and then performs block matching to estimate camera motion. Since it uses the sparse direct method, it neither has to work hard to compute descriptors nor deal with as much information as dense and semi-dense, so it can achieve real-time performance even on low-end computing platforms. Some commonly used SLAM systems can be summarized in Table 1.</p>
+<p>The core of visual SLAM is to estimate the pose and position of the camera and landmarks, and the key to the estimation is to extract the information in the image. A larger field of view can provide cameras with more features and a larger common field of view between cameras. Thereby reducing the occurrence of dropped frames, and can better complete the mapping task[12]. But the wide-angle camera has more serious distortion problems, and the ordinary pinhole camera model is not enough to directly express the wide-angle camera. Therefore, many scholars have done extensive research in this area. Caruso[13], and Matsuki [14] et al. established SLAM systems using omnidirectional cameras in LSD-SLAM and DSO, respectively, by introducing a generic camera model. Furthermore, the Kannala Brandt camera model [15] is used in Campos [16] et al. to support fisheye cameras as input in ORB-SLAM3. </p>
+<p>Some scholars have also devoted themselves to using more cameras to complete feature extraction with larger field of view. MULTICOL-SLAM [17] proposed a fast and applicable SLAM system based on multiple cameras. ROVO [18] is also a similar multi-camera SLAM system. The system uses a hybrid projection model that uses 4 cameras to cover a 360° field of view to detect the environment. However, the above-mentioned system based on the multi-camera model requires multiple cameras, thereby increasing the cost of use, and more cameras significantly increase the complexity of calibration. Using the reflection of the lens can also increase the viewing angle of the camera. X. Long [4] and others from the Institute of Automation, Chinese Academy of Sciences installed a high-speed mirror in front of the camera and assisted the high-speed camera. In the case of using only a single ordinary pinhole camera, a wide-angle camera is virtualized to complete multi-target extraction. This method can ensure local high resolution while obtaining a large field of view, but its complex mechanical structure limits the use of the scene. The above-mentioned methods for increasing the field of view are all complicated. An easy way to do this is to use two wide-angle cameras arranged back-to-back to form a 360° wide-angle system. The OpenVSLAM [19] system can support such camera input and use the feature point-based slam algorithm to complete the mapping task. This paper proposes the 360VO framework, uses a photometric error-based approach to recover camera pose, and introduces epipolar constraints to recover the coordinates of landmark points.</p>
+<p><strong>TABLE 1 COMMON USED VISUAL SLAM FRAMEWORK</strong></p>
+<table>
+<thead>
+<tr>
+<th>framework</th>
+<th>sensor type</th>
+<th>sponsor	webpage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MonoSLAM</td>
+<td>monocamera</td>
+<td>University of Oxford	<a target="_blank" rel="noopener" href="https://github.com/hanmekim/SceneLib2">https://github.com/hanmekim/SceneLib2</a></td>
+</tr>
+<tr>
+<td>PTAM</td>
+<td>monocamera</td>
+<td>University of Oxford	<a target="_blank" rel="noopener" href="http://www.robots.ox.ac.uk/~gk/PTAM/">http://www.robots.ox.ac.uk/~gk/PTAM/</a></td>
+</tr>
+<tr>
+<td>ORB-SLAM</td>
+<td>mainly monocamera</td>
+<td>University of Zaragoza	<a target="_blank" rel="noopener" href="http://webdiis.unizar.es/~raulmur/orbslam/">http://webdiis.unizar.es/~raulmur/orbslam/</a></td>
+</tr>
+<tr>
+<td>LSD-SLAM</td>
+<td>mainly monocamera</td>
+<td>Technical University of Munich	<a target="_blank" rel="noopener" href="http://vision.in.tum.de/research/vslam/lsdslam">http://vision.in.tum.de/research/vslam/lsdslam</a></td>
+</tr>
+<tr>
+<td>SVO</td>
+<td>monocamera</td>
+<td>University of Zurich	<a target="_blank" rel="noopener" href="https://github.com/uzh-rpg/rpg_svo">https://github.com/uzh-rpg/rpg_svo</a></td>
+</tr>
+<tr>
+<td>DTAM</td>
+<td>RGB-D</td>
+<td>Imperial College London	<a target="_blank" rel="noopener" href="https://github.com/anuranbaka/OpenDTAM">https://github.com/anuranbaka/OpenDTAM</a></td>
+</tr>
+<tr>
+<td>DVO</td>
+<td>RGB-D</td>
+<td>Technical University of Munich	<a target="_blank" rel="noopener" href="https://github.com/tum-vision/dvo_slam">https://github.com/tum-vision/dvo_slam</a></td>
+</tr>
+<tr>
+<td>DSO</td>
+<td>monocamera</td>
+<td>Technical University of Munich	<a target="_blank" rel="noopener" href="https://github.com/JakobEngel/dso">https://github.com/JakobEngel/dso</a></td>
+</tr>
+<tr>
+<td>RTAB-MAP</td>
+<td>stereo cameras&#x2F;RGB-D</td>
+<td>University of Sherbrooke	<a target="_blank" rel="noopener" href="https://github.com/introlab/rtabmap">https://github.com/introlab/rtabmap</a></td>
+</tr>
+<tr>
+<td>VINS-Fusion</td>
+<td>monocamera&#x2F;stereo cameras</td>
+<td>HKUST	<a target="_blank" rel="noopener" href="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion">https://github.com/HKUST-Aerial-Robotics/VINS-Fusion</a></td>
+</tr>
+</tbody></table>
+<h1 id="CONTRIBUTION"><a href="#CONTRIBUTION" class="headerlink" title="CONTRIBUTION"></a>CONTRIBUTION</h1><p>The main contributions of this article are as follows:</p>
+<ul>
+<li>A projection model based on a 360° camera is proposed.</li>
+<li>An epipolar constraint relation suitable for 360 cameras is proposed, and an error search strategy based on epipolar is designed.</li>
+<li>A back-end error optimization model based on local windows is designed.</li>
+</ul>
+<h2 id="360-camera-model"><a href="#360-camera-model" class="headerlink" title="360 camera model"></a>360 camera model</h2><p>The camera model is used to express the relationship between the real world coordinate system $\Omega$ and the camera image coordinate system $\Psi$. Let $u&#x3D;\left[u,v\right]^T \in \Psi$ represent the coordinate point in the image coordinate system, and let $X_c&#x3D;\left[X_c,Y_c,Z_c\right]^T\in\Omega$ represent points in the camera coordinate system. The camera model in this article refers to the need to find a mapping relationship $\pi:\ \Omega\rightarrow\Psi$ to express the relationship between 3D points and 2D points. Conversely, $\pi^{-1}:\Psi\rightarrow\Omega$ can be used to express the mapping relationship between 2D points and 3D points. Generally speaking, the ordinary camera based on the pinhole imaging model can be expressed by the following formula.</p>
+<p>$$<br>s\left[ \begin{matrix} u \ v \ 1 \ \end{matrix}\right ]&#x3D;\left[ \begin{matrix} f_x &amp; 0 &amp; c_x\ 0 &amp; f_y &amp; c_y \ 0 &amp; 0 &amp; 1 \  \end{matrix} \right]\left[ \begin{matrix} X_c \ Y_c \ Z_c \ \end{matrix} \right ]<br>$$</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Research360Vo/Figure2.png"><br><em>Figure 2 Coordinate systems used in 360VO. It takes advantage of a spherical model to represent camera projection, and the 2D image is in equirectangular projection.</em></p>
+<p>However, this camera model cannot express a camera model with a field of view exceeding 180°. Therefore, a spherical projection model suitable for 360 cameras is proposed. As shown in Figure 2, the projection model projects the points in the world coordinates onto the unit sphere to complete the mapping between 3D and 2D points. The projection model can be expressed by the following formula:</p>
+<p>$$<br>\pi\left(X_c\right)&#x3D;\left[\begin{matrix}u\v\\end{matrix}\right]&#x3D;K\left[\begin{matrix}lon\lat\\end{matrix}\right]&#x3D;K\left[\begin{matrix}arctan\left(X_c&#x2F;Z_c\right)\-arcsin\left(dY_c\right)\\end{matrix}\right]<br>$$</p>
+<p>Where $d&#x3D;1&#x2F;\sqrt{X_c^2+Y_c^2+Z_c^2}$ represents the reciprocal of the distance from the 3D point to the unit sphere. lon and lat represent the latitude and longitude on the sphere. $-\pi &lt; lon &lt; \pi$ and $-\pi&#x2F;2 &lt; lat &lt; \pi&#x2F;2$. The last K represents the camera intrinsic parameter.</p>
+<p>$$<br>\mathbf{K}&#x3D;\left[\begin{matrix}f_x&amp;0&amp;c_x\0&amp;f_y&amp;c_y\\end{matrix}\right]&#x3D;\left[\begin{matrix}W&#x2F;2\pi&amp;0&amp;W&#x2F;2\0&amp;-H&#x2F;\pi&amp;H&#x2F;2\\end{matrix}\right]<br>$$</p>
+<h2 id="Camera-pose-and-landmark-estimation"><a href="#Camera-pose-and-landmark-estimation" class="headerlink" title="Camera pose and landmark estimation"></a>Camera pose and landmark estimation</h2><h3 id="get-camera-pose"><a href="#get-camera-pose" class="headerlink" title="get camera pose"></a>get camera pose</h3><p>This article uses the direct method to complete the estimate of camera pose and landmark point coordinates. The direct method usually uses the method of minimizing the energy function to complete the optimal pose estimation of the camera. the energy function of a pixel $p \in\ \Psi$ in the host frame $i$ regrading to a co-visible target frame $j$ is<br>$$<br>\begin{aligned}<br>&amp; E_{\mathbf{p}}^{i j}&#x3D;\sum_{\mathbf{u} \in N_{\mathrm{p}}}|r|&#x3D;\sum_{\mathbf{u} \in N_{\mathbf{p}}} w_{\mathbf{u}}\left|\left(I_j\left[\mathbf{u}^{\prime}\right]-b_j\right)-\frac{t_j e^{a_j}}{t_i e^{e_i}}\left(I_i[\mathbf{u}]-b_i\right)\right| \<br>&amp; \mathbf{u}^{\prime}&#x3D;\pi\left(\mathbf{R}<em>{j i} \pi^{-1}\left(\mathbf{u}, \hat{d}^{\mathbf{p}}\right)+\mathbf{t}</em>{j i}\right) \<br>&amp; {\left[\begin{array}{cc}<br>\mathbf{R}<em>{i j} &amp; \mathbf{t}</em>{i j} \<br>0 &amp; 1<br>\end{array}\right]&#x3D;\mathbf{T}_{i j}&#x3D;\mathbf{T}_j \mathbf{T}<em>i^{-1}}<br>\end{aligned}<br>$$<br>In this paper, the weighted sum of squared differences (SSD) algorithm is used to calculate the matching error, specifically, there are 8 pixels between each matching block, i.e., 8 pixels share the same depth. $T_i^{-1}$ and $T_j^{-1}$ are the representations of the $i-th$ frame and the $j-th$ frame in the world coordinate system. $u^$ prime and $u$ represent the correspond pixels to be calculated in the $j$ frame and the $i$ frame, respectively. $t</em>{ji}$ represents the exposure time between frame $i$ and frame $j$. Finally combining the pixels of all neighborhood frames, the final energy function can be expressed as:</p>
+<p>$$<br>\boldsymbol{E}&#x3D;\sum_{i \in F}\sum_{\boldsymbol{p}\in P_i}\sum_{j \in obs(\boldsymbol{P})}{E_{\boldsymbol{P}}^{ij}}<br>$$</p>
+<p>where $F$ represents frames contained in local optimization window, $P_i$ represents a set of selected points in the frame $i$ and are randomly sampled from directional points with local gradients above a certain threshold, and $obs\left(p\right)$ represents the frames that can observe point $p$. The optimization method of bundle adjustment is used.</p>
+<h3 id="Calculate-landmark-pose"><a href="#Calculate-landmark-pose" class="headerlink" title="Calculate landmark pose"></a>Calculate landmark pose</h3><p>Different from methods such as ORB-SLAM that use feature points, the direct method lacks the direct correspondence between two pixels. therefore, it is difficult to directly determine the depth of landmark points. Similar to other systems using the direct method [20][21][22][23], this paper also uses a preset depth range and an epipolar constraint to find the optimal pixel disparity and generate a semi-dense map. However, since this paper uses a camera projection model different from the pinhole model, it is necessary to derive a new epipolar constraint relationship on the spherical surface, as shown in Figure 3.</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Research360Vo/Figure3.png"><br><em>Figure 3 Epipolar constraints. When tracking succeeds, it needs to create new activated points and refine their inverse depth via triangulation. High corresponding points of host frame $c_i$ lie in the epipolar curve instead of line in the target frame $c_j$</em></p>
+<p>Let the epipolar plane be $\rho$ and the unit sphere plane be $S$, then the constraints in the camera coordinate system $\Omega$ can be expressed as follows:</p>
+<p>$$<br>\left{\begin{array}{l}<br>\rho: a X+b Y+c Z+d&#x3D;0 \<br>S: \quad X^2+Y^2+Z^2&#x3D;1<br>\end{array}\right.<br>$$</p>
+<p>Combined with the 360 camera projection model derived above, the following constraints on the epipolar curve in the pixel coordinate system can be obtained:</p>
+<p>$$<br>\mathbf{u}(\alpha)&#x3D;\pi(\alpha \mathbf{P}_0^{\prime}+(1-\alpha) \mathbf{P}_\infty^{\prime} ), \alpha \in[0,1]<br>$$</p>
+<p>$$<br>\mathbf{P}<em>0^{\prime}&#x3D;\pi_s\left(\mathbf{R}</em>{j i} \pi^{-1}\left(\mathbf{p}, \hat{d}<em>{\text {min }}\right)+\mathbf{t}</em>{j i}\right)<br>$$</p>
+<p>$$<br>\mathbf{P}<em>\infty^\prime&#x3D;\pi_s(\mathbf{R}</em>{ji} \pi^{-1}(\mathbf{p}, \hat{d}<em>{\max })+\mathbf{t}</em>{ji})<br>$$</p>
+<p>Where $P_0^\prime P_\infty^\prime$ represents the projection point of point $p$ in frame $i$ at the maximum disparity and the minimum disparity in frame $j$.</p>
+<h2 id="local-optimization"><a href="#local-optimization" class="headerlink" title="local optimization"></a>local optimization</h2><p>In order to enhance robustness and reduce a certain amount of computation, this article uses bundle adjustment to optimize local frame and landmark coordinates. In this paper, the local frame selection is 7 adjacent keyframes and 2500 landmark points.</p>
+<h3 id="keyframe-selection"><a href="#keyframe-selection" class="headerlink" title="keyframe selection"></a>keyframe selection</h3><p>The quality of key frame selection determines the quality of the map. In this article, the relative pose between the current frame and the previous key frame is calculated, and when the relative distance reaches a certain threshold, the frame is recorded as a new key frame. At the same time, since this article is based on the direct method, since the direct method has the assumption of illumination invariance, it is necessary to generate new key frames when the ambient light changes greatly.</p>
+<h3 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h3><p>This article uses the Gauss-Newton method to complete the optimization of camera intrinsic parameters, extrinsic parameters, and optical flow parameters. Here, the disturbance derivation method on the SE3 manifold is used to complete the derivation. Its Jacobian matrix can be expressed as follows:</p>
+<p>$$<br>\mathbf{J}_{\mathbf{M}&#x3D;\left(\mathbf{T}_i,\mathbf{T}_j,\hat{d},\mathbf{K},a_i,b_i,a_j,b_j\right)}&#x3D;\left[\frac{\partial r\left(\left(\delta+x\right)\boxplus\zeta_0\right)}{\partial\delta}\right]<br>$$</p>
+<p>where $\zeta_0\in SE\left(3\right)$ and $\boxplus$ denotes the operation: $se{\left(3\right)}\times SE\left(3\right)\rightarrow SE\left(3\right)$.</p>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>This article innovatively proposes a SLAM framework based on 360 cameras. This paper proposes a projection model for the 360 camera and derives the epipolar constraints of the sphere from this model. In addition, this paper combines the direct method to complete the localization and mapping tasks. But I think this article still has some things worth improving. </p>
+<ul>
+<li>Wide-angle cameras generally have large distortions, but this article does not consider the distortion, whether the quality of the mapping will be improved after the distortion correction model is introduced. </li>
+<li>This article uses a spherical projection model to model a 360 camera, but the physical model of the camera is composed of two 180 wide-angle cameras arranged back-to-back. The optical centers of the two cameras are not completely coincident, and if the two wide-angle cameras  do not have the same internal parameter matrix K due to the existence of manufacturing tolerances, whether the projection model proposed in this paper can correctly handle this situation. </li>
+<li>This article uses the bundle adjustment method to obtain the intrinsic and extrinsic parameters of the camera and optical flow parameters. If the camera is calibrated in advance and the intrinsic parameters are not optimized during the mapping process, can a better mapping result be produced. </li>
+<li>In this paper, the direct method is used to complete the positioning and mapping, but if the feature point method is used, there might be a big difference between the image generated by the spherical projection and the image generated by the pinhole camera (especially at the edge of the image, there will be a large curvature), whether it is necessary to design a new corner detection algorithm and feature descriptor.</li>
+</ul>
+<h1 id="SOCIAL-IMPART"><a href="#SOCIAL-IMPART" class="headerlink" title="SOCIAL IMPART"></a>SOCIAL IMPART</h1><p>The SLAM system has produced enormous commercial value to modern society. In general, there are two main trends in the future development direction of SLAM. </p>
+<ul>
+<li>Lighter and smaller SLAM systems, these systems can run on embedded systems, mobile phones and other small devices to better serve mobile robots, AR&#x2F;VR and other devices. These devices have important application scenarios in the fields of navigation, sports, and entertainment. </li>
+<li>A more sophisticated SLAM system that uses high-performance computing equipment to complete tasks such as more precise 3D reconstruction. The aim of these applications is to perfectly reconstruct the scene without much restriction on computing resources and device portability.</li>
+</ul>
+<p>The 360VO system based on two wide-angle cameras proposed in this article effectively reduces the hardware cost of the product. Currently, there are various low-cost panoramic cameras such as INSTA360 and GO PRO. If these cameras can be combined with SLAM, new commercial value can be generated.<br>For example, in the current popular VR&#x2F;AR and short video effects fields, SLAM technology can build a map with more realistic visual effects, so as to render the superimposed effect of virtual objects according to the current perspective, making it more realistic and free of inconsistency. Among the representative products of VR&#x2F;AR, Microsoft Hololens, Google Project Tango and Magic Leap have all applied SLAM as a visual enhancement method.<br>In the field of mobile robots, the existing mobile robots need to install multiple sensors in order to complete all-round obstacle avoidance. If the 360 camera is used as the sensor, the hardware cost can be reduced without sacrificing the obstacle avoidance performance, and the positioning and mapping can be improved at the same time. Sweeping robot manufacturers Ecovacs, Tammy, etc. use SLAM to allow sweepers to efficiently draw indoor maps, intelligently analyze and plan the sweeping environment, and complete sweeping tasks more efficiently.<br>In the field of unmanned aerial vehicles(UAV), the use of omnidirectional sensors can make aerial photography more flexible, and better 3D reconstruction of buildings at high altitudes. SLAM can quickly build a local 3D map, and combined with geographic information system (GIS) and visual object recognition technology, it can assist UAVs to identify roadblocks and automatically avoid obstacles and plan paths.<br>In the field of autonomous driving. SLAM technology can provide the function of visual odometer and integrate with other positioning methods such as GPS, so as to meet the needs of precise positioning of unmanned driving.</p>
+<h1 id="CONCLUSION"><a href="#CONCLUSION" class="headerlink" title="CONCLUSION"></a>CONCLUSION</h1><p>Starting from the paper <em><a target="_blank" rel="noopener" href="https://doi.org/10.1109/ICRA46639.2022.9812203">360VO: Visual Odometry Using A Single 360 Camera</a></em> published in the 2022 IEEE International Conference on Robotics and Automation (ICRA), this paper analyzes the method proposed in this paper and proposes some possible solutions in this paper. The research status and commonly used SLAM frameworks in the field of SLAM are analyzed. And finally analyzes the commercial value and social value of SLAM system.</p>
+<h1 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h1><p>[1]	Han, Ruilu, Hongjuan Yan, and Liping Ma. “Research on 3D Reconstruction methods Based on Binocular Structured Light Vision.” Journal of Physics: Conference Series. Vol. 1744. No. 3. IOP Publishing, 2021.</p>
+<p>[2]	A. Davison, I. Reid, N. Molton, and O. Stasse, “Monoslam: Real-time single camera SLAM,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 29, no. 6, pp. 1052–1067, 2007.</p>
+<p>[3]	A. J. Davison, “Real-time simultaneous localisation and mapping with a single camera,” in Computer Vision, 2003. Proceedings. Ninth IEEE International Conference on, pp. 1403– 1410, IEEE, 2003.</p>
+<p>[4]	X. Long, L. Ma, H. Jiang, Z. Li, Y. Chen and Q. Gu, “Mechanical Particle Filter-Based Active Vision System for Fast Wide-Area Multiobject Detection,” in IEEE Transactions on Instrumentation and Measurement, vol. 71, pp. 1-13, 2022, Art no. 9510113, doi: 10.1109&#x2F;TIM.2022.3201949.</p>
+<p>[5]	D. Galvez-López and J. D. Tardos, “Bags of Binary Words for Fast Place Recognition in Image Sequences,” in IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, Oct. 2012, doi: 10.1109&#x2F;TRO.2012.2197158.</p>
+<p>[6]	G. Klein and D. Murray, “Parallel tracking and mapping for small ar workspaces,” in Mixed and Augmented Reality, 2007. ISMAR 2007. 6th IEEE and ACM International Symposium on, pp. 225–234, IEEE, 2007.</p>
+<p>[7]	R. Mur-Artal, J. Montiel, and J. D. Tardos, “Orb-slam: a versatile and accurate monocular slam system,” arXiv preprint arXiv:1502.00956, 2015</p>
+<p>[8]	Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, José M. M. Montiel and Juan D. Tardós, ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM, IEEE Transactions on Robotics 37(6):1874-1890, Dec. 2021</p>
+<p>[9]	J. Engel, J. Sturm, and D. Cremers, “Semi-dense visual odometry for a monocular camera,” in Proceedings of the IEEE International Conference on Computer Vision, pp. 1449–1456, 2013.</p>
+<p>[10]	J. Engel, T. Schöps, and D. Cremers, “Lsd-slam: Large-scale direct monocular slam,” in Computer Vision–ECCV 2014, pp. 834–849, Springer, 2014.</p>
+<p>[11]	C. Forster, M. Pizzoli, and D. Scaramuzza, “Svo: Fast semi-direct monocular visual odometry,” in Robotics and Automation (ICRA), 2014 IEEE International Conference on (rs, ed.), pp. 15–22, IEEE, 2014.</p>
+<p>[12]	Z. Zhang, H. Rebecq, C. Forster, and D. Scaramuzza, “Benefit of large field-of-view cameras for visual odometry,” in 2016 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2016, pp. 801–808.</p>
+<p>[13]	D. Caruso, J. Engel, and D. Cremers, “Large-scale direct slam for omnidirectional cameras,” in 2015 IEEE&#x2F;RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2015, pp. 141–148.</p>
+<p>[14]	H. Matsuki, L. von Stumberg, V. Usenko, J. Stuckler, and D. Cremers, ¨ “Omnidirectional dso: Direct sparse odometry with fisheye cameras,” IEEE Robotics and Automation Letters, vol. 3, no. 4, pp. 3693–3700, 2018.</p>
+<p>[15]	J. Kannala and S. S. Brandt, “A generic camera model and calibration method for conventional, wide-angle, and fish-eye lenses,” IEEE transactions on pattern analysis and machine intelligence, vol. 28, no. 8, pp. 1335–1340, 2006.</p>
+<p>[16]	C. Campos, R. Elvira, J. J. G. Rodr´ıguez, J. M. Montiel, and J. D. Tardos, “Orb-slam3: An accurate open-source library for visual, ´ visual–inertial, and multimap slam,” IEEE Transactions on Robotics, 2021.</p>
+<p>[17]	S. Urban and S. Hinz, “Multicol-slam-a modular real-time multi-camera slam system,” arXiv preprint arXiv:1610.07336, 2016.</p>
+<p>[18]	H. Seok and J. Lim, “Rovo: Robust omnidirectional visual odometry for wide-baseline wide-fov camera systems,” in 2019 International Conference on Robotics and Automation (ICRA). IEEE, 2019, pp. 6344–6350.</p>
+<p>[19]	S. Sumikura, M. Shibuya, and K. Sakurada, “Openvslam: a versatile visual slam framework,” in Proceedings of the 27th ACM International Conference on Multimedia, 2019, pp. 2292–2295.</p>
+<p>[20]	C. Forster, M. Pizzoli, and D. Scaramuzza, “Svo: Fast semi-direct monocular visual odometry,” in 2014 IEEE international conference on robotics and automation (ICRA). IEEE, 2014, pp. 15–22. </p>
+<p>[21]	R. Mur-Artal, J. M. M. Montiel, and J. D. Tardos, “Orb-slam: a versatile and accurate monocular slam system,” IEEE transactions on robotics, vol. 31, no. 5, pp. 1147–1163, 2015. </p>
+<p>[22]	J. Engel, T. Schops, and D. Cremers, “Lsd-slam: Large-scale di- ¨ rect monocular slam,” in European conference on computer vision. Springer, 2014, pp. 834–849. </p>
+<p>[23]	J. Engel, V. Koltun, and D. Cremers, “Direct sparse odometry,” IEEE transactions on pattern analysis and machine intelligence, vol. 40, no. 3, pp. 611–625, 2017.</p>
+<h1 id="PDF-VERSION"><a href="#PDF-VERSION" class="headerlink" title="PDF VERSION"></a>PDF VERSION</h1><p>The PDF version of this article can be downloaded from the following link:</p>
+<p><a target="_blank" rel="noopener" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Research360Vo/Research%20Report%20of%20360VO%20Visual%20Odometry%20Using%20A%20Single%20360%20Camera.pdf">Download Here</a></p>
+<hr>
+<p>EOF</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2022/11/13/360VO_Research/">https://blog.zzshub.cn/2022/11/13/360VO_Research/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SLAM/">SLAM</a><a class="post-meta__tags" href="/tags/Computer-Vision/">Computer Vision</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/24/JacobiBasedPTZControl/" title="基于图像雅可比的目标跟踪控制"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/JacobiPTZControl/Picture1.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于图像雅可比的目标跟踪控制</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/28/visual_place_recognition/" title="Visual Place Recognition via HMM Filter and Smoother"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Visual Place Recognition via HMM Filter and Smoother</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/10/13/EasyMVS/" title="EasyMVS -- A Simple Multi-View Stereo lib"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-13</div><div class="title">EasyMVS -- A Simple Multi-View Stereo lib</div></div></a></div><div><a href="/2023/05/20/Image_Segmentation_via_Spectral_Clustering/" title="Image Segmentation via Spectral Clustering"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-20</div><div class="title">Image Segmentation via Spectral Clustering</div></div></a></div><div><a href="/2023/03/24/JacobiBasedPTZControl/" title="基于图像雅可比的目标跟踪控制"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/JacobiPTZControl/Picture1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-24</div><div class="title">基于图像雅可比的目标跟踪控制</div></div></a></div><div><a href="/2022/10/28/visual_place_recognition/" title="Visual Place Recognition via HMM Filter and Smoother"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-28</div><div class="title">Visual Place Recognition via HMM Filter and Smoother</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Research-Report-of-360VO-Visual-Odometry-Using-A-Single-360-Camera"><span class="toc-number">1.</span> <span class="toc-text">Research Report of 360VO: Visual Odometry Using A Single 360 Camera</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EXECUTIVE-SUMMARY"><span class="toc-number">2.</span> <span class="toc-text">EXECUTIVE SUMMARY</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BACKGROUND"><span class="toc-number">3.</span> <span class="toc-text">BACKGROUND</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CONTRIBUTION"><span class="toc-number">4.</span> <span class="toc-text">CONTRIBUTION</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#360-camera-model"><span class="toc-number">4.1.</span> <span class="toc-text">360 camera model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Camera-pose-and-landmark-estimation"><span class="toc-number">4.2.</span> <span class="toc-text">Camera pose and landmark estimation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#get-camera-pose"><span class="toc-number">4.2.1.</span> <span class="toc-text">get camera pose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Calculate-landmark-pose"><span class="toc-number">4.2.2.</span> <span class="toc-text">Calculate landmark pose</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#local-optimization"><span class="toc-number">4.3.</span> <span class="toc-text">local optimization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#keyframe-selection"><span class="toc-number">4.3.1.</span> <span class="toc-text">keyframe selection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimization"><span class="toc-number">4.3.2.</span> <span class="toc-text">Optimization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation"><span class="toc-number">4.4.</span> <span class="toc-text">Evaluation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SOCIAL-IMPART"><span class="toc-number">5.</span> <span class="toc-text">SOCIAL IMPART</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CONCLUSION"><span class="toc-number">6.</span> <span class="toc-text">CONCLUSION</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#REFERENCE"><span class="toc-number">7.</span> <span class="toc-text">REFERENCE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PDF-VERSION"><span class="toc-number">8.</span> <span class="toc-text">PDF VERSION</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

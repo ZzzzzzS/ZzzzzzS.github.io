@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Image Segmentation via Spectral Clustering | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Image Segmentation via Spectral Clustering Abstract-Image Segmentation is a classic computer vision problem, which is also one of the foundation stones for many computer vision applications, e.g., 3D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Image Segmentation via Spectral Clustering">
+<meta property="og:url" content="https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="Image Segmentation via Spectral Clustering Abstract-Image Segmentation is a classic computer vision problem, which is also one of the foundation stones for many computer vision applications, e.g., 3D">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg">
+<meta property="article:published_time" content="2023-05-20T06:12:32.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.679Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="Computer Vision">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Image Segmentation via Spectral Clustering',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Image Segmentation via Spectral Clustering</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-20T06:12:32.000Z" title="发表于 2023-05-20 14:12:32">2023-05-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.679Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Image Segmentation via Spectral Clustering"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Image-Segmentation-via-Spectral-Clustering"><a href="#Image-Segmentation-via-Spectral-Clustering" class="headerlink" title="Image Segmentation via Spectral Clustering"></a>Image Segmentation via Spectral Clustering</h1><blockquote>
+<p><strong>Abstract</strong>-Image Segmentation is a classic computer vision problem, which is also one of the foundation stones for many computer vision applications, e.g., 3D reconstruction, object tracking. This paper implemented two classic image segmentation methods via spectral clustering. Namely, the image segmentation based on K-means clustering and image segmentation based on normalized cuts and spectral clustering. Although nowadays most image segmentation methods are based on deep learning, the traditional solution can still be used in industrial environments, due to the computational cost. In this paper, we implemented two image segmentation methods using C++, and conduct testing on CIFAR-10 dataset. Solid experiments on the datasets demonstrate the robustness and effectiveness of the two implemented algorithms.</p>
+</blockquote>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Image segmentation is a computer vision task that involves dividing an image into meaningful and distinct regions or objects. It aims to partition an image into semantically cohesive regions based on similarities in color, texture, or other visual properties. It plays a crucial role in various applications, such as medical imaging, autonomous driving, object recognition, and scene understanding. By accurately delineating boundaries and identifying individual elements within an image, image segmentation enables advanced analysis, object tracking, and understanding of visual content. This process not only aids in extracting meaningful information from images but also paves the way for numerous downstream tasks and applications in diverse fields.</p>
+<h2 id="Related-Works"><a href="#Related-Works" class="headerlink" title="Related Works"></a>Related Works</h2><p>As a classic computer vision task, the image segmentation problem has been widely studied during recent decades. Among all methods, the solutions can be categorized into two major aspects. Namely, traditional methods, and the deep learning-based methods. The former has received extensive attention in the early stage of image segmentation and requires fewer computing resources than methods based on deep learning, it is still widely used in scenes where the image background is simple but computing resources are limited. The latter is currently a research hotspot. With the increase in the complexity of the network model, the image segmentation effect is still on the rise.</p>
+<h3 id="Traditional-Methods"><a href="#Traditional-Methods" class="headerlink" title="Traditional Methods"></a>Traditional Methods</h3><p>These traditional approaches often rely on handcrafted features, such as color, texture, or edge information, combined with sophisticated algorithms. These methods can be categorized as thresholding methods, edge-based methods, region-based methods, Clustering-based methods. One commonly used technique is thresholding, where pixel intensities are compared to a fixed threshold value to distinguish between foreground and background regions [1][2]. The threshold methods include global Thresholding, which use one threshold for whole image, variable thresholding, where the threshold value T can vary over the image, and multiple thresholding. This method is simple and computationally efficient, but it struggles with images containing complex backgrounds or varying lighting conditions. Another approach is region-based segmentation, which groups pixels based on their similarity in color, texture, or other features [3][4]. Popular algorithms like K-means clustering and mean-shift segmentation fall under this category. Region-based methods offer good results when dealing with homogeneous regions, but they often struggle with accurately capturing object boundaries and handling overlapping regions. Clustering-based algorithms, such as graph cuts [5], leverage graph theory to model image segmentation as an optimization problem. These methods excel in capturing object boundaries and handling irregular shapes. However, they require prior knowledge or user interactions to define the initial seeds or cost functions, limiting their applicability in fully automated scenarios. Additionally, edge-based techniques, such as the Canny edge detector or active contours, focus on detecting and tracing object boundaries using edge information [6]. While these methods can achieve precise boundaries, they may struggle with noise, incomplete edges, or complex object shapes. </p>
+<h3 id="Deep-Learning-based-Methods"><a href="#Deep-Learning-based-Methods" class="headerlink" title="Deep Learning-based Methods"></a>Deep Learning-based Methods</h3><p>Nowadays most image segmentation solutions are based on deep learning, since it provides significantly better results than traditional methods. Long et al. introduced Fully Convolutional Networks (FCNs), a significant advancement in deep learning-based models for semantic image segmentation [7]. FCNs exclusively consist of convolutional layers, allowing them to generate segmentation maps that match the size of the input image. Chen et al. developed a semantic segmentation algorithm by combining Convolutional Neural Networks (CNNs) with fully connected Conditional Random Fields (CRFs) [8]. Their approach exhibited superior accuracy in localizing segment boundaries compared to previous methods. Schwing and Urtasun proposed a deep structured network that integrates CNNs and fully connected CRFs for semantic image segmentation [9]. Through joint training, their model achieved promising results on the challenging PASCAL VOC 2012 dataset. Badrinarayanan et al. presented SegNet, an architecture based on fully convolutional encoder-decoder networks for image segmentation [10]. SegNet’s segmentation engine comprises an encoder network, identical in topology to VGG16’s 13 convolutional layers, and a corresponding decoder network followed by a pixel-wise classification layer. Taking inspiration from the success of large models in natural language processing [11], researchers have also explored their application in image segmentation. Meta AI proposed the “Segment Anything” model, which is designed and trained to be promptable, enabling it to transfer knowledge to new image distributions and tasks.</p>
+<h2 id="Main-Contributions"><a href="#Main-Contributions" class="headerlink" title="Main Contributions"></a>Main Contributions</h2><p>The main contribution of this paper is as follows:</p>
+<ul>
+<li>A C plus plus implementation of K-means clustering for color-based image segmentation is provided in this project.</li>
+<li>A C plus plus implementation of normalized-cut algorithm and spectral clustering image segmentation is provided in this project.</li>
+<li>Solid experiments based on our implemented solutions are conducted, and comparisons with each algorithm are presented.</li>
+</ul>
+<p>The rest of the paper is organized as follows. Related works are presented in section II. Section III is the problem statement, the mathematical description of the problem is introduced. The details of the implemented two segmentation algorithms are in section IV, and experiments are conducted, and results are shown in section V, and in section VI we draw conclusions and future improvements.</p>
+<h1 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h1><p>This paper focuses on images segmentation problem. Given $n$ unlabeled data points $ {x_1,x_2,\ldots,x_n} $ with $ x_i\in R^d $ and number of desired classes $K$ with no labels given this paper is trying to find cohesive clusters so that similar input data can be grouped. And the intra-class similarity is high, while the inter-class similarity is low.</p>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><h2 id="K-means-Clustering"><a href="#K-means-Clustering" class="headerlink" title="K-means Clustering"></a>K-means Clustering</h2><p>K-means is a popular clustering algorithm used in image segmentation. It aims to partition an image into distinct regions based on similarity of pixel values. K-means starts by randomly selecting $K$ initial cluster centers. Each pixel in the image is then assigned to the cluster with the closest center, based on the Euclidean distance between the pixel’s color values and the center’s color values. We use pseudo-random number generator based on Mersenne Twister [12] to generate $k$ color vectors from 0-255 in our implementation. After the initial assignment, the algorithm calculates the mean color values ${\mu_j\in R^3:1\le j\le K}$ for each cluster, based on the pixels assigned to it. These mean values become the new cluster centers. </p>
+<p>$$<br>C_i&#x3D;\arg{\min_{1\le j\le K}{d}}\left(x_i,\mu_j\right)<br>$$</p>
+<p>$$<br>\mu_j&#x3D;\frac{\sum_{i&#x3D;1}^{n}{1{c_i&#x3D;j}x_i}}{\sum_{i&#x3D;1}^{n}{1{c_i&#x3D;j}}}<br>$$</p>
+<p>The assignment and recalculation steps are repeated iteratively until convergence, when the cluster centers no longer change significantly. Once convergence is reached, the image pixels are classified into K segments based on their final cluster assignments. Each segment represents a distinct region of similar pixel values. By varying the number of clusters K, the algorithm can produce different levels of segmentation granularity. To get better segmentation result, our method will perform k-means segmentation for one image multiple times with random generated initial values, and then find the best result among these segmentation result. Namely, find the best result corresponding to the minimum g, where $g&#x3D;\sum_{i}|samples_i-centers_{labels_i}|^2$.</p>
+<h2 id="Normalized-cut-algorithm"><a href="#Normalized-cut-algorithm" class="headerlink" title="Normalized-cut algorithm"></a>Normalized-cut algorithm</h2><p>The normalized-cut algorithm considers the image as a graph and performs graph cut to segment images in to two clusters. Represent the image as a graph $G\left(V,E\right)$, where vertex $V$ represents each pixel in the image, and weighted edge $E$ represents the connectivity between pixels. Let two disjoint sets be $A, B$, where $A \cap B\ &#x3D;V, A \cup B &#x3D;\emptyset$. Then, the dissimilarity between the two pieces can be measured by calculating the combined weight of the removed edges. In graph theory, this measurement is referred to as the “cut”.</p>
+<p>$$cut\left(A,B\right)&#x3D;\sum_{u\in A,v\in B}\omega\left(u,v\right)$$</p>
+<p>The image segmentation problem then can be transformed into finding the minimum cut of the graph. However, the minimum cut criteria will result in cutting small sets of isolated nodes in the graph, which are isolated pixels in the image. To avoid this issue, the Normalized cut introduced a novel metric for quantifying the disassociation between two groups. Instead of solely considering the total weight of edges connecting the partitions, they metric calculates the cut cost relative to the overall edge connections involving all nodes in the graph. </p>
+<p>$$<br>Ncut\left(A,B\right)&#x3D;\frac{cut\left(A,B\right)}{asso\left(A,V\right)}+\frac{cut\left(A,B\right)}{asso\left(B,V\right)}<br>$$</p>
+<p>Where $asso\left(A,V\right)&#x3D;\sum_{u\in A,t\in V}\omega\left(u,t\right)$ is the sum up connection from nodes in A to all nodes in the graph, and $asso\left(B,V\right)$ is defined similarly. Let x be an $N&#x3D;\left|V\right|$ vector, and $x_i&#x3D;1$ when $V_i\in A, x_i&#x3D;-1 when V_i\in B$. $d\left(i\right)&#x3D;\sum_{j}\omega\left(i,j\right)$ is the sum up connection from $V_i$ to other vertices. The $Ncut\left(A,B\right)$ can be rewritten as follows.</p>
+<p>$$<br>Ncut(A, B)&#x3D; \frac{\sum_{\left(\boldsymbol{x_i}&gt;0, \boldsymbol{x_j}&lt;0\right)}-w_{ij} \boldsymbol{x_i} \boldsymbol{x_j}}{\sum_{\boldsymbol{x_i}&gt;0} \boldsymbol{d_i}}<br> +\frac{\sum_{\left(\boldsymbol{x_i}&lt;0, \boldsymbol{x_j}&gt;0\right)}-w_{ij} \boldsymbol{x_i} \boldsymbol{x_j}}{\sum_{\boldsymbol{x_i}&lt;0} \boldsymbol{d_i}}<br>$$</p>
+<p>Let <strong>D</strong> be an $N\times N$ diagonal matrix, <strong>W</strong> be an $N\times N$ symmetrical matrix with $W\left(i,j\right)&#x3D;\omega_{ij}$. Then the $Ncut$ function can be rewritten as follows.</p>
+<p>$$<br> Ncut\left(A,B\right)&#x3D;\frac{\left(\boldsymbol{x}^T(\mathbf{D}-\mathbf{W}) \boldsymbol{x}+\mathbf{1}^T(\mathbf{D}-\mathbf{W}) \mathbf{1}\right)}{k(1-k) \mathbf{1}^T \mathbf{D} \mathbf{1}}+\frac{2(1-2 k) \mathbf{1}^T(\mathbf{D}-\mathbf{W}) \boldsymbol{x}}{k(1-k) \mathbf{1}^T \mathbf{D} \mathbf{1}}<br>$$</p>
+<p>$$<br>&#x3D;\frac{[(\mathbf{1}+\boldsymbol{x})-b(\mathbf{1}-\boldsymbol{x})]^T(\mathbf{D}-\mathbf{W})[(\mathbf{1}+\boldsymbol{x})-b(\mathbf{1}-\boldsymbol{x})]}{b \mathbf{1}^T \mathbf{D} \mathbf{1}}<br>$$</p>
+<p>Where $b&#x3D;\frac{k}{1-k}$,  $k&#x3D;\frac{\sum_{x_i&gt;0}{\boldsymbol{d_i}}}{\sum_{i}{\boldsymbol{d_i}}}$<br>Then putting everything together, the minimum cut can be formulated as follows.</p>
+<p>$$<br>\min \boldsymbol{x} N \operatorname{cut}(\boldsymbol{x})&#x3D;\min y \frac{\boldsymbol{y}^T(\boldsymbol{D}-\boldsymbol{W}) \boldsymbol{y}}{\boldsymbol{y}^T \boldsymbol{D} \boldsymbol{y}}<br>$$</p>
+<p>The normalized cut problem can be solved by calculating the second smallest eigenvector of the following equation.</p>
+<p>$$<br>\left(\boldsymbol{D}-\boldsymbol{W}\right)\boldsymbol{y}&#x3D;\lambda\boldsymbol{Dy}<br>$$</p>
+<p>$$<br>\mathbf{D}^{-\frac{1}{2}}(\mathbf{D}-\mathbf{W}) \mathbf{D}^{-\frac{1}{2}} \boldsymbol{z}&#x3D;\lambda \boldsymbol{z}<br>$$</p>
+<p>Where $\boldsymbol{z}&#x3D;\boldsymbol{D}^\frac{1}{2} \boldsymbol{y}$.<br>Finally, recursively calling the process for multiple partition.</p>
+<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><p>In the experimental section, this paper initially presents the implementation process of the algorithm and the selection of certain parameters. Subsequently, we provide a detailed comparison of the performance and shortcomings of the two algorithms.</p>
+<h2 id="System-Setup"><a href="#System-Setup" class="headerlink" title="System Setup"></a>System Setup</h2><p>All algorithms in this paper are implemented in C++. The chosen data-set for testing is the CIFAR-10 data-set, which consists of 6000 images with a resolution of 32x32 pixels. This data-set is primarily used in the field of image classification, providing 10 class labels but no ground truth segmentation for the images. The data used in this paper is in binary format. Initially, the C++ standard library’s binary file I&#x2F;O library is employed to read the binary data. Then, the data is segmented according to the format provided by the data-set, and the segmented data is stored in OpenCV Mats for further processing.</p>
+<p>For the k-means segmentation algorithm, the initial cluster centers are generated using the Mersenne Twister-based pseudo-random number generator mt19937, which ensures good clustering results. To maximize the clustering effectiveness, the algorithm is iterated 100 times with different random initialization in 10 attempts. Experimental results have shown that this configuration yields stable results, minimizing the impact of random initialization and achieving optimal segmentation outcomes.</p>
+<p>In the Normalized Cut algorithm for image segmentation, the definition of edge weights is as follows.</p>
+<p>$$<br>w_{ij}&#x3D; e^{\frac{-\left|F_{(i)}-F_{(j)}\right|_2^2}{\sigma_I^2}} *<br>$$</p>
+<p>$$<br>\begin{cases}&#x3D;e^{\frac{-\left|X_{(i)}-X_{(j)}\right|_2^2}{\sigma_X^2}} &amp; \text { if }|X(i)-X(j)|_2&lt;r \ , &#x3D;0 &amp; \text { otherwise. }\end{cases}<br>$$</p>
+<p>where, $r$ represents the pixel neighborhood radius. The vector $F(i)$ is defined as<br>$[v, v * s * sin(h), v * s * cos(h)]^T$. Where h, s, and v are the three components of the image’s HSV color space. It is important to note that the HSV definition in OpenCV differs from the standard definition, requiring special handling. The vector X(i) represents the coordinates of the pixel. In this experiment, we set $\sigma_I &#x3D; 0.01, \sigma_X &#x3D; 4.0$, and $r &#x3D; 5$. The color space conversion and computation of feature values in this implementation utilize functions provided by OpenCV.</p>
+<h2 id="Segmentation-Experiment"><a href="#Segmentation-Experiment" class="headerlink" title="Segmentation Experiment"></a>Segmentation Experiment</h2><p>This section will show the segmentation result for airplane, house, and deer images.</p>
+<center>
+    <table>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c.png"></td>
+        </tr>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori2.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k2.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c2.png"></td>
+        </tr>
+    </table>
+    Figure 1: Airplane Segmentation Result
+</center>
+<br>
+In the given airplane images shown in Figure.1, both algorithms achieved good classification results due to the simple background. However, the k-means-based algorithm, which clusters based solely on color, may result in splitting an airplane into multiple disconnected regions, affecting the segmentation outcome. On the other hand, the Normalized Cut method considers both distance and color in edge weights, leading to a more cohesive segmentation of the airplane and yielding better results.
+
+<p>The segmentation results of the horse, as shown in Figure.2, demonstrate that both algorithms experience a certain degree of performance degradation as the complexity of the background increases. </p>
+<center>
+    <table>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori5.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k5.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c5.png"></td>
+        </tr>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori6.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k6.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c6.png"></td>
+        </tr>
+    </table>
+    Figure 2: Horse Segmentation Result
+</center>
+<br>
+The segmentation results of the deer, as shown in figure.3, indicate that as the background complexity increases and includes multiple colors with significant differences, the performance of the k-means clustering model deteriorates significantly. On the other hand, the segmentation method based on Normalized Cut performs relatively well because it takes into account minimizing outliers during segmentation and incorporates both positional and color information in the edge weights.
+
+<center>
+    <table>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori3.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k3.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c3.png"></td>
+        </tr>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/ori4.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/k4.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/c4.png"></td>
+        </tr>
+    </table>
+    Figure 3: Deer Segmentation Result
+</center>
+<br>
+
+<h2 id="Failure-Analysis"><a href="#Failure-Analysis" class="headerlink" title="Failure Analysis"></a>Failure Analysis</h2><p>As the background complexity increases and the target region becomes less distinct, both classification algorithms struggle to achieve satisfactory results. The classification outcomes for complex backgrounds are displayed in Figure.4.</p>
+<center>
+    <table>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/bad1.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/badk1.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/badc1.png"></td>
+        </tr>
+        <tr>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/bad2.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/badk2.png"></td>
+            <td style="border: none;"><img src = "https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/badc2.png"></td>
+        </tr>
+    </table>
+    Figure 4: Segment failed images
+</center>
+<br>
+The segmentation difficulty is high for the above images, and even for the human eye, it is challenging to distinguish them at low resolution. Both algorithms show poor segmentation performance, but Normalized Cut can significantly reduce the fragmentation of the segmentation.
+
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>In this work, we implemented two image segmentation approaches. First, we implemented an image segmentation algorithm based on K-means clustering, and we clustered using different color features, we mainly discuss the case of clustering into 4 categories. Secondly, this paper implements the algorithm based on Normalized-cut algorithm for clustering. We discuss the situation of using this algorithm to cluster into two categories at beginning. Then, by introducing recursive hierarchical clustering, we extend the clustering algorithm to multiple Class clustering, and discuss the case of clustering into 4 classes. Experiments show that the K-means algorithm has a better clustering effect in images with simple background and obvious color distribution, while the effect of Normalized-cut algorithm is more effective in images with uniform color distribution and no obvious distribution. However, for images with complex backgrounds, both types of segmentation algorithms perform poorly. Due to the lack of true values in this data set, it is difficult to do quantitative analysis on the clustering effect. In addition, this paper does not consider the sparse structure of the matrix when solving the eigenvalues, and still uses the general eigenvalue solving algorithm, the calculation performance has a certain loss. These issues still require further research in the future.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>[1] Y.-J. Zhang, “An overview of image and video segmentation in the last 40 years,” Advances in Image and Video Segmentation, pp. 1–16, 2006.<br>[2] T. Lindeberg and M.-X. Li, “Segmentation and classification of edges using minimum description length approximation and complementary junction cues,” Computer Vision and Image Understanding, vol. 67, no. 1, pp. 88–98, 1997.<br>[3] M. R. Khokher, A. Ghafoor, and A. M. Siddiqui, “Image segmentation using multilevel graph cuts and graph development using fuzzy rule-based system,” IET image processing, vol. 7, no. 3, pp. 201–211, 2013.<br>[4] N. Senthilkumaran and R. Rajesh, “Image segmentation-a survey of soft computing approaches,” in 2009 International Conference on Advances in Recent Technologies in Communication and Computing. IEEE, 2009, pp. 844–846.<br>[5] J. Shi and J. Malik, “Normalized cuts and image segmentation,” in Proceedings of IEEE Computer Society Conference on Computer Vision and Pattern Recognition, Jun. 1997, pp. 731–737, iSSN: 1063-6919.<br>[6] S. S. Al-Amri, N. Kalyankar, and S. Khamitkar, “Image segmentation by using edge detection,” International journal on computer science and engineering, vol. 2, no. 3, pp. 804–807, 2010.<br>[7] J. Long, E. Shelhamer, and T. Darrell, “Fully convolutional networks for semantic segmentation,” in Proceedings of the IEEE conference on computer vision and pattern recognition, 2015, pp. 3431–3440.<br>[8] L.-C. Chen, G. Papandreou, I. Kokkinos, K. Murphy, and A. L. Yuille, “Semantic image segmentation with deep convolutional nets and fully connected crfs,” arXiv preprint arXiv:1412.7062, 2014.<br>[9] A. G. Schwing and R. Urtasun, “Fully connected deep structured networks,” arXiv preprint arXiv:1503.02351, 2015.<br>[10] V. Badrinarayanan, A. Kendall, and R. Cipolla, “Segnet: A deep convolutional encoder-decoder architecture for image segmentation,” IEEE transactions on pattern analysis and machine intelligence, vol. 39, no. 12, pp. 2481–2495, 2017.<br>[11] A. Kirillov, E. Mintun, N. Ravi, H. Mao, C. Rolland, L. Gustafson, T. Xiao, S. Whitehead, A. C. Berg, W.-Y. Lo, P. Dollár, and R. Girshick, “Segment anything,” 2023.<br>[12] M. Matsumoto and T. Nishimura, “Mersenne twister: A 623-dimensionally equidistributed uniform pseudo-random number generator,” ACM Trans. Model. Comput. Simul., vol. 8, no. 1, p. 3–30, jan 1998. [Online]. Available: <a target="_blank" rel="noopener" href="https://doi.org/10.1145/272991.272995">https://doi.org/10.1145/272991.272995</a></p>
+<h1 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h1><h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p>The source code of this project is available at <a target="_blank" rel="noopener" href="https://github.com/ZzzzzzS/Image-Segmentation-via-Spectral-Clustering">here</a>.</p>
+<h2 id="PDF-Version"><a href="#PDF-Version" class="headerlink" title="PDF Version"></a>PDF Version</h2><p>The PDF version of this paper is available at <a target="_blank" rel="noopener" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/Img_Segment/Image_Segmentation_via_Spectral_Clustering.pdf">here</a>.</p>
+<hr>
+<p>EOF</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/">https://blog.zzshub.cn/2023/05/20/Image_Segmentation_via_Spectral_Clustering/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Computer-Vision/">Computer Vision</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">强化学习仿真器Raisim的安装，配置，与初步使用</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/24/JacobiBasedPTZControl/" title="基于图像雅可比的目标跟踪控制"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/JacobiPTZControl/Picture1.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于图像雅可比的目标跟踪控制</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/11/13/360VO_Research/" title="Research Report of 360VO Visual Odometry Using A Single 360 Camera"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-13</div><div class="title">Research Report of 360VO Visual Odometry Using A Single 360 Camera</div></div></a></div><div><a href="/2022/10/13/EasyMVS/" title="EasyMVS -- A Simple Multi-View Stereo lib"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-13</div><div class="title">EasyMVS -- A Simple Multi-View Stereo lib</div></div></a></div><div><a href="/2023/03/24/JacobiBasedPTZControl/" title="基于图像雅可比的目标跟踪控制"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/JacobiPTZControl/Picture1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-24</div><div class="title">基于图像雅可比的目标跟踪控制</div></div></a></div><div><a href="/2022/10/28/visual_place_recognition/" title="Visual Place Recognition via HMM Filter and Smoother"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-28</div><div class="title">Visual Place Recognition via HMM Filter and Smoother</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Image-Segmentation-via-Spectral-Clustering"><span class="toc-number">1.</span> <span class="toc-text">Image Segmentation via Spectral Clustering</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Related-Works"><span class="toc-number">2.1.</span> <span class="toc-text">Related Works</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Traditional-Methods"><span class="toc-number">2.1.1.</span> <span class="toc-text">Traditional Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deep-Learning-based-Methods"><span class="toc-number">2.1.2.</span> <span class="toc-text">Deep Learning-based Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-Contributions"><span class="toc-number">2.2.</span> <span class="toc-text">Main Contributions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">3.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Method"><span class="toc-number">4.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means-Clustering"><span class="toc-number">4.1.</span> <span class="toc-text">K-means Clustering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Normalized-cut-algorithm"><span class="toc-number">4.2.</span> <span class="toc-text">Normalized-cut algorithm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experiment"><span class="toc-number">5.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#System-Setup"><span class="toc-number">5.1.</span> <span class="toc-text">System Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Segmentation-Experiment"><span class="toc-number">5.2.</span> <span class="toc-text">Segmentation Experiment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Failure-Analysis"><span class="toc-number">5.3.</span> <span class="toc-text">Failure Analysis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">6.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Appendix"><span class="toc-number">8.</span> <span class="toc-text">Appendix</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Source-Code"><span class="toc-number">8.1.</span> <span class="toc-text">Source Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PDF-Version"><span class="toc-number">8.2.</span> <span class="toc-text">PDF Version</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WSL中的GPU原理总结 | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="WSL中的GPU原理总结 自wsl(Windows Subsystem on Linux)发布以来，许多性能已经得到了长足的进步。经过多年的发展，该项目从一个玩具项目发展成现在可以真正用于生产环境的项目，给需要使用Linux环境但是又不想脱离Windows便利生态的开发者们来说带来了福音。wsl的图形性能也受到许多人的关注，特别是自微软2020build大会官方发布支持图形界面的wslg之后，ws">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL中的GPU原理总结">
+<meta property="og:url" content="https://blog.zzshub.cn/2023/08/30/wslgperformace/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="WSL中的GPU原理总结 自wsl(Windows Subsystem on Linux)发布以来，许多性能已经得到了长足的进步。经过多年的发展，该项目从一个玩具项目发展成现在可以真正用于生产环境的项目，给需要使用Linux环境但是又不想脱离Windows便利生态的开发者们来说带来了福音。wsl的图形性能也受到许多人的关注，特别是自微软2020build大会官方发布支持图形界面的wslg之后，ws">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png">
+<meta property="article:published_time" content="2023-08-30T06:12:32.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.688Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="wsl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2023/08/30/wslgperformace/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WSL中的GPU原理总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">WSL中的GPU原理总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.688Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="WSL中的GPU原理总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="WSL中的GPU原理总结"><a href="#WSL中的GPU原理总结" class="headerlink" title="WSL中的GPU原理总结"></a>WSL中的GPU原理总结</h1><blockquote>
+<p>自wsl(Windows Subsystem on Linux)发布以来，许多性能已经得到了长足的进步。经过多年的发展，该项目从一个玩具项目发展成现在可以真正用于生产环境的项目，给需要使用Linux环境但是又不想脱离Windows便利生态的开发者们来说带来了福音。<br>wsl的图形性能也受到许多人的关注，特别是自微软2020build大会官方发布支持图形界面的wslg之后，wsl的图形性能发展进入了快车道。本文主要结合微软和英伟达提供的资料简要总结了一下wsl中调用GPU的原理以及使用GPU进行3D渲染加速和CUDA编程可能遇到的问题。</p>
+</blockquote>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>关于wsl是如何调用GPU加速的主要参考了这篇微软推出的<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/directx/directx-heart-linux/">博客</a>。这篇博客里把大概的原理讲清楚了，简单来说就是hyperv虚拟机虚拟了一个<code>/dev/dxg</code>硬件，这个硬件通过WDDM(Windows Display Driver Model)(版本不低于2.9)共享了Windows端的显卡，然后在这个虚拟出的硬件上建立了一个Direct 3D的API实现了在Linux上使用Direct 3D(真的会有人在Linux上用这个吗。。。)。然后通过修改Mesa(OpenGL的开源实现)来实现了对OpenGL的支持(暂时还不支持vulkan)，以及让Nvidia单独推出了一个版本的CUDA调用D3D的API来实现通用计算。这样，显卡虚拟化最重要的图形流水线和计算流水线都得到了支持。其实下面这几张从官方博客中截取出来的图能够更好的说明这个调用关系。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/dxg.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/d3d.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/opengl.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/cuda.png"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/directml.png"></p>
+<p>可以看出这套方案还是很精妙的，是目前我已知的唯一不使用显卡直通，不适用英伟达专业卡的虚拟化接口等技术的虚拟化方案了。显卡直通会让宿主机无法使用显卡，而后者仅供专业卡使用。都有一些缺陷。而vmware等虽然能实现图形流水线从而进行3D加速，但是无法使用CUDA并行加速计算，因此难以用来进行科学计算等任务。这套方案的精妙之处是巧妙的使用了windows的显示驱动模型实现共享，以及让Nvidia单独推出了wsl版本的CUDA来支持计算流水线。了解原理后对出现故障的修复很有帮助。</p>
+<h1 id="CUDA使用与性能分析"><a href="#CUDA使用与性能分析" class="headerlink" title="CUDA使用与性能分析"></a>CUDA使用与性能分析</h1><p>CUDA的使用还是比较简单，按照原理的描述，首先需要找一个支持WDDM2.9以上的显卡驱动(官网下载的最新版就支持)，然后去Nvidia的CUDA下载页面下载wsl专用的CUDA工具包。安装完成后分别在wsl和Windows上执行<code>nvidia-smi</code>命令，应该可以发现驱动版本是完全一致的。之后就一切按照正常的Linux环境配置就可以开启炼丹之旅了。由于wsl对内存进行了虚拟化，因此显存不够时可以使用内存作为虚拟显存使用，这么虽然慢一点，但是可以缓解小显存无法开大batch size的情况。<br>从原理上看增加了这么多调用确实会降低一些性能。这篇来自Nvidia的<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/leveling-up-cuda-performance-on-wsl2-with-new-enhancements/">技术报告</a>详细的测试了性能的损失。从这张图中可以看到随着batch_size的增加，wsl与原生linux之间的性能差距在逐渐缩小。这是由于额外开销只发生在调用GPU的阶段。所以尽可能的减少对GPU的调用，并让GPU充分忙碌，提升性能，这对所有的cuda编程都有效。（毕竟就算是原生系统，创建cuda核函数，复制内存等也需要时间）。总的来说，确实有很大的性能下降，但是也还在可接受范围内，此外nvidia在报告中也提到他们在改善性能，比最初发布的版本已经快很多了。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/PyTorch-MNIST-sample-time.png"></p>
+<h1 id="3D加速"><a href="#3D加速" class="headerlink" title="3D加速"></a>3D加速</h1><p>与上一段讲的通用计算不同，本章讲的图形渲染加速又是另一个故事了。这里主要介绍OpenGL的配置，目前来看想使用GPU加速直接下载最新版本的Mesa即可。但可能需要设置一下后端的名字。使用<code>MESA_D3D12_DEFAULT_ADAPTER_NAME</code>变量来指定。具体可以参考<a target="_blank" rel="noopener" href="https://github.com/microsoft/wslg/wiki/GPU-selection-in-WSLg">这篇文档</a>。<br>安装完成后可以输入<code>glxinfo -B</code>命令来查看，如果输出有显卡的名字那么基本安装成功了，如果还是输出LLVM等字样那么说明还是使用CPU在计算。也可以通过<code>glxgears</code>程序来判断，如果在任务管理器中发现GPU占用上升，且CPU负载不高那么证明加速成功。当然显示情况也跟RDP有关，这里放一张窗口显示的框架。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/wslg-wayland.png"></p>
+<p>最后说一个任务管理器的奇怪特性，如果在设置中关闭了<code>GPU加速调度</code>选项，那么无法看到wsl的3D渲染对gpu的占用情况，但是任务管理器此时可以看到CUDA的占用，如果开启，可以看到wsl的3D渲染占用gpu了，但是CUDA的选项就消失了。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/acc.png"></p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>本文大概总结了一下wslg的现状，详细内容建议阅读本文出现的几篇官方文档。总的来说wslg经过调教基本可以作为生产工具使用，但是还存在一些问题，比如各种lib需要手动安装，不支持vulkan，cuda效率不高等问题，相信只要微软不弃坑，这些问题都会逐渐得到解决。（至少比wsl1的技术路线好多了）</p>
+<hr>
+<p>EOF</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2023/08/30/wslgperformace/">https://blog.zzshub.cn/2023/08/30/wslgperformace/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/wsl/">wsl</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">机器人控制中的强化学习极简入门指南</div></div></a></div><div class="next-post pull-right"><a href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">强化学习仿真器Raisim进行深度强化学习的初步尝试</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WSL%E4%B8%AD%E7%9A%84GPU%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">WSL中的GPU原理总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CUDA%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">CUDA使用与性能分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3D%E5%8A%A0%E9%80%9F"><span class="toc-number">4.</span> <span class="toc-text">3D加速</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

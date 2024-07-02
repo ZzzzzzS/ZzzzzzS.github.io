@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Python 软件注册信息生成器 | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="软件注册信息生成器 最近一个项目由于需要防止在多台电脑上使用，也为了防止用户无限期使用，于是简单做了一个注册器。由于用户电脑不能联网，因此就不能做联网验证，所以其实用户也很容易破解。   开源地址: 点击这里  使用说明 使用前请使用pip install pycryptodome命令按照软件包 使用DecryptModule.py模块进行解密运算，该模块运行在用户的计算机中。 使用Encrypt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 软件注册信息生成器">
+<meta property="og:url" content="https://blog.zzshub.cn/2021/05/13/Python-Register/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="软件注册信息生成器 最近一个项目由于需要防止在多台电脑上使用，也为了防止用户无限期使用，于是简单做了一个注册器。由于用户电脑不能联网，因此就不能做联网验证，所以其实用户也很容易破解。   开源地址: 点击这里  使用说明 使用前请使用pip install pycryptodome命令按照软件包 使用DecryptModule.py模块进行解密运算，该模块运行在用户的计算机中。 使用Encrypt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg">
+<meta property="article:published_time" content="2021-05-13T15:12:32.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.679Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2021/05/13/Python-Register/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python 软件注册信息生成器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python 软件注册信息生成器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-13T15:12:32.000Z" title="发表于 2021-05-13 23:12:32">2021-05-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.679Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">577</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python 软件注册信息生成器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="软件注册信息生成器"><a href="#软件注册信息生成器" class="headerlink" title="软件注册信息生成器"></a>软件注册信息生成器</h1><blockquote>
+<p>最近一个项目由于需要防止在多台电脑上使用，也为了防止用户无限期使用，于是简单做了一个注册器。由于用户电脑不能联网，因此就不能做联网验证，所以其实用户也很容易破解。</p>
+</blockquote>
+<blockquote>
+<p>开源地址: <a target="_blank" rel="noopener" href="https://github.com/ZzzzzzS/Python-Register">点击这里</a></p>
+</blockquote>
+<h1 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h1><ul>
+<li>使用前请使用<code>pip install pycryptodome</code>命令按照软件包</li>
+<li>使用<strong>DecryptModule.py</strong>模块进行解密运算，该模块运行在用户的计算机中。</li>
+<li>使用<strong>EncryptModule.py</strong> 进行加密运算，该模块仅需运行在LICENSE管理员的计算机中。</li>
+</ul>
+<h2 id="LICENSE签发过程"><a href="#LICENSE签发过程" class="headerlink" title="LICENSE签发过程"></a>LICENSE签发过程</h2><ul>
+<li>首先生成加密解密用的密钥对，命令如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 ./EncryptModule.py -k LICENSE</span><br><span class="line"></span><br><span class="line"><span class="comment">#将得到 LICENSE-Decrypt.key 和 LICENSE-Encrypy.key 两个文件，分别用于解密和加密</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步根据用户机器的唯一识别码，过期时间，和加密密钥产生LICENSE文件，命令如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">python ./EncryptModule.py -g </span><br><span class="line"></span><br><span class="line">Input Private Key File Name:</span><br><span class="line">LICENSE-Encrypt.key <span class="comment"># 输入加密密钥的完整名称</span></span><br><span class="line"></span><br><span class="line">Input Fingerprint Name: <span class="comment"># 输入用户提供的设备ID（解密模块找不到密钥时会自动提供）</span></span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">Input ExpireTime (e.g. 2021/07/07): <span class="comment"># 输入期望的过期时间，格式为yyyy/mm/DD</span></span><br><span class="line">2021/07/07</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第三步，将生成的<code>LICENSE.txt</code>和<code>LICENSE-Decrypt.key</code>发送给用户，放在软件的同级文件夹下</li>
+</ul>
+<h2 id="LICENSE校验过程"><a href="#LICENSE校验过程" class="headerlink" title="LICENSE校验过程"></a>LICENSE校验过程</h2><p><strong>使用DecryptModule中的LicenseChecker类来判断LICENSE是否有效</strong></p>
+<p>例程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = LicenseChecker(<span class="string">&quot;LICENSE.txt&quot;</span>, <span class="string">&quot;key-Decrypt.key&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(a.CheckLicenseAvailable())</span><br></pre></td></tr></table></figure>
+
+<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><ul>
+<li><p>获取用户电脑的识别码，根据用户的唯一识别码和预设的过期时间加密计算出LICENSE.txt</p>
+</li>
+<li><p>用户打开软件时根据LICENSE.txt 解密出识别码和过期时间，根据识别码和过期时间判断是否换电脑和是否过期</p>
+</li>
+</ul>
+<h1 id="标识符的选择"><a href="#标识符的选择" class="headerlink" title="标识符的选择"></a>标识符的选择</h1><p>识别码可以选择网卡的MAC地址，但是考虑到用户计算机上可能没有网卡，因此该方法失效。因此在Windows端选择计算机序列号uuid，在Linux端使用Machine-id</p>
+<h2 id="Linux端标识符"><a href="#Linux端标识符" class="headerlink" title="Linux端标识符"></a>Linux端标识符</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /var/lib/dbus/machine-id <span class="comment"># 不需要root权限</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /sys/class/dmi/id/board_serial <span class="comment">#需要root权限</span></span><br><span class="line"><span class="built_in">cat</span> /sys/class/dmi/id/product_uuid</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows端标识符"><a href="#Windows端标识符" class="headerlink" title="Windows端标识符"></a>Windows端标识符</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic csproduct get UUID <span class="comment">#不需要管理员权限</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2021/05/13/Python-Register/">https://blog.zzshub.cn/2021/05/13/Python-Register/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/13/EasyMVS/" title="EasyMVS -- A Simple Multi-View Stereo lib"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">EasyMVS -- A Simple Multi-View Stereo lib</div></div></a></div><div class="next-post pull-right"><a href="/2020/10/22/ROGhacintosh/" title="安装黑苹果并启用secure boot"><img class="cover" src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/10880134416723042.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装黑苹果并启用secure boot</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%B3%A8%E5%86%8C%E4%BF%A1%E6%81%AF%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">软件注册信息生成器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LICENSE%E7%AD%BE%E5%8F%91%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">LICENSE签发过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LICENSE%E6%A0%A1%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">LICENSE校验过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.</span> <span class="toc-text">标识符的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E7%AB%AF%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">4.1.</span> <span class="toc-text">Linux端标识符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E7%AB%AF%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">4.2.</span> <span class="toc-text">Windows端标识符</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

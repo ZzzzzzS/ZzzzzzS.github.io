@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>废旧小主机改造路由器 | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="废旧小主机改造路由器,廉价的家用NAS解决方案 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。  最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="废旧小主机改造路由器">
+<meta property="og:url" content="https://blog.zzshub.cn/2019/01/16/MatherBoardRouter/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="废旧小主机改造路由器,廉价的家用NAS解决方案 好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。  最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg">
+<meta property="article:published_time" content="2019-01-16T15:41:34.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.679Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="作品">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2019/01/16/MatherBoardRouter/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '废旧小主机改造路由器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">废旧小主机改造路由器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-01-16T15:41:34.000Z" title="发表于 2019-01-16 23:41:34">2019-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.679Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="废旧小主机改造路由器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="废旧小主机改造路由器-廉价的家用NAS解决方案"><a href="#废旧小主机改造路由器-廉价的家用NAS解决方案" class="headerlink" title="废旧小主机改造路由器,廉价的家用NAS解决方案"></a>废旧小主机改造路由器,廉价的家用NAS解决方案</h1><blockquote>
+<p>好久没有写博客了，看了看上一篇还是去年9月份的事情。大三了学习压力好大，没什么时间研究技术方面的东西了。下学期还要开始考研，哎更没时间，估计博客又要好久不能更新了。</p>
+</blockquote>
+<p>最近喜欢上了逛闲鱼捡垃圾，捡到了一台110元的废旧小主机。电子垃圾真便宜，还真是三千预算进图吧，学校对面开网吧啊。一直想给之前用的路由器加些功能，可无奈毕竟是路由器算力跟不上，硬件供电也不行，还把我硬盘给搞坏了。把这次捡的这小主机改造成路由器岂不是美滋滋。改造，开干！<br>关于改造过程，因为篇幅有限，这篇博客只谈软件改造部分，关于硬件部分其实也没什么好说的，就是着重处理了一下散热，然后因为需要wifi就买了一块7260AC无线网卡插上，另外弄了两根6dB天线装上。<br>主机配置如下:</p>
+<p>Intel Atom n270处理器(32位)<br>1GB DDR2L 内存<br>32GB 固态<br>Intel 7260AC双频无线网卡<br>4个USB2.0接口<br>一个百兆以太网口<br>另有SATA接口，IDE接口，串口，mini-PCIe，USB扩展排针等等一系列接口，看中这个主板也是因为接口比较丰富。</p>
+<h1 id="装系统"><a href="#装系统" class="headerlink" title="装系统"></a>装系统</h1><p>关于系统，我最终选择了<code>Ubuntu 16.04.5 LTS Server</code>这个版本，然后自己安装了<strong>lxde</strong>桌面。几方面的原因，主要是主机算力还是不太够，不能支撑复杂的图形界面，只能用<strong>lxde</strong>这样的轻量化桌面才能运行，自己装桌面而没直接装<strong>lubuntu</strong>是因为它还是附带了很多不必要的组件，不够纯粹。安装过程跳过，注意下网卡的选择，有多张网卡时选择接入外网的网卡，对我来说就是接入校园网的网卡。另外可能需要设置网卡的IP，因为我校校园网是动态分配的IP，所以选择DHCP即可。安装完成后设置root密码<code>sudo passwd root</code>,给系统换软件源<code>vi /etc/apt/source.list </code>,以下是我更换的中国官方源，我个人还是喜欢用官方源：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb cdrom:[Ubuntu 16.04.5 LTS _Xenial Xerus_ - Release i386 (20180731)]/ xenial main restricted</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See http://help.ubuntu.com/community/UpgradeNotes <span class="keyword">for</span> how to upgrade to</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">newer versions of the distribution.</span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Major bug fix updates produced after the final release of the</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># distribution.</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># team. Also, please note that software in universe WILL NOT receive any</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># review or updates from the Ubuntu security team.</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial universe</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial universe</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># team, and may not be under a free licence. Please satisfy yourself as to</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># your rights to use the software. Also, please note that software in</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># multiverse WILL NOT receive any review or updates from the Ubuntu</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># security team.</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># N.B. software from this repository may not have been tested as</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># extensively as that contained in the main release, although it includes</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># newer versions of some applications which may provide useful features.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Also, please note that software in backports WILL NOT receive any review</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># or updates from the Ubuntu security team.</span></span></span><br><span class="line">deb http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Uncomment the following two lines to add software from Canonical&#x27;s</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># &#x27;partner&#x27; repository.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># This software is not part of Ubuntu, but is offered by Canonical and the</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># respective vendors as a service to Ubuntu users.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb http://archive.canonical.com/ubuntu xenial partner</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># deb-src http://archive.canonical.com/ubuntu xenial partner</span></span></span><br><span class="line"></span><br><span class="line">deb http://security.ubuntu.com/ubuntu xenial-security main restricted</span><br></pre></td></tr></table></figure>
+
+<p>之后执行<code>sudo apt-get update</code>更新缓存，<code>sudo apt-get upgrade</code></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/SharedScreenshot.jpg"></p>
+<p>更新软件。好了到目前为止，一个命令行版本的ubuntu安装完成了。</p>
+<h1 id="配置SSH，实现远程命令行控制主机"><a href="#配置SSH，实现远程命令行控制主机" class="headerlink" title="配置SSH，实现远程命令行控制主机"></a>配置SSH，实现远程命令行控制主机</h1><p>既然做服务器，肯定需要有远程控制主机的能力。</p>
+<h2 id="安装ssh服务组件"><a href="#安装ssh服务组件" class="headerlink" title="安装ssh服务组件"></a>安装ssh服务组件</h2><p>执行<code>sudo apt-get install openssh-server</code>即可安装，安装完成后输入<code>service ssh status</code>查看ssh服务运行状态，服务没启动输入<code>service ssh start</code>来启动<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133248.jpg"></p>
+<h2 id="安装完成后配置，允许root用户远程登录"><a href="#安装完成后配置，允许root用户远程登录" class="headerlink" title="安装完成后配置，允许root用户远程登录"></a>安装完成后配置，允许root用户远程登录</h2><p>这部分可有可无，ssh协议为了安全，默认是禁止root超级管理员账户远程登录的，但是linux下很多操作需要使用到root权限，如果不用root登录就需要频繁的使用sudo命令，比较麻烦。</p>
+<p>sudo vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
+<p>把<code>PermitRootLogin no</code>修改为<code>PermitRootLogin yes</code></p>
+<p>重启服务<code>sudo service ssh restart</code></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20133837.jpg"></p>
+<h2 id="远程登录"><a href="#远程登录" class="headerlink" title="远程登录"></a>远程登录</h2><p>在开始之前需要确认好主机的ip和端口号(目前没讲到域名的问题所以需要确认好ip)。ssh协议默认使用22端口，ip输入<code>ifconfig</code>查看本机ip<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%E6%89%B9%E6%B3%A8%202019-01-16%20134434.jpg"><br>可以看到本机ip为<strong>192.168.3.212</strong>。</p>
+<p><strong>在Windows下使用putty访问</strong>，如图，输入ip，端口，用户名，密码，Go！！！开始你的远程控制小主机之旅吧。</p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%7BB31A6894-D382-4E39-8608-DD67D0978E62%7D.png.jpg"></p>
+<p><strong>Windows10也可以使用WSL(windows subsystem for linux)来访问，参见<a target="_blank" rel="noopener" href="https://zzzzzzs.github.io/2017/11/21/hiwifiRightWay/">hiwifi的正确打开方式</a></strong></p>
+<h1 id="配置网络，实现路由器功能"><a href="#配置网络，实现路由器功能" class="headerlink" title="配置网络，实现路由器功能"></a>配置网络，实现路由器功能</h1><blockquote>
+<p>说了这么多，这一部分才是本文的核心内容。</p>
+</blockquote>
+<p>这个小主机主要实现了一个有线局域网和一个无线局域网桥接连接到外网的功能。主要的思路是用</p>
+<h1 id="配置网络打印机服务，实现局域网内打印"><a href="#配置网络打印机服务，实现局域网内打印" class="headerlink" title="配置网络打印机服务，实现局域网内打印"></a>配置网络打印机服务，实现局域网内打印</h1><p>说到Linux下的网络打印，<del>我就想起明年年初，中美合拍的西游记即将正式开机，我继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家能多多关注。</del> 就必须要提到<a target="_blank" rel="noopener" href="https://www.cups.org/"><strong>CUPS</strong></a>。官方介绍如下：</p>
+<blockquote>
+<p>CUPS is the standards-based, open source printing system developed by Apple Inc. for macOS® and other UNIX®-like operating systems. CUPS uses the Internet Printing Protocol (IPP) to support printing to local and network printers.</p>
+</blockquote>
+<p>一开始做打印机服务的本想着应该先找驱动实现本地打印再想办法把打印机共享出去。结果发现了这么个好东西，把打印机驱动和打印机服务器直接做到一起了，免去了配置远程打印的过程。事实上，Linux下本机的打印也是通过本地回环localhost 127.0.0.1访问本地服务器，来实现的。这么一来，本机打印和局域网内打印的原理上都是一样的了。这个打印机服务使用通用协议IPP(Internet Printing Protocol)协议来与局域网内设备(包括小主机)通信，这样一来其他电脑&#x2F;手机也不用装驱动了，直接添加打印机打印就好。CUPS的另一方面就是能自动的从网上获取打印机的驱动安装到小主机上，这样也能免去找驱动的过程。</p>
+<h2 id="安装CUPS"><a href="#安装CUPS" class="headerlink" title="安装CUPS"></a>安装CUPS</h2><p>一般Linux安装完成的时候都默认带了CUPS的，但是如果没有安装就需要我们手动安装了。执行以下命令 <code>sudo apt-get install CUPS</code>即可安装完成<br>执行<code>sudo service cups start</code>来启动服务<br>完成后用浏览器访问<a target="_blank" rel="noopener" href="http://localhost:631/admin">http://localhost:631/admin</a>,如果出现界面了就证明安装成功。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/%7B2C197BE2-E904-49B3-BF66-F584685A77DB%7D.png.jpg"></p>
+<h2 id="添加打印机"><a href="#添加打印机" class="headerlink" title="添加打印机"></a>添加打印机</h2><blockquote>
+<p>关于添加打印机，网上有很多教程都是基于图形化桌面的，我想讲的是如何在CUPS提供的网页里设置打印机。</p>
+</blockquote>
+<p>如下图所示，在<strong>Administration</strong>选项卡选择<code>add printer</code><br><strong>注意：有对话框弹出来要求输入root用户名密码，如果没有弹出就换个浏览器试试，我的Chrome浏览器就无法弹出导致一直卡在那里，而edge就能输入</strong><br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/a.png.jpg"></p>
+<p>如下图所示，进入后可看到打印机已经被发现，选中即可。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/b.jpg"></p>
+<p>如下图所示，下一步确定打印机名称，位置啥的，这个随意填写就好，注意勾选共享打印机。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/c.jpg"></p>
+<p>如下图所示，选择驱动，它一般默认推荐的驱动就能够使用，可以配置完成后打印一张测试页看看正不正常。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/d.jpg"></p>
+<p>如下图所示，一些乱七八糟的打印参数，看着慢慢改吧，之前我的打印机老是卡纸，就是改了很多参数才慢慢正常的。<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/e.jpg"></p>
+<p>选择默认设置，好了打印机设置完成！接下来就可以在<code>Printer</code>选项中管理打印机，查看打印队列或者打印测试页了。</p>
+<h2 id="配置打印机共享和通过域名访问打印机"><a href="#配置打印机共享和通过域名访问打印机" class="headerlink" title="配置打印机共享和通过域名访问打印机"></a>配置打印机共享和通过域名访问打印机</h2><p>勾选如下所示的选项即可<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/f.jpg"></p>
+<blockquote>
+<p>域名的设置就有点麻烦了，估计也是为了安全，CUPS默认禁止使用域名的方式远程或者本地连接到打印机，初衷是好，但是对于使用动态ip的人来说就很不友好了。我研究了很久很久才搞出来，所以单独列出来。</p>
+</blockquote>
+<p>修改&#x2F;etc&#x2F;cups&#x2F;cupsd.conf文件<code>sudo vi  /etc/cups/cupsd.conf</code>，添加<code>ServerAlias *</code>即可。如下图所示<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/i.jpg"></p>
+<h2 id="电脑和手机远程打印"><a href="#电脑和手机远程打印" class="headerlink" title="电脑和手机远程打印"></a>电脑和手机远程打印</h2><p>好了，到现在打印机共享就设置完成了，在Windows下添加网络打印机就好。<strong>打开设置-&gt;设备-&gt;打印机和扫描仪-&gt;添加打印机和扫描仪-&gt;我需要的打印机不在列表中，就会打开以下界面</strong><br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/g.jpg"></p>
+<p>共享的打印机地址如图所示<br><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/MatherBoardRouter/h.jpg"></p>
+<p>因为CUPS是Apple提供的，所以在iPhone上的设置就尤其的方便，直接在手机里点击打印，然后选择打印机就好了，无需任何设置</p>
+<hr>
+<h1 id="未完待续。。。。。。"><a href="#未完待续。。。。。。" class="headerlink" title="未完待续。。。。。。"></a>未完待续。。。。。。</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2019/01/16/MatherBoardRouter/">https://blog.zzshub.cn/2019/01/16/MatherBoardRouter/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/%E4%BD%9C%E5%93%81/">作品</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/06/06/relevant/" title="利用相关函数进行元素识别的一个实验性观点"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog%2FShapes.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">利用相关函数进行元素识别的一个实验性观点</div></div></a></div><div class="next-post pull-right"><a href="/2018/09/17/fullhttps/" title="GitHub Pages开启全站https连接"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E5%85%A8%E7%AB%99https/20180522ssl.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GitHub Pages开启全站https连接</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2017/11/21/hiwifiRightWay/" title="hiwifi的正确打开方式"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/hiwifi%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-21</div><div class="title">hiwifi的正确打开方式</div></div></a></div><div><a href="/2017/11/28/openwrt/" title="openwrt简单玩一玩"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/openwrt%E8%AF%95%E7%8E%A9/timg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-28</div><div class="title">openwrt简单玩一玩</div></div></a></div><div><a href="/2017/10/29/diansai2017Uper/" title="diansai2017上位机"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E7%94%B5%E8%B5%9B%E4%B8%8A%E4%BD%8D%E6%9C%BA/1_androidstich3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-10-29</div><div class="title">diansai2017上位机</div></div></a></div><div><a href="/2018/04/08/YaoYyaobangOnSTM32/" title="自制摇摇棒"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/yaoyaobang/%E8%8D%89%E5%9B%BE.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-08</div><div class="title">自制摇摇棒</div></div></a></div><div><a href="/2017/11/13/uper2018use/" title="uper2018使用说明"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/%E8%93%9D%E7%89%99%E4%B8%8A%E4%BD%8D%E6%9C%BA/cyaHx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-11-13</div><div class="title">uper2018使用说明</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%9F%E6%97%A7%E5%B0%8F%E4%B8%BB%E6%9C%BA%E6%94%B9%E9%80%A0%E8%B7%AF%E7%94%B1%E5%99%A8-%E5%BB%89%E4%BB%B7%E7%9A%84%E5%AE%B6%E7%94%A8NAS%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">废旧小主机改造路由器,廉价的家用NAS解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.</span> <span class="toc-text">装系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSH%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A7%E5%88%B6%E4%B8%BB%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">配置SSH，实现远程命令行控制主机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85ssh%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">安装ssh服务组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E9%85%8D%E7%BD%AE%EF%BC%8C%E5%85%81%E8%AE%B8root%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">安装完成后配置，允许root用户远程登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">远程登录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%94%B1%E5%99%A8%E5%8A%9F%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">配置网络，实现路由器功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E6%89%93%E5%8D%B0%E6%9C%BA%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%AE%9E%E7%8E%B0%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E6%89%93%E5%8D%B0"><span class="toc-number">5.</span> <span class="toc-text">配置网络打印机服务，实现局域网内打印</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85CUPS"><span class="toc-number">5.1.</span> <span class="toc-text">安装CUPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%93%E5%8D%B0%E6%9C%BA"><span class="toc-number">5.2.</span> <span class="toc-text">添加打印机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%89%93%E5%8D%B0%E6%9C%BA%E5%85%B1%E4%BA%AB%E5%92%8C%E9%80%9A%E8%BF%87%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E6%89%93%E5%8D%B0%E6%9C%BA"><span class="toc-number">5.3.</span> <span class="toc-text">配置打印机共享和通过域名访问打印机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%84%91%E5%92%8C%E6%89%8B%E6%9C%BA%E8%BF%9C%E7%A8%8B%E6%89%93%E5%8D%B0"><span class="toc-number">5.4.</span> <span class="toc-text">电脑和手机远程打印</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E3%80%82%E3%80%82%E3%80%82%E3%80%82%E3%80%82%E3%80%82"><span class="toc-number">6.</span> <span class="toc-text">未完待续。。。。。。</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机器人控制中的强化学习极简入门指南 | ZZSHUB</title><meta name="author" content="Zishun Zhou"><meta name="copyright" content="Zishun Zhou"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="机器人控制中的强化学习极简入门指南 最近随着深度强化学习在机器人领域大放异彩，大家对这个方向的关注热情日趋高涨。最近老有人来问我相关的问题，借此机会我写了一个强化学习极简入门教程，其实也就是回答了入门应该看一些什么资料的问题。其实我本人也是初学者，如有疏漏或者错误还请大家海涵，如有问题也欢迎大家一起讨论。这是本系列的第一篇文章，计划后续会继续写一些更具体的环境搭建教程和入门教程，争取不鸽。  强化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器人控制中的强化学习极简入门指南">
+<meta property="og:url" content="https://blog.zzshub.cn/2024/05/21/start_rl/index.html">
+<meta property="og:site_name" content="ZZSHUB">
+<meta property="og:description" content="机器人控制中的强化学习极简入门指南 最近随着深度强化学习在机器人领域大放异彩，大家对这个方向的关注热情日趋高涨。最近老有人来问我相关的问题，借此机会我写了一个强化学习极简入门教程，其实也就是回答了入门应该看一些什么资料的问题。其实我本人也是初学者，如有疏漏或者错误还请大家海涵，如有问题也欢迎大家一起讨论。这是本系列的第一篇文章，计划后续会继续写一些更具体的环境搭建教程和入门教程，争取不鸽。  强化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg">
+<meta property="article:published_time" content="2024-05-21T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-02T05:07:11.688Z">
+<meta property="article:author" content="Zishun Zhou">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="机器人">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg"><link rel="shortcut icon" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/logo.ico"><link rel="canonical" href="https://blog.zzshub.cn/2024/05/21/start_rl/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="blth2QTunwBDdAVeivflGOQ5yFAKkRto5hERrzSe7Zw"/><meta name="baidu-site-verification" content="J5gSYw6HO1"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30631f1de6b7510bb2f006c33e30d765";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "n0xcwltp2w");</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器人控制中的强化学习极简入门指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-02 13:07:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZZSHUB" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ZZSHUB"><span class="site-name">ZZSHUB</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光机</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%B8%B8%E6%88%8F"><i class="fa-fw /games/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%9B%BE%E4%B9%A6"><i class="fa-fw /books/"></i><span> 2</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">机器人控制中的强化学习极简入门指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-02T05:07:11.688Z" title="更新于 2024-07-02 13:07:11">2024-07-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器人控制中的强化学习极简入门指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="机器人控制中的强化学习极简入门指南"><a href="#机器人控制中的强化学习极简入门指南" class="headerlink" title="机器人控制中的强化学习极简入门指南"></a>机器人控制中的强化学习极简入门指南</h1><blockquote>
+<p>最近随着深度强化学习在机器人领域大放异彩，大家对这个方向的关注热情日趋高涨。最近老有人来问我相关的问题，借此机会我写了一个强化学习极简入门教程，其实也就是回答了入门应该看一些什么资料的问题。其实我本人也是初学者，如有疏漏或者错误还请大家海涵，如有问题也欢迎大家一起讨论。这是本系列的第一篇文章，计划后续会继续写一些更具体的环境搭建教程和入门教程，争取不鸽。</p>
+</blockquote>
+<h1 id="强化学习-深度学习部分参考资料"><a href="#强化学习-深度学习部分参考资料" class="headerlink" title="强化学习&#x2F;深度学习部分参考资料"></a>强化学习&#x2F;深度学习部分参考资料</h1><ul>
+<li><p>OpenAI的spinning up，主要讲深度强化学习的基本概念和算法的主流思想，里面也有配套代码，代码适合初学者学习，不过配置环境有点恶心，涉及到OpenMPI的内容，代码实在跑不起来就算了，能读懂就挺好，这个强烈推荐看完<br><a target="_blank" rel="noopener" href="https://spinningup.openai.com/en/latest/">https://spinningup.openai.com/en/latest/</a></p>
+</li>
+<li><p>OpenAI的gym(更名为Gymnasium了，其实就是gym)环境，经典的强化学习环境，这个环境可以好好玩玩<br><a target="_blank" rel="noopener" href="https://gymnasium.farama.org/">https://gymnasium.farama.org/</a><br><a target="_blank" rel="noopener" href="https://github.com/Farama-Foundation/Gymnasium">https://github.com/Farama-Foundation/Gymnasium</a></p>
+</li>
+<li><p>stable baseline3，深度强化学习经典&#x2F;常用算法合集，和gym配合使用，gym只是一个环境，或者叫agent，这个是学习控制agent的算法，或者叫policy。<br>配合gym使用，熟悉一下api就好，别看里面的实现，太复杂了<br><a target="_blank" rel="noopener" href="https://stable-baselines3.readthedocs.io/en/master/">https://stable-baselines3.readthedocs.io/en/master/</a></p>
+</li>
+<li><p>这个是网上一个老哥写的强化学习算法合集，这个和stable baseline3的算法内容基本相同，但是简单很多，适合初学者学习，可以配合这spinning up来看，这个代码很好读也很好跑起来。<br><a target="_blank" rel="noopener" href="https://github.com/Lizhi-sjtu/DRL-code-pytorch">https://github.com/Lizhi-sjtu/DRL-code-pytorch</a></p>
+</li>
+<li><p>另一个不错的强化学习算法库：<br><a target="_blank" rel="noopener" href="https://github.com/thu-ml/tianshou">https://github.com/thu-ml/tianshou</a></p>
+</li>
+<li><p>最后推荐一本叫《强化学习》的书，这本书很经典系统的介绍了强化学习的基础理论。但是这本书知识有点旧了，但是对入门还是有一些帮助，主要是前几张的内容可以仔细看看，理解一下动态规划，蒙特卡洛，和时序差分的概念比较重要。</p>
+</li>
+<li><p>pytorch必学深度学习框架，个人感觉学习pytorch看官网的教程就够了，不懂的api问gpt就好<br><a target="_blank" rel="noopener" href="https://pytorch.org/">https://pytorch.org/</a></p>
+</li>
+</ul>
+<p>一些可能会有帮助的资料：<br><a target="_blank" rel="noopener" href="https://docs.anaconda.com/free/miniconda/index.html">https://docs.anaconda.com/free/miniconda/index.html</a><br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs">https://code.visualstudio.com/docs</a><br><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/">https://zh.cppreference.com/w/</a><br><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">https://www.liaoxuefeng.com/wiki/896043488029600</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-tutorial.html">https://www.runoob.com/python3/python3-tutorial.html</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-tutorial.html">https://www.runoob.com/linux/linux-tutorial.html</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-tutorial.html">https://www.runoob.com/docker/docker-tutorial.html</a></p>
+<p>以上就是强化学习&#x2F;深度学习的一些资料，建议先熟悉熟悉基本的强化学习。熟悉一下linux和python，以及pytorch，之后再看下一步的强化学习在机器人上的应用。强烈建议看完spinning up，以及gym，后面那些框架大概看看就好，<strong>不要花费太多时间看算法框架，很多也不一定适合，而且太复杂，不要话太多时间思考算法细节，初步使用不会涉及到修改学习算法本身，多看看仿真器，多跑跑实际工程</strong>。多写多练才能更快进步。</p>
+<h1 id="机器人控制和仿真器参考资料"><a href="#机器人控制和仿真器参考资料" class="headerlink" title="机器人控制和仿真器参考资料"></a>机器人控制和仿真器参考资料</h1><blockquote>
+<p>啊，终于到正题了</p>
+</blockquote>
+<ul>
+<li><p>强化学习的仿真器：<br>nvidia isaacgym (类比于mojoco)，这个是我们目前主要使用的仿真器，可以下载下来熟悉一下，ubuntu 20.04 22.04 24.04 实测支持，建议使用python3.8 </br><br>  官网：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/isaac-gym">https://developer.nvidia.com/isaac-gym</a></br><br>  镜像文档：<a href="https://blog.zzshub.cn/legged_gym/">https://blog.zzshub.cn/legged_gym/</a> </br><br>  安装教程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/560826876">https://zhuanlan.zhihu.com/p/560826876</a></p>
+</li>
+<li><p>ETH Raisim<br><a target="_blank" rel="noopener" href="https://raisim.com/">https://raisim.com/</a> 这个是另一个仿真器，可以看看，也可以不看。仿真精度高，但是速度慢。</p>
+</li>
+<li><p>nvidia isaac sim。这个可能是我们未来会使用的仿真器<br><a target="_blank" rel="noopener" href="https://docs.omniverse.nvidia.com/isaacsim/latest/overview.html">https://docs.omniverse.nvidia.com/isaacsim/latest/overview.html</a></p>
+</li>
+<li><p>强化学习的框架（对仿真器做的二次封装，方便强化学习使用，类比于Pinocchio）：<br>目前我们使用的是eth的legged_gym，这个配合nvidia isaacgym使用</br><br>  官方版本：<a target="_blank" rel="noopener" href="https://github.com/leggedrobotics/legged_gym">https://github.com/leggedrobotics/legged_gym</a> </br><br>  我修改版本：<a target="_blank" rel="noopener" href="https://github.com/ZzzzzzS/legged_gym">https://github.com/ZzzzzzS/legged_gym</a></p>
+</li>
+</ul>
+<h1 id="双足-四足机器人强化学习经典论文"><a href="#双足-四足机器人强化学习经典论文" class="headerlink" title="双足&#x2F;四足机器人强化学习经典论文"></a>双足&#x2F;四足机器人强化学习经典论文</h1><h2 id="算法理论"><a href="#算法理论" class="headerlink" title="算法理论"></a>算法理论</h2><ul>
+<li><p>X. B. Peng, Z. Ma, P. Abbeel, S. Levine and A. Kanazawa, “AMP: adversarial motion priors for stylized physics-based character control,” ACM Transactions on Graphics, vol. 40, p. 144:1–144:20, July 2021.</p>
+</li>
+<li><p>X. B. Peng, P. Abbeel, S. Levine and M. van de Panne, “DeepMimic: example-guided deep reinforcement learning of physics-based character skills,” ACM Transactions on Graphics, vol. 37, p. 143:1–143:14, July 2018.</p>
+</li>
+<li><p>J. Schulman, F. Wolski, P. Dhariwal, A. Radford and O. Klimov, “Proximal Policy Optimization Algorithms,” 2017.</p>
+</li>
+<li><p>V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G. Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski, S. Petersen, C. Beattie, A. Sadik, I. Antonoglou, H. King, D. Kumaran, D. Wierstra, S. Legg and D. Hassabis, “Human-level control through deep reinforcement learning,” Nature, vol. 518, p. 529–533, February 2015.</p>
+</li>
+<li><p>D. Kalashnikov, J. Varley, Y. Chebotar, B. Swanson, R. Jonschkowski, C. Finn, S. Levine and K. Hausman, “MT-Opt: Continuous Multi-Task Robotic Reinforcement Learning at Scale,” 2021.</p>
+</li>
+<li><p>E. Jang, A. Irpan, M. Khansari, D. Kappler, F. Ebert, C. Lynch, S. Levine and C. Finn, “BC-Z: Zero-Shot Task Generalization with Robotic Imitation Learning,” in Proceedings of the 5th Conference on Robot Learning, 2022.</p>
+</li>
+<li><p>C. Finn, P. Christiano, P. Abbeel and S. Levine, “A Connection between Generative Adversarial Networks, Inverse Reinforcement Learning, and Energy-Based Models,” 2016.</p>
+</li>
+<li><p>A. Creswell, T. White, V. Dumoulin, K. Arulkumaran, B. Sengupta and A. A. Bharath, “Generative Adversarial Networks: An Overview,” IEEE Signal Processing Magazine, vol. 35, p. 53–65, January 2018.</p>
+</li>
+</ul>
+<h2 id="仿真工具"><a href="#仿真工具" class="headerlink" title="仿真工具"></a>仿真工具</h2><ul>
+<li><p>N. Rudin, D. Hoeller, P. Reist and M. Hutter, “Learning to walk in minutes using massively parallel deep reinforcement learning,” in Conference on Robot Learning, 2022.</p>
+</li>
+<li><p>V. Makoviychuk, L. Wawrzyniak, Y. Guo, M. Lu, K. Storey, M. Macklin, D. Hoeller, N. Rudin, A. Allshire, A. Handa and G. State, “Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning,” 2021.</p>
+</li>
+<li><p>M. Körber, J. Lange, S. Rediske, S. Steinmann and R. Glück, “Comparing Popular Simulation Environments in the Scope of Robotics and Reinforcement Learning,” 2021.</p>
+</li>
+</ul>
+<h2 id="双足-四足控制"><a href="#双足-四足控制" class="headerlink" title="双足&#x2F;四足控制"></a>双足&#x2F;四足控制</h2><ul>
+<li><p>A. Tang, T. Hiraoka, N. Hiraoka, F. Shi, K. Kawaharazuka, K. Kojima, K. Okada and M. Inaba, “HumanMimic: Learning Natural Locomotion and Transitions for Humanoid Robot via Wasserstein Adversarial Imitation,” September 2023.</p>
+</li>
+<li><p>J. Siekmann, Y. Godse, A. Fern and J. Hurst, “Sim-to-Real Learning of All Common Bipedal Gaits via Periodic Reward Composition,” in 2021 IEEE International Conference on Robotics and Automation (ICRA), Xi&apos;an, China, 2021.</p>
+</li>
+<li><p>T. Miki, J. Lee, J. Hwangbo, L. Wellhausen, V. Koltun and M. Hutter, “Learning robust perceptive locomotion for quadrupedal robots in the wild,” Science Robotics, vol. 7, p. eabk2822, 2022.</p>
+</li>
+<li><p>Z. Li, X. B. Peng, P. Abbeel, S. Levine, G. Berseth and K. Sreenath, “Reinforcement Learning for Versatile, Dynamic, and Robust Bipedal Locomotion Control,” January 2024.</p>
+</li>
+<li><p>J. Lee, J. Hwangbo, L. Wellhausen, V. Koltun and M. Hutter, “Learning quadrupedal locomotion over challenging terrain,” Science Robotics, vol. 5, p. eabc5986, October 2020.</p>
+</li>
+<li><p>A. Kumar, Z. Fu, D. Pathak and J. Malik, “RMA: Rapid Motor Adaptation for Legged Robots,” 2021.</p>
+</li>
+<li><p>Y. Jin, X. Liu, Y. Shao, H. Wang and W. Yang, “High-speed quadrupedal locomotion by imitation-relaxation reinforcement learning,” Nature Machine Intelligence, vol. 4, p. 1198–1208, December 2022.</p>
+</li>
+<li><p>F. Jenelten, J. He, F. Farshidian and M. Hutter, “DTC: Deep Tracking Control,” Science Robotics, vol. 9, p. eadh5401, January 2024.</p>
+</li>
+<li><p>D. Hoeller, N. Rudin, D. Sako and M. Hutter, “ANYmal parkour: Learning agile navigation for quadrupedal robots,” Science Robotics, vol. 9, p. eadi7566, March 2024.</p>
+</li>
+<li><p>H. Duan, B. Pandit, M. S. Gadde, B. van Marum, J. Dao, C. Kim and A. Fern, “Learning Vision-Based Bipedal Locomotion for Challenging Terrain,” September 2023.</p>
+</li>
+<li><p>D. Baek, A. Purushottam and J. Ramos, “Hybrid LMC: Hybrid Learning and Model-based Control for Wheeled Humanoid Robot via Ensemble Deep Reinforcement Learning,” in 2022 IEEE&#x2F;RSJ International Conference on Intelligent Robots and Systems (IROS), 2022.</p>
+</li>
+<li><p>I. M. Aswin Nahrendra, B. Yu and H. Myung, “DreamWaQ: Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination via Deep Reinforcement Learning,” in 2023 IEEE International Conference on Robotics and Automation (ICRA), 2023.</p>
+</li>
+</ul>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>一个值得参考的强化学习简介PPT，<a target="_blank" rel="noopener" href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/reinforce_learning_sharing.pdf">点击此处</a>下载。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn">Zishun Zhou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.zzshub.cn/2024/05/21/start_rl/">https://blog.zzshub.cn/2024/05/21/start_rl/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.zzshub.cn" target="_blank">ZZSHUB</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/">机器人</a></div><div class="post_share"><div class="social-share" data-image="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" target="_blank"><img class="post-qr-code-img" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/wechatpay.JPG" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">强化学习仿真器Isaac Gym的安装，配置，与初步使用</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="onerror=null;src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WSL中的GPU原理总结</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-21</div><div class="title">强化学习仿真器Isaac Gym的安装，配置，与初步使用</div></div></a></div><div><a href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-26</div><div class="title">强化学习仿真器Raisim进行深度强化学习的初步尝试</div></div></a></div><div><a href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img class="cover" src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-26</div><div class="title">强化学习仿真器Raisim的安装，配置，与初步使用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/zzslogo.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.gif'" alt="avatar"/></div><div class="author-info__name">Zishun Zhou</div><div class="author-info__description">周子顺</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ZzzzzzS"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZzzzzzS" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:zhouzishun@mail.zzshub.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这个人很懒，他什么也没留下</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6%E4%B8%AD%E7%9A%84%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%81%E7%AE%80%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">机器人控制中的强化学习极简入门指南</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%83%A8%E5%88%86%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">2.</span> <span class="toc-text">强化学习&#x2F;深度学习部分参考资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%BF%E7%9C%9F%E5%99%A8%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text">机器人控制和仿真器参考资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E8%B6%B3-%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E8%AE%BA%E6%96%87"><span class="toc-number">4.</span> <span class="toc-text">双足&#x2F;四足机器人强化学习经典论文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA"><span class="toc-number">4.1.</span> <span class="toc-text">算法理论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7"><span class="toc-number">4.2.</span> <span class="toc-text">仿真工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E8%B6%B3-%E5%9B%9B%E8%B6%B3%E6%8E%A7%E5%88%B6"><span class="toc-number">4.3.</span> <span class="toc-text">双足&#x2F;四足控制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">5.</span> <span class="toc-text">附录</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/cover.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Isaac Gym的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2024/06/21/DRL_LeggedgymInstall/" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用">强化学习仿真器Isaac Gym的安装，配置，与初步使用</a><time datetime="2024-06-21T04:00:00.000Z" title="发表于 2024-06-21 12:00:00">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/start_rl/cover.jpg" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="机器人控制中的强化学习极简入门指南"/></a><div class="content"><a class="title" href="/2024/05/21/start_rl/" title="机器人控制中的强化学习极简入门指南">机器人控制中的强化学习极简入门指南</a><time datetime="2024-05-21T04:00:00.000Z" title="发表于 2024-05-21 12:00:00">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/wslgpuperformance/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="WSL中的GPU原理总结"/></a><div class="content"><a class="title" href="/2023/08/30/wslgperformace/" title="WSL中的GPU原理总结">WSL中的GPU原理总结</a><time datetime="2023-08-30T06:12:32.000Z" title="发表于 2023-08-30 14:12:32">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim进行深度强化学习的初步尝试"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimGymTorch/" title="强化学习仿真器Raisim进行深度强化学习的初步尝试">强化学习仿真器Raisim进行深度强化学习的初步尝试</a><time datetime="2023-07-26T08:12:32.000Z" title="发表于 2023-07-26 16:12:32">2023-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用"><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/RaisimInstall/logo.png" onerror="this.onerror=null;this.src='https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/blog/404.jpg'" alt="强化学习仿真器Raisim的安装，配置，与初步使用"/></a><div class="content"><a class="title" href="/2023/07/26/DRL_RaisimInstall/" title="强化学习仿真器Raisim的安装，配置，与初步使用">强化学习仿真器Raisim的安装，配置，与初步使用</a><time datetime="2023-07-26T06:12:32.000Z" title="发表于 2023-07-26 14:12:32">2023-07-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2024 By Zishun Zhou</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">喵喵喵喵喵</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/tw_cn.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly/source/js/search/local-search.min.js"></script></div></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku/assets/shizuku.model.json"},"display":{"position":"left","hOffset":60,"vOffset":0,"width":150,"height":300},"mobile":{"show":false},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body></html>
