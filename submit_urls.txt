@@ -39,3 +39,4 @@ https://blog.zzshub.cn/2018/05/21/MCS51/
 https://blog.zzshub.cn/2020/10/22/ROGhacintosh/
 https://blog.zzshub.cn/2021/05/13/Python-Register/
 https://blog.zzshub.cn/2018/04/06/Report/
+https://blog.zzshub.cn/2024/06/25/DRL_LeggedgymCartpole2/
