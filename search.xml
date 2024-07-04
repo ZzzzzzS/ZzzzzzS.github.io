@@ -468,9 +468,9 @@
       </tags>
   </entry>
   <entry>
-    <title>强化学习仿真器Isaac Gym的安装，配置，与初步使用</title>
+    <title>强化学习仿真器Isaac Gym的安装与配置</title>
     <url>/2024/06/21/DRL_LeggedgymInstall/</url>
-    <content><![CDATA[<h1 id="强化学习仿真器Isaac-Gym的安装，配置，与初步使用"><a href="#强化学习仿真器Isaac-Gym的安装，配置，与初步使用" class="headerlink" title="强化学习仿真器Isaac Gym的安装，配置，与初步使用"></a>强化学习仿真器Isaac Gym的安装，配置，与初步使用</h1><blockquote>
+    <content><![CDATA[<h1 id="强化学习仿真器Isaac-Gym的安装与配置"><a href="#强化学习仿真器Isaac-Gym的安装与配置" class="headerlink" title="强化学习仿真器Isaac Gym的安装与配置"></a>强化学习仿真器Isaac Gym的安装与配置</h1><blockquote>
 <p><strong>写在前面</strong> – 最近强化学习强化学习在机器人领域真是大放异彩，鉴于IsaacGym+LeggedGym的仿真器和训练框架组合已经成为了机器人领域强化学习算法的主流工具，于是我打算写一篇博客来记录一下这个仿真环境的安装和使用。</p>
 </blockquote>
 <blockquote>
@@ -486,7 +486,7 @@
 <li>Legged Gym(我修改的版本) 训练框架安装</li>
 </ul>
 <h1 id="Isaac-Gym安装"><a href="#Isaac-Gym安装" class="headerlink" title="Isaac Gym安装"></a>Isaac Gym安装</h1><h2 id="Nvidia-显卡驱动安装"><a href="#Nvidia-显卡驱动安装" class="headerlink" title="Nvidia 显卡驱动安装"></a>Nvidia 显卡驱动安装</h2><p>显卡驱动安装，在终端中输入<code>sudo  ubuntu-drivers autoinstall</code>即可完成安装系统推荐的显卡驱动。</p>
-<p>安装完成后在终端窗口中输入<code>nvidia-smi</code>命令，如果出现以下内容，则证明显卡驱动已经安装完成。如下所示，我安装的驱动版本是546.12, CUDA版本是12.3。**注意后续安装CUDA和pytorch时大版本号需要与之对齐，即对于这里的情况来说需要对应安装CUDA12.x版本。</p>
+<p>安装完成后在终端窗口中输入<code>nvidia-smi</code>命令，如果出现以下内容，则证明显卡驱动已经安装完成。如下所示，我安装的驱动版本是546.12, CUDA版本是12.3。<strong>注意后续安装CUDA和pytorch时大版本号需要与之对齐，即对于这里的情况来说需要对应安装CUDA12.x版本。</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">+---------------------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 546.12                 Driver Version: 546.12       CUDA Version: 12.3     |</span><br><span class="line">|-----------------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name                     TCC/WDDM  | Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                                         |                      |               MIG M. |</span><br><span class="line">|=========================================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce RTX 4090      WDDM  | 00000000:01:00.0 Off |                  Off |</span><br><span class="line">|  0%   32C    P8               3W / 450W |      0MiB / 24564MiB |      0%      Default |</span><br><span class="line">|                                         |                      |                  N/A |</span><br><span class="line">+-----------------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+---------------------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                            |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |</span><br><span class="line">|        ID   ID                                                             Usage      |</span><br><span class="line">|=======================================================================================|</span><br><span class="line">|  No running processes found                                                           |</span><br><span class="line">+---------------------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
 
 <p>若安装失败，可以参阅<a href="https://blog.csdn.net/Perfect886/article/details/119109380">这篇文章</a>提供的方法手动安装和卸载。注意如果安装时出现需要设置密码等情况可以从计算机bios中关闭security boot选项来避免一些麻烦，但这会破坏计算机启动过程中的<a href="https://zhuanlan.zhihu.com/p/25279889">可信计算链条</a>从而导致安全性略微降低。</p>
@@ -507,7 +507,7 @@
 
 <p>可参阅<a href="https://anaconda.org.cn/">此链接</a>，或<a href="https://blog.csdn.net/chenxy_bwave/article/details/119996001">此链接</a>来快速入门anaconda。</p>
 <h2 id="安装Isaac-Gym环境"><a href="#安装Isaac-Gym环境" class="headerlink" title="安装Isaac Gym环境"></a>安装Isaac Gym环境</h2><p>安装Isaac Gym可以从<a href="https://developer.nvidia.com/isaac-gym">官网下载</a>，但由于Nvidia官方已经不再维护该仿真器(Nvidia已经转向<a href="https://docs.omniverse.nvidia.com/isaacsim/latest/index.html">Omniverse Sim</a>了，但其API过于复杂，暂时用不到)，从官网下载的版本存在一些细小的依赖问题需要我们手动修复。</p>
-<h3 id="修复官方版本的Isaac-Gym"><a href="#修复官方版本的Isaac-Gym" class="headerlink" title="修复官方版本的Isaac Gym"></a>修复官方版本的Isaac Gym</h3><p>下载软件包后将其解压缩 **(推荐解压缩到用户根目录，解压到的目录就是Isaac Gym的安装位置，配置好后无法变更)**。使用<a href="https://code.visualstudio.com/">vscode</a>等文本编辑器打开<code>./python/isaacgym/torch_utils.py</code>文件，将第135行的<code>np.float</code>修改为<code>float</code>如下所示。</p>
+<h3 id="修复官方版本的Isaac-Gym"><a href="#修复官方版本的Isaac-Gym" class="headerlink" title="修复官方版本的Isaac Gym"></a>修复官方版本的Isaac Gym</h3><p>下载软件包后将其解压缩(<strong>推荐解压缩到用户根目录，解压到的目录就是Isaac Gym的安装位置，配置好后无法变更</strong>)。使用<a href="https://code.visualstudio.com/">vscode</a>等文本编辑器打开<code>./python/isaacgym/torch_utils.py</code>文件，将第135行的<code>np.float</code>修改为<code>float</code>如下所示。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_axis_params</span>(<span class="params">value, axis_idx, x_value=<span class="number">0.</span>, dtype=np.<span class="built_in">float</span>, n_dims=<span class="number">3</span></span>):</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将np.float修改为float</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_axis_params</span>(<span class="params">value, axis_idx, x_value=<span class="number">0.</span>, dtype=<span class="built_in">float</span>, n_dims=<span class="number">3</span></span>):</span><br></pre></td></tr></table></figure>
 
 <p>由于官方版本的Isaac Gym会默认安装cpu版本的<a href="https://www.ibm.com/cn-zh/topics/pytorch">pytorch</a>，因此我们还需要提前手动安装gpu版本的pytorch防止被覆盖安装。首先激活刚才新建的anaconda环境：<code>conda activate legged-gym</code>，之后前往<a href="https://pytorch.org/">pytorch官网</a>下载pytorch，向下滑动一些后在如下图所示的界面中选择对应的版本，并在激活的conda环境中输入指令来完成安装。<strong>请注意，推荐选择使用conda的方式安装，使用pip安装也可以，注意一定要安装对应的cuda大版本，如这里是cuda12。</strong></p>
@@ -518,7 +518,10 @@
 <h3 id="正式安装Isaac-Gym与测试"><a href="#正式安装Isaac-Gym与测试" class="headerlink" title="正式安装Isaac Gym与测试"></a>正式安装Isaac Gym与测试</h3><p>激活刚才新建的anaconda环境：<code>conda activate legged-gym</code>。使用<code>cd</code>命令跳转到<code>./python</code>目录下。执行<code>pip install -e .</code>命令即可完成安装。</p>
 <p>下面将测试Isaac Gym是否安装成功。使用<code>cd</code>命令跳转到<code>./python/examples</code>目录下。在激活的环境下执行<code>python ./joint_monkey.py</code> 或该文件夹下的其他任意一个文件，若能正常弹出窗口并运行，则说明安装成功。</p>
 <p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/isaacgym_run.png" alt="Isaacgym_run"></p>
-<h2 id="安装Legged-Gym环境"><a href="#安装Legged-Gym环境" class="headerlink" title="安装Legged Gym环境"></a>安装Legged Gym环境</h2><p>使用<code>conda activate legged-gym</code>命令激活刚才建立的环境。</p>
+<h2 id="安装Legged-Gym环境"><a href="#安装Legged-Gym环境" class="headerlink" title="安装Legged Gym环境"></a>安装Legged Gym环境</h2><blockquote>
+<p>本篇文章将介绍ETH原版Legged Gym+ rsl_rl的安装和配置方法，而在该系列后续文章 <strong><a href="../../../../2024/06/25/DRL_LeggedgymCartpole2">强化学习仿真环境Legged Gym的初步使用—-训练一个二阶倒立摆</a></strong> 中将使用我修改过的Legged Gym环境介绍一个二阶倒立摆的训练过程。ETH的Legged Gym项目已经停止维护，而我的版本将持续更新，若希望尝试使用我修改的版本，可以直接移步至<a href="../../../../2024/06/25/DRL_LeggedgymCartpole2">下一篇文章</a>。</p>
+</blockquote>
+<p>使用<code>conda activate legged-gym</code>命令激活刚才建立的环境。</p>
 <p>在激活的环境中使用<code>git clone https://github.com/leggedrobotics/rsl_rl</code>命令克隆rsl_rl仓库到本地,<strong>注意请妥善选择克隆位置，安装后无法修改位置</strong>。<br>执行<code>cd rsl_rl &amp;&amp; git checkout v1.0.2 &amp;&amp; pip install -e .</code>命令完成rsl_rl的安装。</p>
 <p>在激活的环境中使用<code>git clone https://github.com/leggedrobotics/legged_gym.git</code>命令克隆Legged Gym仓库到本地,<strong>注意请妥善选择克隆位置，安装后无法修改位置</strong>。<br>执行<code>cd legged_gym &amp;&amp; pip install -e .</code>命令完成安装。</p>
 <p>使用<code>python legged_gym/scripts/train.py --task=anymal_c_flat</code>命令来测试环境是否能正常训练。</p>
@@ -526,7 +529,7 @@
 <p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/DRL_installIsaacgym/leggedgym_train.png" alt="leg_train"></p>
 <p>恭喜您，到目前为止您已经成功安装了Isaac Gym+Legged Gym环境。在下一篇文章中我将通过一个二阶倒立摆的例子来初步展示一个完整的训练过程。</p>
 <h2 id="延申阅读：更多的训练框架"><a href="#延申阅读：更多的训练框架" class="headerlink" title="延申阅读：更多的训练框架"></a>延申阅读：更多的训练框架</h2><ul>
-<li><p><a href="https://github.com/ZzzzzzS/legged_gym">Legged Gym(zzs_version)</a>: 由我本人修改，目前我正在使用的Legged Gym版本，添加了一些更友好的可视化功能，和一个注释完整，对新手友好的二阶倒立摆训练环境(comming soon)。</p>
+<li><p><a href="https://github.com/ZzzzzzS/legged_gym/releases">Legged Gym(ver. ZZS)</a>: 由我本人修改，目前我正在使用的Legged Gym版本，添加了一些更友好的可视化功能，和一个注释完整，对新手友好的二阶倒立摆训练环境(comming soon)。</p>
 </li>
 <li><p><a href="https://github.com/roboterax/humanoid-gym">Humanoid Gym</a>: 由星动纪元推出的对ETH Legged Gym框架的改进版本。实现了IsaacGym仿真器到mujoco仿真器的sim2sim迁移。</p>
 </li>
@@ -1988,7 +1991,7 @@ The segmentation difficulty is high for the above images, and even for the human
 </blockquote>
 <h1 id="安装黑苹果"><a href="#安装黑苹果" class="headerlink" title="安装黑苹果"></a>安装黑苹果</h1><p>安装过程网上资料很多，这里简单记录一些注意事项和安装工具。</p>
 <ul>
-<li><p><font color=#ff0000 size=3><strong>注意Windows如果开启了bitlocker请一定要找到还原密钥再进行操作，不然会导致bitlocker被锁住！！！</strong></font> </p>
+<li><p><font color=#ff0000 size=3><strong>注意Windows如果开启了bitlocker请一定要找到还原密钥再进行操作，不然会导致bitlocker被锁住！！！</strong></font></p>
 </li>
 <li><p>注意安装前需要在bios中关闭secure boot</p>
 </li>
@@ -2020,20 +2023,20 @@ The segmentation difficulty is high for the above images, and even for the human
 <li><p>之后进入UEFI设置，注意不同机型可能存在差异，在secure-&gt;secure boot选项卡中选择 <code>key exchange keys</code></p>
 </li>
 </ul>
-<p><img src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/03698316002590052.jpg" alt="03698316002590052"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/03698316002590052.jpg" alt="03698316002590052"></p>
 <ul>
 <li>选择<code>Append</code>添加证书</li>
 </ul>
-<p><img src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/014435539452277268.jpg" alt="014435539452277268"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/014435539452277268.jpg" alt="014435539452277268"></p>
 <ul>
 <li>选择<code>No</code>从外部设备添加</li>
 </ul>
-<p><img src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/07049956718966244.jpg" alt="07049956718966244"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/07049956718966244.jpg" alt="07049956718966244"></p>
 <ul>
 <li>找到启动盘，并添加<code>ENROLL_THIS_KEY_IN_MOKMANAGER.cer</code></li>
 </ul>
-<p><img src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/40736526710036935.jpg" alt="40736526710036935"></p>
-<p><img src="https://zzshubimage-1253829354.cosbj.myqcloud.com/media/image/9272594442544191.jpg" alt="9272594442544191"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/40736526710036935.jpg" alt="40736526710036935"></p>
+<p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/media/image/9272594442544191.jpg" alt="9272594442544191"></p>
 <p>好了，到这里为止公钥就添加好了，之后的步骤就是和项目里所述的相同了。</p>
 <ul>
 <li><p>将启动盘<code>/EFI/boot/</code>中的所有文件复制到黑苹果的<code>/EFI/boot/</code>中</p>
@@ -2275,7 +2278,7 @@ The segmentation difficulty is high for the above images, and even for the human
     <url>/2018/04/06/Report/</url>
     <content><![CDATA[<h1 id="IAR7-8对STM32f1系列下载程序时出现错误报告"><a href="#IAR7-8对STM32f1系列下载程序时出现错误报告" class="headerlink" title="IAR7.8对STM32f1系列下载程序时出现错误报告"></a>IAR7.8对STM32f1系列下载程序时出现错误报告</h1><h2 id="IAR-The-selected-device-does-not-match-the-target-device"><a href="#IAR-The-selected-device-does-not-match-the-target-device" class="headerlink" title="IAR The selected device does not match the target device"></a>IAR The selected device does not match the target device</h2><p><img src="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/iar7.8Bug/150950d4yzyykqtqkhuo2o.png"></p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p><a href="http://supp.iar.com/Updates/?product=EWarm">http://supp.iar.com/Updates/?product=EWarm</a> 下载安装补丁即可</p>
-<h3 id="也可以在本站下载-点击下载"><a href="#也可以在本站下载-点击下载" class="headerlink" title="也可以在本站下载 点击下载"></a>也可以在本站下载 <a href="https://zzshubimage-1253829354.cosbj.myqcloud.com/iar7.8Bug/ewarm-7.80.4.12176-patch.zip">点击下载</a></h3><hr>
+<h3 id="也可以在本站下载-点击下载"><a href="#也可以在本站下载-点击下载" class="headerlink" title="也可以在本站下载 点击下载"></a>也可以在本站下载 <a href="https://zzshubimage-1253829354.cos.ap-beijing.myqcloud.com/iar7.8Bug/ewarm-7.80.4.12176-patch.zip">点击下载</a></h3><hr>
 <h1 id="IAR产品补丁发布地址"><a href="#IAR产品补丁发布地址" class="headerlink" title="IAR产品补丁发布地址"></a>IAR产品补丁发布地址</h1><p><a href="http://supp.iar.com/Updates/">http://supp.iar.com/Updates/</a></p>
 <hr>
 <p>EOF</p>
@@ -3234,7 +3237,7 @@ The segmentation difficulty is high for the above images, and even for the human
 <p>另外如果公式有多行,可以使用 和 来包含多行内容,例如</p>
 <p>$$<br>\begin{aligned}<br>\dot{x} &amp; &#x3D; \sigma(y-x) \<br>\dot{y} &amp; &#x3D; \rho x - y - xz \<br>\dot{z} &amp; &#x3D; -\beta z + xy<br>\end{aligned}<br>$$</p>
 <p>$$<br>\begin{aligned}<br>\dot{x} &amp; &#x3D; \sigma(y-x) \<br>\dot{y} &amp; &#x3D; \rho x - y - xz \<br>\dot{z} &amp; &#x3D; -\beta z + xy<br>\end{aligned}<br>$$</p>
-<p>另外,如果要使用$符号,可以输入<code>\$</code> </p>
+<p>另外,如果要使用$符号,可以输入<code>\$</code></p>
 <h2 id="上标和下标"><a href="#上标和下标" class="headerlink" title="上标和下标"></a>上标和下标</h2><p>在mathjax中使用<code>^</code>表示商标,如<code>b^2</code>表示 $b^2$,用<code>_</code>表示下标,例如<code>a_i</code>表示$a_i$.</p>
 <h2 id="成组"><a href="#成组" class="headerlink" title="成组"></a>成组</h2><p>用<code>&#123;&#125;</code>来标记一组数据,例如<code>b^&#123;21&#125;</code>表示$b^{21}$,而<code>b^21</code>则被解释为$b^21$.普通的大括号可以使用<code>\&#123;</code> <code>\&#125;</code>来表示</p>
 <h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>在mathjax中各个符号都是用转义字符来实现的,例如<code>\partial</code>表示$\partial$ ,<code>\sum</code>表示$\sum$,结合上文所述的上下标可以知道<code>\sum_&#123;i=0&#125;^n</code>表示$\sum_{i&#x3D;0}^n$.一般情况下可用\来作转义，但如果想要表示\本身，需要用<code>\backslash</code>，因为\表示换行.</p>
@@ -3558,11 +3561,12 @@ The segmentation difficulty is high for the above images, and even for the human
 </tr>
 </tbody></table>
 <h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><p>可以用 <code>$$\begin&#123;matrix&#125;…\end&#123;matrix&#125;$$</code> 来表示矩阵。将矩阵元素放在 \begin 和 \end 之间即可。 用 \ 来分割行，用 &amp; 来分割同一行的矩阵元素。如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">	1 &amp; x &amp; x^2 \\</span><br><span class="line">	1 &amp; y &amp; y^2 \\</span><br><span class="line">	1 &amp; z &amp; z^2 \\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line"> 1 &amp; x &amp; x^2 \\</span><br><span class="line"> 1 &amp; y &amp; y^2 \\</span><br><span class="line"> 1 &amp; z &amp; z^2 \\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
 
-<p>$$<br>\begin{matrix}<br>    1 &amp; x &amp; x^2 \<br>    1 &amp; y &amp; y^2 \<br>    1 &amp; z &amp; z^2 \<br>\end{matrix}<br>$$</p>
+<p>$$<br>\begin{matrix}<br> 1 &amp; x &amp; x^2 \<br> 1 &amp; y &amp; y^2 \<br> 1 &amp; z &amp; z^2 \<br>\end{matrix}<br>$$</p>
 <h3 id="增广矩阵"><a href="#增广矩阵" class="headerlink" title="增广矩阵"></a>增广矩阵</h3><p>用到{array}语句,{cc|c}的作用是在第二列和第三列之间画一条垂直线,例如:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\begin &#123;array&#125; &#123;cc|c&#125;</span><br><span class="line">  1&amp;2&amp;3\\</span><br><span class="line">  4&amp;5&amp;6</span><br><span class="line">\end &#123;array&#125;</span><br></pre></td></tr></table></figure>
+
 <p>$$<br>    \begin {array} {cc|c}<br>      1&amp;2&amp;3\<br>      4&amp;5&amp;6<br>    \end {array}<br>$$</p>
 <h3 id="矩阵符号"><a href="#矩阵符号" class="headerlink" title="矩阵符号"></a>矩阵符号</h3><table>
 <thead>
@@ -4320,6 +4324,74 @@ The segmentation difficulty is high for the above images, and even for the human
       <tags>
         <tag>强化学习</tag>
         <tag>机器人</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习中的各种熵总结</title>
+    <url>/2023/10/14/conclusion-of-entropy/</url>
+    <content><![CDATA[<h1 id="机器学习中的各种熵"><a href="#机器学习中的各种熵" class="headerlink" title="机器学习中的各种熵"></a>机器学习中的各种熵</h1><blockquote>
+<p>最近学习我发现对机器学习中信息熵，交叉熵，相对熵(KL散度(Kullback-Leibler Divergence))总是容易搞混，特别是连续分布的情况，因此这里简单总结一下相关知识，方便后续查阅。</p>
+</blockquote>
+<blockquote>
+<p>这篇文章很多内容都是AI生成的，不得不说AIGC进步神速。</p>
+</blockquote>
+<h1 id="信息熵，交叉熵，KL散度的关系"><a href="#信息熵，交叉熵，KL散度的关系" class="headerlink" title="信息熵，交叉熵，KL散度的关系"></a>信息熵，交叉熵，KL散度的关系</h1><p>信息熵、交叉熵和KL散度之间的关系可以从以下几个方面来理解：</p>
+<ol>
+<li><p><strong>信息熵</strong>：可以表示一个事件A的自信息量，也就是A包含多少信息。</p>
+</li>
+<li><p><strong>KL散度</strong>：可以用来表示从事件A的角度来看，事件B有多大不同，适用于衡量事件A，B之间的差异。KL散度在p(x)和q(x)相同时取到最小值0，两个概率分布越相似，则KL散度越小。KL散度包含如下性质：</p>
+<ul>
+<li>不对称性，即： $$D_{KL}(P||Q) \neq D_{KL}(Q||P)$$</li>
+<li>非负性，即： $$D_{KL}(P||Q) \geq 0$$</li>
+</ul>
+</li>
+<li><p><strong>交叉熵</strong>：可以用来表示从事件A的角度来看，如何描述事件B，适用于衡量不同事件B之间的差异。对于不同的事件B，计算事件AB的KL散度时都同时减去事件A的熵（KL散度&#x3D;交叉熵-熵（A）），因此，如果只是比较不同B事件之间的差异，计算交叉熵和计算KL散度是等价的。</p>
+</li>
+</ol>
+<p>总结起来，<strong>KL散度&#x3D;交叉熵-熵</strong>。在特定情况下最小化KL散度等价于最小化交叉熵。交叉熵的运算更简单，所以用交叉熵来当做代价。</p>
+<h1 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h1><p>信息熵（Information Entropy）是信息论的基本概念，用于描述信息源各可能事件发生的不确定性。它是由信息论之父克劳德·艾尔伍德·香农（Claude E. Shannon）在1948年提出的。</p>
+<p>信息熵的计算公式为：<br>$$H(x) &#x3D; -\sum_{i&#x3D;1}^{n}P(x_i)\log_2P(x_i)$$<br>其中，$x$表示随机变量，$x_i$是$x$的所有可能输出，$P(x_i)$表示输出概率函数。</p>
+<h2 id="高斯分布的信息熵"><a href="#高斯分布的信息熵" class="headerlink" title="高斯分布的信息熵"></a>高斯分布的信息熵</h2><p>对于一维的高斯分布，其概率密度函数为：<br>$$<br>f(x)&#x3D;\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}<br>$$<br>其中， $\mu$ 是均值， $\sigma$ 是标准差。<br>高斯分布的熵定义为:<br>$$<br>H(X)&#x3D;-\int_{-\infty}^{+\infty} f(x) \log f(x) d x<br>$$<br>将高斯分布的概率密度函数代入熵的定义，我们可以得到:<br>$$<br>H(X)&#x3D;-\int_{-\infty}^{+\infty} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}} \log \left(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\right) d x<br>$$<br>经过一些数学变换和积分计算，我们可以得到高斯分布的熵为:<br>$$<br>H(X)&#x3D;\frac{1}{2} \log \left(2 \pi e \sigma^2\right)<br>$$<br>这就是一维高斯分布的熵的计算公式。对于多维高斯分布，其熵的计算公式为:<br>$$<br>H(X)&#x3D;\frac{k}{2} \log (2 \pi e|\Sigma|)<br>$$<br>其中， $k$ 是维度数， $\Sigma$ 是协方差矩阵， $|\Sigma|$ 是协方差矩阵的行列式。</p>
+<h1 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h1><p>假设我们有两个概率分布 $p$ 和 $q$，其中 $p$ 是真实的概率分布，$q$ 是模型预测的概率分布。那么，$p$ 和 $q$ 之间的交叉熵定义为：</p>
+<p>$$<br>H(p, q) &#x3D; -\sum_{i} p(i) \log(q(i))<br>$$</p>
+<p>其中，$\sum_{i}$ 表示对所有可能的事件 $i$ 求和，$p(i)$ 是事件 $i$ 的真实概率，$\log(q(i))$ 是事件 $i$ 的预测概率的对数。</p>
+<h2 id="二分类问题的交叉熵"><a href="#二分类问题的交叉熵" class="headerlink" title="二分类问题的交叉熵"></a>二分类问题的交叉熵</h2><p>我们将实际标签表示为 $x$，预测标签表示为 $y$。对于二分类问题，交叉熵损失函数可以定义为：<br>$$<br>H(x, y) &#x3D; -x \log(y) - (1 - x) \log(1 - y)<br>$$<br>这个公式的含义是：</p>
+<ul>
+<li>当实际标签 $x&#x3D;1$（正类）时，损失函数变为 $- \log(y)$。如果预测概率 $y$ 接近 1，那么损失接近 0；如果 $y$ 接近 0，那么损失将会很大。</li>
+<li>当实际标签 $x&#x3D;0$（负类）时，损失函数变为 $- \log(1 - y)$。如果预测概率 $y$ 接近 0，那么损失接近 0；如果 $y$ 接近 1，那么损失将会很大。</li>
+</ul>
+<h2 id="多分类问题的交叉熵"><a href="#多分类问题的交叉熵" class="headerlink" title="多分类问题的交叉熵"></a>多分类问题的交叉熵</h2><p>对于多分类问题，交叉熵损失函数可以扩展为：<br>$$<br>H(x, y) &#x3D; -\sum_{i} x_i \log(y_i)<br>$$<br>其中，$x_i$ 是实际标签的第 $i$ 个类别（0 或 1），$y_i$ 是预测标签的第 $i$ 个类别（预测为第 $i$ 类的概率）。</p>
+<p>这个公式的含义是：</p>
+<ul>
+<li>对于每一个类别 $i$，如果实际标签 $x_i&#x3D;1$，那么损失函数包含一项 $- \log(y_i)$。如果预测概率 $y_i$ 接近 1，那么这一项的损失接近 0；如果 $y_i$ 接近 0，那么这一项的损失将会很大。</li>
+<li>所有类别的损失加起来，就得到了总的交叉熵损失。</li>
+</ul>
+<p>在多分类问题中，我们的目标是预测一个实例可能属于的每个类别的概率。例如，如果我们有三个类别 A、B 和 C，我们可能会预测一个实例属于类别 A 的概率为 0.1，属于类别 B 的概率为 0.3，属于类别 C 的概率为 0.6。这就是我们的预测概率分布。</p>
+<p>实际的标签通常表示为一种称为 “one-hot” 编码的格式。在这种格式中，正确的类别被编码为 1，所有其他类别被编码为 0。所以如果一个实例实际上属于类别 B，那么它的标签就会是 [0, 1, 0]。</p>
+<p>交叉熵损失函数衡量的是我们的预测概率分布与实际的标签分布之间的差异。对于每个类别 $i$，交叉熵包含一项 $-x_i \log(y_i)$，其中 $x_i$ 是实际标签（0 或 1），$y_i$ 是预测标签（预测为第 $i$ 类的概率）。如果实际标签 $x_i&#x3D;1$，那么这一项就变成了 $- \log(y_i)$；如果 $x_i&#x3D;0$，那么这一项就消失了（因为 $-0 \log(anything) &#x3D; 0$）。</p>
+<p><strong>所以在计算交叉熵损失时，我们实际上只关心正确类别的预测概率。如果对正确类别的预测概率越高，那么交叉熵损失就越低；反之，如果对正确类别的预测概率越低，那么交叉熵损失就越高。</strong></p>
+<h2 id="正态分布问题的交叉熵"><a href="#正态分布问题的交叉熵" class="headerlink" title="正态分布问题的交叉熵"></a>正态分布问题的交叉熵</h2><p>两个高斯分布之间的交叉熵可以通过以下公式计算：</p>
+<p>假设我们有两个高斯分布 $p(x)$ 和 $q(x)$，其中 $p(x)$ 是标准高斯分布，即 $p(x) &#x3D; \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$，$q(x)$ 是均值为 $\mu$，方差为 $\sigma^2$ 的高斯分布，即 $q(x) &#x3D; \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$。</p>
+<p>那么，$p(x)$ 对 $q(x)$ 的交叉熵可以通过以下公式计算：</p>
+<p>$$<br>H(p, q) &#x3D; - \int p(x) \log q(x) dx<br>$$</p>
+<p>将 $p(x)$ 和 $q(x)$ 的具体形式代入上述公式，我们可以得到：</p>
+<p>$$<br>H(p, q) &#x3D; - \int \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \log \left( \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \right) dx<br>$$</p>
+<p><strong>这个积分可能需要一些数学技巧才能求解。在实际应用中，我们通常使用数值方法（如蒙特卡洛方法）来近似计算这个积分。</strong></p>
+<h1 id="KL散度"><a href="#KL散度" class="headerlink" title="KL散度"></a>KL散度</h1><p>KL散度（Kullback-Leibler Divergence）用于度量两个概率分布函数之间的“距离”。对于离散概率分布，其计算公式为：</p>
+<p>$$<br>KL(P||Q) &#x3D; \sum_{x} P(x) \log \frac{P(x)}{Q(x)}<br>$$</p>
+<p>其中，$P$和$Q$是两个概率分布。</p>
+<p>对于连续概率分布，其计算公式为：</p>
+<p>$$<br>KL(P||Q) &#x3D; \int P(x) \log \frac{P(x)}{Q(x)} dx<br>$$</p>
+<p>这里的$\log$可以是自然对数，也可以是以2为底的对数。如果我们考虑$\log_2$，我们可以将其解释为“我们损失了多少位的信息”。在实际应用中，我们通常会根据具体的问题和需求来选择合适的对数底数。</p>
+<h2 id="高斯分布的KL散度"><a href="#高斯分布的KL散度" class="headerlink" title="高斯分布的KL散度"></a>高斯分布的KL散度</h2><p>两个高斯分布之间的KL散度可以通过以下公式进行计算，详细的数学推导参见<a href="https://blog.csdn.net/hegsns/article/details/104857277">这里</a>：</p>
+<p>对于一维高斯分布，假设有两个高斯分布$$N(\mu_1, \sigma_1^2)$$和$$N(\mu_2, \sigma_2^2)$$，它们之间的KL散度定义为：<br>$$<br>KL(N(\mu_1, \sigma_1^2)||N(\mu_2, \sigma_2^2)) &#x3D; \log\frac{\sigma_1}{\sigma_2} - \frac{1}{2} + \frac{\sigma_2^2 + (\mu_1 - \mu_2)^2}{2\sigma_1^2}<br>$$</p>
+<p>对于多元高斯分布，假设有两个多元高斯分布$$N(x|\mu_1, \Sigma_1)$$和$$N(x|\mu_2, \Sigma_2)$$，它们之间的KL散度定义为：<br>$$<br>KL(N(x|\mu_1, \Sigma_1)||N(x|\mu_2, \Sigma_2)) &#x3D; \frac{1}{2}[log\frac{|\Sigma_1|}{|\Sigma_2|} - K + tr(\Sigma_2^{-1}\Sigma_1) + (\mu_1 -\mu_2)^T \Sigma_2^{-1}(\mu_1 - \mu_2)]<br>$$<br>其中，$K$是随机变量的维数，$tr$表示矩阵的迹（即对角线元素之和），$|\Sigma|$表示矩阵$\Sigma$的行列式。这些公式可以用于计算两个高斯分布之间的KL散度。</p>
+<hr>
+<p>EOF</p>
+]]></content>
+      <tags>
+        <tag>强化学习</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
 </search>
